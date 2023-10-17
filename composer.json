@@ -17,10 +17,7 @@
     "autoload": {
         "psr-4": {
             "ElAdmin\\LaravelVueAdmin\\": "src/"
-        },
-        "files": [
-            "src/Libs/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

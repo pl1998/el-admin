@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
       |--------------------------------------------------------------------------
       | el-admin controller settings
@@ -13,6 +12,19 @@ return [
 
     'controller' => [
         'auth' => ElAdmin\LaravelVueAdmin\Controller\AuthController::class
+    ],
+
+    /*
+     |--------------------------------------------------------------------------
+     | el-admin  prem middleware
+     |--------------------------------------------------------------------------
+     |
+     | el-admin Related http middleware
+     |
+     */
+    'middleware' => [
+        // el-admin http middleware for permission control verification
+        'rbac' => ElAdmin\LaravelVueAdmin\Middleware\RbacMiddleware::class,
     ],
 
     /*
