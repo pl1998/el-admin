@@ -13,4 +13,5 @@ use Laravel\Sanctum\HasApiTokens;
 class AdminUser extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 }
