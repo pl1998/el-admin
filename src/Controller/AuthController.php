@@ -3,21 +3,21 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Controller;
+namespace Latent\ElAdmin\Controller;
 
-use ElAdmin\LaravelVueAdmin\Enum\ModelEnum;
-use ElAdmin\LaravelVueAdmin\Models\GetModelTraits;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
+use Latent\ElAdmin\Models\GetModelTraits;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\JsonResponse;
 class AuthController extends Controller
 {
     use GetModelTraits;
 
     /**
-     * @return JsonResponse
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function login() :JsonResponse
+    public function login()
     {
         $params = request()->post();
         $validate = Validator::make($params,[
@@ -26,34 +26,58 @@ class AuthController extends Controller
         ]);
         if($validate->fails()) return  $this->fail($validate->errors()->first());
 
-        $user = $this->getUserModel()
-            ->where('email',$params['email'])
-            ->where('status',ModelEnum::NORMAL)
-            ->first();
-
-        if(!$user || !Hash::check($params['password'],$user->password)) {
-            return $this->fail('账号或密码错误');
+        if (! $token = auth()->attempt(Arr::only($params,['email','password']))) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
-        $token = $user->createToken($user->email);
+        return $this->respondWithToken($token);
+    }
 
-        return $this->success([
-            'token' => $token,
-            'ttl'   => config('sanctum.expiration') ?? 0
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
 
-    public function logout()
-    {
-
-    }
-
-    public function refresh()
-    {
-
-    }
-
-    public function me()
-    {
-
-    }
 }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Models;
+namespace Latent\ElAdmin\Models;
 
 class AdminUserRoles extends Admin
 {

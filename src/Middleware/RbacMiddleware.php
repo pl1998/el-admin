@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Middleware;
+namespace Latent\ElAdmin\Middleware;
 
 
 use Illuminate\Http\RedirectResponse;

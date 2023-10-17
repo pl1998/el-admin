@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use ElAdmin\LaravelVueAdmin\Helpers;
+use Latent\ElAdmin\Helpers;
 use PHPUnit\Framework\TestCase;
 class ExampleTest extends TestCase
 {

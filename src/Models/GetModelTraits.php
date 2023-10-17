@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Models;
+namespace Latent\ElAdmin\Models;
 
-use ElAdmin\LaravelVueAdmin\Helpers;
+use Latent\ElAdmin\Helpers;
 use Illuminate\Database\Eloquent\Model;
 
 trait GetModelTraits

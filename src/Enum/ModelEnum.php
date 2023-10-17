@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Enum;
+namespace Latent\ElAdmin\Enum;
 
 class ModelEnum
 {

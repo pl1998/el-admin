@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Services;
+namespace Latent\ElAdmin\Services;
 
-use ElAdmin\LaravelVueAdmin\Models\AdminRole;
-use ElAdmin\LaravelVueAdmin\Models\AdminRoleMenus;
-use ElAdmin\LaravelVueAdmin\Models\AdminUserRoles;
+use Latent\ElAdmin\Models\AdminRole;
+use Latent\ElAdmin\Models\AdminRoleMenus;
+use Latent\ElAdmin\Models\AdminUserRoles;
 
 trait Permission
 {

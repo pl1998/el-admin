@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin;
+namespace Latent\ElAdmin;
 use Exception;
 
 class Helpers
@@ -14,7 +14,6 @@ class Helpers
      */
     public static function ElConfig(string $path = ''): mixed
     {
-
         try {
             $config = config('config.el_admin');
             if(empty($config)) {

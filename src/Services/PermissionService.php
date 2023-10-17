@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Services;
+namespace Latent\ElAdmin\Services;
 
 class PermissionService
 {

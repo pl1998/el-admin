@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Command;
+namespace Latent\ElAdmin\Command;
 
 
 use Illuminate\Console\Command;
@@ -32,7 +32,8 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        Artisan::call('vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"');
+        // release jwt config
+        Artisan::call('vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"');
 
         Artisan::call('migrate');
 

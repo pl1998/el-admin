@@ -1,8 +1,9 @@
 {
-    "name": "ElAdmin/laravel-vue-admin",
-    "description": "这是一个Laravel+Vue的后端管理API扩展包，能帮助你快速搭建RBAC权限的管理后台。",
+    "name": "latent/el-admin",
+    "description": "This is a backend management API extension package for Laravel+Vue, which can help you quickly build a RBAC permission management backend.",
     "type": "project",
     "license": "MIT",
+    "keywords":["laravel","admin"],
     "authors": [
         {
             "name": "latent",
@@ -12,16 +13,23 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/sanctum": "^4.0@dev"
+        "tymon/jwt-auth": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "ElAdmin\\LaravelVueAdmin\\": "src/"
+            "Latent\\ElAdmin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Latent\\ElAdmin\\ElAdminServiceProvider"
+            ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ElAdmin\\LaravelVueAdmin\\": "tests/"
+            "Latent\\ElAdmin\\": "tests/"
         }
     },
     "minimum-stability": "dev"

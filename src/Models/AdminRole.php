@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Models;
+namespace Latent\ElAdmin\Models;
 
-use ElAdmin\LaravelVueAdmin\Enum\ModelEnum;
+use Latent\ElAdmin\Enum\ModelEnum;
 
 class AdminRole extends Admin
 {

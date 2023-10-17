@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace ElAdmin\LaravelVueAdmin\Controller;
+namespace Latent\ElAdmin\Controller;
 
 trait Response
 {

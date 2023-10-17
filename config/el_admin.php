@@ -11,7 +11,7 @@ return [
       */
 
     'controller' => [
-        'auth' => ElAdmin\LaravelVueAdmin\Controller\AuthController::class
+        'auth' => Latent\ElAdmin\Controller\AuthController::class
     ],
 
     /*
@@ -24,7 +24,7 @@ return [
      */
     'middleware' => [
         // el-admin http middleware for permission control verification
-        'rbac' => ElAdmin\LaravelVueAdmin\Middleware\RbacMiddleware::class,
+        'rbac' => Latent\ElAdmin\Middleware\RbacMiddleware::class,
     ],
 
     /*
@@ -38,6 +38,6 @@ return [
     'database' => [
         // user table and user models
         'users_table' => 'admin_users',
-        'users_model' => ElAdmin\LaravelVueAdmin\Models\AdminUser::class
+        'users_model' => Latent\ElAdmin\Models\AdminUser::class
     ]
 ];
