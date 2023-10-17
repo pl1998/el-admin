@@ -1,0 +1,31 @@
+{
+    "name": "ElAdmin/laravel-vue-admin",
+    "description": "这是一个Laravel+Vue的后端管理API扩展包，能帮助你快速搭建RBAC权限的管理后台。",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "latent",
+            "email": "pltrueover@gmail.com",
+            "homepage": "https://github.com/pl1998"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/sanctum": "^4.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "ElAdmin\\LaravelVueAdmin\\": "src/"
+        },
+        "files": [
+            "src/Libs/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ElAdmin\\LaravelVueAdmin\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}
