@@ -22,6 +22,9 @@ class RbacMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
+        $request->path();
+
+
         return $next($request);
     }
 }

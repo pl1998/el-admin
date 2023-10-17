@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('sort')->default(0)->comment('sort value desc');
             $table->tinyInteger('hidden')->default(0)->comment('0.normal 1.hidden');
             $table->tinyInteger('type')->default(0)->comment('menus type: 0.menus 1.button(api)');
+            $table->string('method',10)->default(0)->comment('*/GET/POST/PUT/PATCH/DELETE');
             $table->string('perm')->default('')->comment('permission label');
             $table->comment('menus table router or api tables');
             $table->softDeletes();
