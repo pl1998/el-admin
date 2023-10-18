@@ -58,15 +58,11 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     protected function loadConfigs() :void
     {
-        // release el-admin config
-        $this->publishes([
-            __DIR__.'/../config/el_admin.php' => config_path('el_admin.php'),
-        ]);
-        // register merge config/auth.php
         $this->publishes([
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
+            __DIR__.'/../config/scribe.php' => config_path('scribe.php'),
+            __DIR__.'/../config/el_admin.php' => config_path('el_admin.php'),
         ]);
-
     }
 
     /**

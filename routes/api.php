@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Latent\ElAdmin\Controller\AuthController;
 use Latent\ElAdmin\Middleware\RbacMiddleware;
+use Latent\ElAdmin\Controller\RolesController;
 
 Route::group([
     'middleware' => 'auth:api',
@@ -13,6 +14,9 @@ Route::group([
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', [AuthController::class,'refresh']);
     Route::post('me', [AuthController::class,'me']);
+
+    Route::post('role', [RolesController::class,'store']);
+    Route::put('role', [RolesController::class,'update']);
 
     Route::group([
        'middleware' =>RbacMiddleware::class

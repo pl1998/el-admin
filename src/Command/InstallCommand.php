@@ -35,8 +35,10 @@ class InstallCommand extends Command
     {
         // release jwt config
         Artisan::call('vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"');
+        Artisan::call('vendor:publish --tag=scribe-config');
 
         Artisan::call('migrate');
+        Artisan::call('jwt:secret');
 
         (new ElAdminSeeder())
             ->run();

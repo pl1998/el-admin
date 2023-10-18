@@ -32,5 +32,8 @@
             "Latent\\ElAdmin\\": "tests/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "knuckleswtf/scribe": "dev-master"
+    }
 }

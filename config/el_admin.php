@@ -45,16 +45,18 @@ return [
         'users_model' => Latent\ElAdmin\Models\AdminUser::class,
 
         'user_roles_table' => 'admin_user_roles',
-        'user_roles_model' => Latent\ElAdmin\Models\AdminUserRoles::class,
+        'user_roles_model' => Latent\ElAdmin\Models\AdminUserRole::class,
 
         'roles_table' => 'admin_roles',
         'roles_model' => Latent\ElAdmin\Models\AdminRole::class,
 
         'role_menus_table' => 'admin_role_menus',
-        'role_menus_model' => Latent\ElAdmin\Models\AdminRoleMenus::class,
+        'role_menus_model' => Latent\ElAdmin\Models\AdminRoleMenu::class,
 
         'menus_table' => 'admin_menus',
         'menus_model' =>  Latent\ElAdmin\Models\AdminMenu::class,
+
+        'connection'  => 'mysql'
     ],
 
     /*

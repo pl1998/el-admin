@@ -7,7 +7,7 @@ namespace Latent\ElAdmin\Services;
 
 use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Models\AdminMenu;
-use Latent\ElAdmin\Models\AdminRoleMenus;
+use Latent\ElAdmin\Models\AdminRoleMenu;
 use Latent\ElAdmin\Models\AdminUserRoles;
 use Latent\ElAdmin\Models\MenusCache;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -39,7 +39,7 @@ trait Permission
             $menes =  AdminMenu::query()->where('hidden',ModelEnum::NORMAL)->get()?->toArray();
         }else{
             $menes = [];
-            AdminRoleMenus::with('menus')
+            AdminRoleMenu::with('menus')
                 ->where('role_id',$this->getAllRoles())
                 ->get()
                 ->map(function ($items) use(&$menes) {

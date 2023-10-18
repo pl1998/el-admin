@@ -7,7 +7,7 @@ namespace Latent\ElAdmin\Models;
 
 use Latent\ElAdmin\Enum\ModelEnum;
 
-class AdminRoleMenus extends Admin
+class AdminRoleMenu extends Admin
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
