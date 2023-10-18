@@ -36,4 +36,22 @@ trait GetModelTraits
     {
         return (new (config('el_admin.database.role_menus_model')));
     }
+
+    /**
+     * Get  menus models
+     * @return Model
+     */
+    public function getMenusModel():Model
+    {
+        return (new (config('el_admin.database.menus_model')));
+    }
+
+    /**
+     * Get  menus models
+     * @return Model
+     */
+    public function getUserRolesModel():Model
+    {
+        return (new (config('el_admin.database.user_roles_model')));
+    }
 }

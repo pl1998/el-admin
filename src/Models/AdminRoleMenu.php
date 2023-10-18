@@ -14,7 +14,7 @@ class AdminRoleMenu extends Admin
      */
     public function menus()
     {
-        return $this->hasOne(AdminMenu::class,'id','menu_id')
+        return $this->hasOne(config('el_admin.database.menus_model'),'id','menu_id')
             ->where('hidden',ModelEnum::NORMAL);
     }
 }

@@ -14,7 +14,7 @@ class AdminRole extends Admin
      */
     public function allRoleMenus()
     {
-        return $this->hasMany(AdminRoleMenu::class,'role_id','id')->where('status',ModelEnum::NORMAL);
+        return $this->hasMany(config('el_admin.database.role_menus_model'),'role_id','id')->where('status',ModelEnum::NORMAL);
     }
 
     protected $fillable = [

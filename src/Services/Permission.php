@@ -6,20 +6,19 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Services;
 
 use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Models\AdminMenu;
-use Latent\ElAdmin\Models\AdminRoleMenu;
-use Latent\ElAdmin\Models\AdminUserRoles;
+use Latent\ElAdmin\Models\GetModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
 use Psr\SimpleCache\InvalidArgumentException;
 
 trait Permission
 {
+    use GetModelTraits;
     /**
      * @return array|null
      */
     public function getAllRoles(): ?array
     {
-        return AdminUserRoles::query()
+        return $this->getUserRolesModel()
             ->where('user_id',auth(config('el_admin.guard'))->user()->id ?? 0)
             ->pluck('role_id')?->toArray();
     }
@@ -36,10 +35,11 @@ trait Permission
             return $data;
         }
         if(auth(config('el_admin.guard'))->user()->name ?? '' == 'admin') {
-            $menes =  AdminMenu::query()->where('hidden',ModelEnum::NORMAL)->get()?->toArray();
+            $menes =  $this->getMenusModel()->where('hidden',ModelEnum::NORMAL)->get()?->toArray();
         }else{
             $menes = [];
-            AdminRoleMenu::with('menus')
+            $this->getRoleMenusModel()
+                ->with('menus')
                 ->where('role_id',$this->getAllRoles())
                 ->get()
                 ->map(function ($items) use(&$menes) {
@@ -50,7 +50,6 @@ trait Permission
                     }
                 });
         }
-
         MenusCache::setCache($userId,$menes);
 
         return $menes;
