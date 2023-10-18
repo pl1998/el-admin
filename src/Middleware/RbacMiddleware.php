@@ -10,21 +10,26 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Latent\ElAdmin\Services\Permission;
+use Latent\ElAdmin\Controller\Response as ApiResponse;
 
 class RbacMiddleware
 {
+    use Permission,ApiResponse;
+
     /**
-     * Handle an incoming request.
-     *
      * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse
+     * @param Closure $next
+     * @return Response|RedirectResponse|JsonResponse
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         $request->path();
 
-
-        return $next($request);
+        if($this->checkApiPermission($request->path(),$request->method())) {
+            return $next($request);
+        }
+        return $this->fail('permission denied',401);
     }
 }

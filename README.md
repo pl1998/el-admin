@@ -1,14 +1,14 @@
 ## About ElAdmin
 
-### ElAdmin Authorization services depend on `laravel/socialite`。But these are all replaceable。
+### ElAdmin Authorization services depend on `tymon/jwt-auth`。But these are all replaceable。
 ```shell
-composer require laravel/socialite
+composer require tymon/jwt-auth
 ```
 
 ### Installation
 
 ```shell
-composer require "ElAdmin/laravel-vue-admin"
+composer require "pl1998/el-admin"
 ```
 
 ###  publish config
@@ -16,9 +16,9 @@ composer require "ElAdmin/laravel-vue-admin"
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
 ```
 
-### execute migrate
+### build
 ```shell
-php artisan migrate
+php artisan el-admin:install
 ```
 
 ## License

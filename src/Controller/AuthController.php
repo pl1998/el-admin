@@ -8,6 +8,7 @@ namespace Latent\ElAdmin\Controller;
 use Illuminate\Support\Arr;
 use Latent\ElAdmin\Models\GetModelTraits;
 use Illuminate\Support\Facades\Validator;
+
 class AuthController extends Controller
 {
     use GetModelTraits;
@@ -26,8 +27,8 @@ class AuthController extends Controller
         ]);
         if($validate->fails()) return  $this->fail($validate->errors()->first());
 
-        if (! $token = auth()->attempt(Arr::only($params,['email','password']))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (! $token = auth(config('el_admin.guard'))->attempt(Arr::only($params,['email','password']))) {
+            return $this->fail(trans('el_admin::auth.login_error'));
         }
         return $this->respondWithToken($token);
     }
@@ -39,7 +40,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth(config('el_admin.guard'))->user());
     }
 
     /**
@@ -61,7 +62,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth(config('el_admin.guard'))->refresh());
     }
 
     /**
@@ -76,7 +77,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth(config('el_admin.guard'))->factory()->getTTL() * 60
         ]);
     }
 

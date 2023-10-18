@@ -1,26 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Latent\ElAdmin\Helpers;
-
-// all controllers
-$config = Helpers::ElConfig();
-$controllerMap = $config['controller'];
+use Latent\ElAdmin\Controller\AuthController;
+use Latent\ElAdmin\Middleware\RbacMiddleware;
 
 Route::group([
     'middleware' => 'auth:api',
-    'prefix' => '/api/v1/el_admin',
-], function () use($controllerMap,$config) {
+    'prefix' => 'api/v1/el_admin',
+], function () {
 
-    Route::post('login', [$controllerMap['auth'],'login'])->withoutMiddleware('auth:api');
-    Route::post('logout', [$controllerMap['auth'],'logout']);
-    Route::post('refresh', [$controllerMap['auth'],'refresh']);
-    Route::post('me', [$controllerMap['auth'],'me']);
+    Route::post('login', [AuthController::class,'login'])->withoutMiddleware('auth:api');
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('me', [AuthController::class,'me']);
 
     Route::group([
-       'middleware' => $config['middleware']['rbac']
+       'middleware' =>RbacMiddleware::class
     ],function () {
 
     });
-
 });

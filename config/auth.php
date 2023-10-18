@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'admin',
         'passwords' => 'users',
     ],
 
@@ -74,7 +74,7 @@ return [
         ],
         'admin_users' => [
             'driver' => 'eloquent',
-            'model' => \Latent\ElAdmin\Models\AdminUser::class,
+            'model' => Latent\ElAdmin\Models\AdminUser::class,
         ],
 
         // 'users' => [

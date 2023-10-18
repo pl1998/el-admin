@@ -1,19 +1,8 @@
 <?php
 
 return [
-    /*
-      |--------------------------------------------------------------------------
-      | el-admin controller settings
-      |--------------------------------------------------------------------------
-      |
-      | Here are controller settings for el-admin builtin controller.
-      |
-      */
 
-    'controller' => [
-        'auth' => Latent\ElAdmin\Controller\AuthController::class
-    ],
-
+    'guard' => 'admin',
     /*
      |--------------------------------------------------------------------------
      | el-admin  prem middleware
