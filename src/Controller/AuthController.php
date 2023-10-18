@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Validator;
 use Latent\ElAdmin\Helpers;
 use Latent\ElAdmin\Services\AuthServices;
 use Latent\ElAdmin\Services\Permission;
@@ -15,13 +15,15 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Subgroup;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\BodyParam;
+
 #[Group("用户登录相关", "用户登录相关接口")]
 #[Subgroup("Auth", "登录控制器")]
 class AuthController extends Controller
 {
     use Permission;
 
-    protected $guard;
+    protected string $guard;
 
     public function __construct()
     {
@@ -31,11 +33,11 @@ class AuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
 
-    #[UrlParam("email", "string", "邮箱")]
-    #[UrlParam("password", "string", "密码")]
+    #[BodyParam("email", "string", "邮箱")]
+    #[BodyParam("password", "string", "密码")]
     #[Response(<<<JSON
 {
     "access_token": "token",
@@ -43,7 +45,7 @@ class AuthController extends Controller
     "expires_in": 216000
 }
 JSON)]
-    public function login()
+    public function login() :JsonResponse
     {
         $params = $this->validator([
             'email' => 'required|email',
@@ -59,7 +61,7 @@ JSON)]
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
 
     #[Authenticated]
@@ -80,7 +82,7 @@ JSON)]
     "status": 200
 }
 JSON)]
-    public function me()
+    public function me() :JsonResponse
     {
         $user = auth($this->guard)->user()?->toArray();
         list($menus,$nodes) = $this->getUserMenusAndNode();
@@ -92,7 +94,7 @@ JSON)]
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
 
     #[Authenticated]
@@ -103,7 +105,7 @@ JSON)]
     "status": 200
 }
 JSON)]
-    public function logout()
+    public function logout() :JsonResponse
     {
         auth($this->guard)->logout();
 
@@ -113,7 +115,7 @@ JSON)]
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
 
     #[Authenticated]
@@ -124,7 +126,7 @@ JSON)]
     "expires_in": 216000
 }
 JSON)]
-    public function refresh()
+    public function refresh() :JsonResponse
     {
         return (new AuthServices())->respondWithToken((string)(auth($this->guard)->refresh()));
     }

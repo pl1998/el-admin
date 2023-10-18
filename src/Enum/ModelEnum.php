@@ -15,5 +15,6 @@ class ModelEnum
 
 
     public const MENU = 0;
+
     public const API  = 1;
 }

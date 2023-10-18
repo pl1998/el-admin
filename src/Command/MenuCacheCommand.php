@@ -4,6 +4,7 @@ namespace Latent\ElAdmin\Command;
 
 use Illuminate\Console\Command;
 use Latent\ElAdmin\Models\MenusCache;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class MenuCacheCommand extends Command
 {
@@ -23,9 +24,10 @@ class MenuCacheCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return void
+     * @throws InvalidArgumentException
      */
-    public function handle()
+    public function handle() :void
     {
         $userId = $this->argument('user_id');
         MenusCache::delMenusCache((int)$userId);

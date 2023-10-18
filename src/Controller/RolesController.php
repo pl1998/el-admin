@@ -9,12 +9,16 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\Subgroup;
 use Knuckles\Scribe\Attributes\UrlParam;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
 
 #[Group("用户角色相关", "用户角色相关接口")]
 #[Subgroup("Roles", "角色控制器")]
 class RolesController extends Controller
 {
+    use GetModelTraits,Permission;
 
     public function index()
     {
@@ -27,8 +31,8 @@ class RolesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    #[UrlParam("name", "string", "角色名称")]
-    #[UrlParam("menu", "array", "菜单ID数组")]
+    #[BodyParam("name", "string", "角色名称")]
+    #[BodyParam("menu", "array", "菜单ID数组")]
     #[Response(<<<JSON
 {
     "data": [],
@@ -53,9 +57,9 @@ JSON)]
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    #[UrlParam("id", "string", "角色ID")]
-    #[UrlParam("name", "string", "角色名称")]
-    #[UrlParam("menu", "array", "菜单ID数组")]
+    #[BodyParam("id", "string", "角色ID")]
+    #[BodyParam("name", "string", "角色名称")]
+    #[BodyParam("menu", "array", "菜单ID数组")]
     #[Response(<<<JSON
 {
     "data": [],
@@ -77,9 +81,23 @@ JSON)]
 
     }
 
-
-    public function delete()
+    /**
+     * @param RoleServices $roleServices
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    #[UrlParam("id", "string", "角色ID")]
+    #[Response(<<<JSON
+{
+    "data": [],
+    "message": "success",
+    "status": 200
+}
+JSON)]
+    public function delete($id)
     {
-
+        $this->getRoleModel()->where('id',$id)->delete();
+        return $this->success();
     }
+
 }

@@ -31,7 +31,7 @@ class InstallCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         // release jwt config
         Artisan::call('vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"');
