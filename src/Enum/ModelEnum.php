@@ -12,4 +12,8 @@ class ModelEnum
 
     /** @var int  */
     public const FORBIDDEN = 1;
+
+
+    public const MENU = 0;
+    public const API  = 1;
 }

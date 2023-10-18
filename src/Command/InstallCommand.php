@@ -8,6 +8,7 @@ namespace Latent\ElAdmin\Command;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Latent\ElAdmin\Models\ElAdminSeeder;
 
 class InstallCommand extends Command
 {
@@ -36,6 +37,9 @@ class InstallCommand extends Command
         Artisan::call('vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"');
 
         Artisan::call('migrate');
+
+        (new ElAdminSeeder())
+            ->run();
 
         return Command::SUCCESS;
     }

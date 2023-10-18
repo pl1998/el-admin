@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name',40)->default('')->comment('user nickname');
+            $table->string('name',40)->unique()->default('')->comment('user nickname');
             $table->string('email',40)->default('')->unique()->comment('user email');
             $table->tinyInteger('status')->default(0)->comment('0.normal 1.forbidden');
             $table->string('password',100)->default('')->comment('user password');

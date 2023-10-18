@@ -33,6 +33,7 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
         $this->loadRoutes();
         $this->loadTranslations();
         $this->loadMigrations();
+        $this->loadResources();
         $this->runningCommands();
 
     }
@@ -106,6 +107,18 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
 
         $this->publishes([
             __DIR__.'/../migrations' => database_path().'/migrations',
+        ]);
+    }
+
+    /**
+     * release resources
+     * @return void
+     */
+    protected function loadResources() :void
+    {
+        // logo
+        $this->publishes([
+            __DIR__.'/../docs/logo.png' => public_path().'/logo.png',
         ]);
     }
 
