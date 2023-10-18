@@ -16,4 +16,9 @@ class AdminRole extends Admin
     {
         return $this->hasMany(AdminRoleMenus::class,'role_id','id')->where('status',ModelEnum::NORMAL);
     }
+
+    protected $fillable = [
+        'name',
+        'status'
+    ];
 }

@@ -7,6 +7,7 @@ namespace Latent\ElAdmin;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Latent\ElAdmin\Command\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Latent\ElAdmin\Command\MenuCacheCommand;
 
 class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -47,6 +48,7 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     {
         return [
             InstallCommand::class,
+            MenuCacheCommand::class,
         ];
     }
 
@@ -131,7 +133,8 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
         // register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
-                InstallCommand::class
+                InstallCommand::class,
+                MenuCacheCommand::class
             ]);
         }
     }

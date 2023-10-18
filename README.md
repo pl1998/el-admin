@@ -1,28 +1,39 @@
 ## About ElAdmin
 
-### ElAdmin Authorization services depend on `tymon/jwt-auth`。But these are all replaceable。
+### 简介
+
+> El-admin 是一个Laravel的第三方后台扩展包。配合它提供的前端脚手架，可以很方便快速的搭建前后端分离的rbac管理后台，让使用者只关心业务模块，不用编写权限管理。
+
+
+### ElAdmin包 授权服务依赖于' tymon/jwt-auth '。
+
 ```shell
 composer require tymon/jwt-auth
 ```
 
-### Installation
+### 依赖
+  * PHP  = 8.0
+
+### 安装
 
 ```shell
 composer require "pl1998/el-admin"
 ```
 
-###  publish config
+###  配置发布
 ```shell
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
 ```
 
-### build
+### 执行构建脚本
 ```shell
 php artisan el-admin:install
 ```
 
-### Add the method to `App\Http\Middleware\Authenticate` 
-
+### 兼容
+> 修改 `config/el_admin.php` 将 `guard` 改成 `api`
+> 或者 `App\Http\Middleware\Authenticate` 加入这段代码。
+> 该目的在web接口和后台接口在同一项目时后台jwt配置不占用api的配置。
 ```php
  /**
      * Handle an incoming request.
@@ -46,3 +57,4 @@ php artisan el-admin:install
 ```
 
 ## License
+ MIT License

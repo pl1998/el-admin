@@ -17,9 +17,6 @@ class AdminUser extends Authenticatable implements JWTSubject
     use Notifiable;
 
     // Rest omitted for brevity
-
-    protected $dateFormat = 'datetime:Y-m-d H:i:s';
-
     /**
      * The attributes that are mass assignable.
      *

@@ -55,5 +55,23 @@ return [
 
         'menus_table' => 'admin_menus',
         'menus_model' =>  Latent\ElAdmin\Models\AdminMenu::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | el-admin  menus settings
+    |--------------------------------------------------------------------------
+    |
+    | el-admin  menus settings
+    |
+    */
+    'menus' => [
+        /** @var bool Whether to enable menu caching */
+        'cache' => true,
+        /** @var int Cache expiration time (minutes)  */
+        'ttl'   => 60,
+        /** @var string cache disk */
+        'disk'  => 'file',
+        'prefix'   => 'el:admin:menu_'
     ]
 ];

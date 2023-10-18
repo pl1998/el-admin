@@ -7,5 +7,14 @@ namespace Latent\ElAdmin\Models;
 
 class AdminMenu extends Admin
 {
-
+    protected $fillable = [
+        'parent_id',
+        'icon',
+        'route_name',
+        'route_path',
+        'method',
+        'component',
+        'sort',
+        'type',
+    ];
 }

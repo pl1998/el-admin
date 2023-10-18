@@ -41,6 +41,8 @@ class InstallCommand extends Command
         (new ElAdminSeeder())
             ->run();
 
+        $this->info('build Successfully installed');
+
         return Command::SUCCESS;
     }
 }

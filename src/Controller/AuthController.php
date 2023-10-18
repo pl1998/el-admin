@@ -6,12 +6,20 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Support\Arr;
-use Latent\ElAdmin\Models\GetModelTraits;
 use Illuminate\Support\Facades\Validator;
+use Latent\ElAdmin\Helpers;
+use Latent\ElAdmin\Services\Permission;
 
 class AuthController extends Controller
 {
-    use GetModelTraits;
+    use Permission;
+
+    protected $guard;
+
+    public function __construct()
+    {
+        $this->guard = config('el_admin.guard');
+    }
 
     /**
      * Get a JWT via given credentials.
@@ -27,7 +35,7 @@ class AuthController extends Controller
         ]);
         if($validate->fails()) return  $this->fail($validate->errors()->first());
 
-        if (! $token = auth(config('el_admin.guard'))->attempt(Arr::only($params,['email','password']))) {
+        if (! $token = auth($this->guard)->attempt(Arr::only($params,['email','password']))) {
             return $this->fail(trans('el_admin::auth.login_error'));
         }
         return $this->respondWithToken($token);
@@ -40,7 +48,11 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth(config('el_admin.guard'))->user());
+        $user = auth($this->guard)->user()?->toArray();
+        list($menus,$nodes) = $this->getUserMenusAndNode();
+        $menus = Helpers::getTree($menus);
+        $nodes = Helpers::getTree($nodes);
+        return $this->success(array_merge($user,['menus' => $menus,'nodes' => $nodes]));
     }
 
     /**
@@ -50,7 +62,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth($this->getUserAllMenus())->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -62,7 +74,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth(config('el_admin.guard'))->refresh());
+        return $this->respondWithToken(auth($this->guard)->refresh());
     }
 
     /**
@@ -77,7 +89,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth(config('el_admin.guard'))->factory()->getTTL() * 60
+            'expires_in' => auth($this->guard)->factory()->getTTL() * 60
         ]);
     }
 

@@ -9,12 +9,12 @@ trait Response
 {
     /**
      * success response
-     * @param array|object $data
+     * @param $data
      * @param string $message
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public function success(array|object $data = [],string $message = 'success', int $status = 200)
+    public function success($data = [],string $message = 'success', int $status = 200)
     {
         return response()->json([
             'data'    => $data,
