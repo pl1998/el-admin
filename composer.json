@@ -1,9 +1,12 @@
 {
     "name": "latent/el-admin",
     "description": "This is a backend management API extension package for Laravel+Vue, which can help you quickly build a RBAC permission management backend.",
-    "type": "project",
     "license": "MIT",
     "keywords":["laravel","admin"],
+    "support": {
+        "issues": "https://github.com/pl1998/el-admin/issues",
+        "source": "https://github.com/pl1998/el-admin"
+    },
     "authors": [
         {
             "name": "latent",

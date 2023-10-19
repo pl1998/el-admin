@@ -34,7 +34,7 @@ composer require tymon/jwt-auth
 ### 安装
 
 ```shell
-composer require "pl1998/el-admin"
+composer require "latent/el-admin"
 ```
 
 ###  配置发布

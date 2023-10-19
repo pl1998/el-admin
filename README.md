@@ -35,7 +35,7 @@ composer require tymon/jwt-auth
 ### Installed
 
 ```shell
-composer require "pl1998/el-admin"
+composer require "latent/el-admin"
 ```
 
 ###  Release Config
