@@ -7,14 +7,14 @@ namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Latent\ElAdmin\Helpers;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\Subgroup;
 use Latent\ElAdmin\Services\AuthServices;
 use Latent\ElAdmin\Services\Permission;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\Subgroup;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\BodyParam;
+use Latent\ElAdmin\Support\Helpers;
 
 #[Group("用户登录相关", "用户登录相关接口")]
 #[Subgroup("Auth", "登录控制器")]

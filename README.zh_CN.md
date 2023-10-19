@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" src="docs/logo.png">
+  <img width="200" src="./docs/logo.png">
 </p>
 
 <p align="center">
@@ -8,50 +8,49 @@
 <a href="https://packagist.org/packages/pltrue/thirdparty_oauth"><img src="https://img.shields.io/badge/downloads-37-brightgreen" /></a>
 </p>
 
-
 ## About ElAdmin
 
-English | [简体中文](./README.zh_CN.md)
+[English](./README.md) | 简体中文
 
-### Info
+### 简介
 
-> `El-admin` is a third-party background extension package for Laravel. With the front-end scaffolding provided by it, it can be very convenient and fast to build the rbac management background that separates the front and back ends, so that users only care about the business module, without writing permission management.
+> El-admin 是一个Laravel的第三方后台扩展包。配合它提供的前端脚手架，可以很方便快速的搭建前后端分离的rbac管理后台，让使用者只关心业务模块，不用编写权限管理。
 
 
-### Permission based on RBAC model
+### 基于RBAC模型权限
 
 ![](docs/database.png)
 
-### Getting started
+### ElAdmin包 授权服务依赖于' tymon/jwt-auth '。
 
 ```shell
 composer require tymon/jwt-auth
 ```
 
-### Must
-  * PHP  >= 8.0
-  * Laravel 9~10
+### 依赖
+* PHP  >= 8.0
+* Laravel 9~10
 
-### Installed
+### 安装
 
 ```shell
 composer require "pl1998/el-admin"
 ```
 
-###  Release Config
+###  配置发布
 ```shell
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
 ```
 
-### Build
+### 执行构建脚本
 ```shell
 php artisan el-admin:install
 ```
 
-### Update
-> Update `config/el_admin.php` `-` `guard` to `api`
-> Or `App\Http\Middleware\Authenticate` add code。
-> The background jwt configuration does not occupy the api configuration when the web interface and background interface are in the same project.
+### 兼容
+> 修改 `config/el_admin.php` 将 `guard` 改成 `api`
+> 或者 `App\Http\Middleware\Authenticate` 加入这段代码。
+> 该目的在web接口和后台接口在同一项目时后台jwt配置不占用api的配置。
 ```php
  /**
      * Handle an incoming request.
@@ -75,4 +74,4 @@ php artisan el-admin:install
 ```
 
 ## License
- MIT License
+MIT License

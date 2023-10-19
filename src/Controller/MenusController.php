@@ -45,8 +45,8 @@ JSON)]
             'type'       => 'int|in:0,1',
             'hidden'     => 'int',
             'parent_id'  => 'int',
-            'page'      => 'integer',
-            'page_size' => 'integer',
+            'page'       => 'int',
+            'page_size'  => 'int',
         ]);
         return $this->success($menuServices->list($params));
     }

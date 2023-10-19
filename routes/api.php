@@ -6,6 +6,7 @@ use Latent\ElAdmin\Middleware\RbacMiddleware;
 use Latent\ElAdmin\Controller\RolesController;
 use Latent\ElAdmin\Controller\MenusController;
 use Latent\ElAdmin\Controller\UsersController;
+use Latent\ElAdmin\Controller\LogsController;
 
 Route::group([
     'middleware' => ['auth:api'],
@@ -29,6 +30,9 @@ Route::group([
         ]);
         Route::resource('user',UsersController::class)->only([
             'index','store', 'update', 'destroy'
+        ]);
+        Route::resource('log',LogsController::class)->only([
+            'index', 'destroy'
         ]);
 
         Route::get('roleMenus', [MenusController::class,'getRoleMenu']);

@@ -40,7 +40,7 @@ class MenusCache
      */
     public static function getCache(): Repository
     {
-        return  Cache::store(config('el_admin.menus.disk'));
+        return  Cache::store(config('el_admin.menus.cache_driver'));
     }
 
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Services;
 
-use Latent\ElAdmin\Helpers;
+use Latent\ElAdmin\Support\Helpers;
 
 class MenuServices
 {

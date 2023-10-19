@@ -21,6 +21,7 @@ class MethodEnum
     const PUT = 'put';
     /** @var string  */
     const DELETE = 'delete';
+
     /**
      * @var int[]
      */

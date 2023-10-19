@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use Latent\ElAdmin\Helpers;
+use Latent\ElAdmin\Support\Helpers;
 use PHPUnit\Framework\TestCase;
+
 class ExampleTest extends TestCase
 {
     /**

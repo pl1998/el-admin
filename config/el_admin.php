@@ -79,7 +79,7 @@ return [
         /** @var int Cache expiration time (minutes)  */
         'ttl'   => 60,
         /** @var string cache disk */
-        'disk'  => 'file',
+        'cache_driver'  => env('CACHE_DRIVER','file'),
         'prefix'   => 'el:admin:menu_'
     ]
 ];
