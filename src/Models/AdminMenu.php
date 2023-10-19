@@ -7,6 +7,8 @@ namespace Latent\ElAdmin\Models;
 
 class AdminMenu extends Admin
 {
+
+    /** @var string[]  */
     protected $fillable = [
         'parent_id',
         'icon',

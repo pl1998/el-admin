@@ -12,6 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Validator;
+use Latent\ElAdmin\Exceptions\ValidateException;
 
 class Controller extends BaseController
 {
@@ -32,7 +33,7 @@ class Controller extends BaseController
 
         $validate = Validator::make($params,$rules,$message);
         if($validate->fails()) {
-            abort(403, $validate->errors()->first());
+            throw new ValidateException($validate->errors()->first());
         }
         return $params;
     }

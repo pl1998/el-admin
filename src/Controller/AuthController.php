@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use Latent\ElAdmin\Helpers;
 use Latent\ElAdmin\Services\AuthServices;
 use Latent\ElAdmin\Services\Permission;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Subgroup;
 use Knuckles\Scribe\Attributes\Authenticated;
