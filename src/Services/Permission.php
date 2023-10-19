@@ -37,18 +37,7 @@ trait Permission
         if(auth(config('el_admin.guard'))->user()->name ?? '' == 'admin') {
             $menes =  $this->getMenusModel()->where('hidden',ModelEnum::NORMAL)->get()?->toArray();
         }else{
-            $menes = [];
-            $this->getRoleMenusModel()
-                ->with('menus')
-                ->where('role_id',$this->getAllRoles())
-                ->get()
-                ->map(function ($items) use(&$menes) {
-                    if(!empty($items->menus)) {
-                        foreach ($items->menus as $item) {
-                            $menes[] = $item?->toArray();
-                        }
-                    }
-                });
+            $menes = $this->getRoleMenus($this->getAllRoles());
         }
         MenusCache::setCache($userId,$menes);
 
@@ -70,6 +59,28 @@ trait Permission
         ];
 
     }
+
+    /**
+     * @param array $roleId
+     * @return array
+     */
+    public function getRoleMenus(array $roleId) :array
+    {
+        $menes = [];
+        $this->getRoleMenusModel()
+            ->with('menus')
+            ->where('role_id',$roleId)
+            ->get()
+            ->map(function ($items) use(&$menes) {
+                if(!empty($items->menus)) {
+                    foreach ($items->menus as $item) {
+                        $menes[] = $item?->toArray();
+                    }
+                }
+            });
+        return  $menes;
+    }
+
 
     /**
      * check permission

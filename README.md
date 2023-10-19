@@ -5,6 +5,10 @@
 > El-admin 是一个Laravel的第三方后台扩展包。配合它提供的前端脚手架，可以很方便快速的搭建前后端分离的rbac管理后台，让使用者只关心业务模块，不用编写权限管理。
 
 
+### 基于RBAC模型权限
+
+![](docs/database.png)
+
 ### ElAdmin包 授权服务依赖于' tymon/jwt-auth '。
 
 ```shell
@@ -12,7 +16,8 @@ composer require tymon/jwt-auth
 ```
 
 ### 依赖
-  * PHP  = 8.0
+  * PHP  >= 8.0
+  * Laravel 9~10
 
 ### 安装
 

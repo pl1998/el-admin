@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Latent\ElAdmin\Services\LogWriteService;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Controller\Response as ApiResponse;
 
@@ -26,6 +27,8 @@ class RbacMiddleware
     public function handle(Request $request, Closure $next)
     {
         $request->path();
+
+        app()->make(LogWriteService::class)->handle();
 
         if($this->checkApiPermission($request->path(),$request->method())) {
             return $next($request);

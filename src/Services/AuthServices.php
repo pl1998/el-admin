@@ -17,6 +17,8 @@ class AuthServices
      */
     public function respondWithToken(string $token) :JsonResponse
     {
+        app()->make(LogWriteService::class)->handle();
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',

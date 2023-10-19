@@ -64,4 +64,33 @@ class Helpers
         }
         return $tree;
     }
+
+
+    /**
+     * @param array $map
+     * @return array
+     */
+    public static function filterNull(array $map) :array
+    {
+        return array_filter($map,function ($val){
+           return !is_null($val);
+        });
+    }
+
+
+    /**
+     *
+     * @param $params
+     * @param $keys
+     * @return array
+     */
+    public static function filterParams($params,$keys=[]) :array
+    {
+        if(empty($params) || !is_array($params)) {
+            return [];
+        }
+        return array_filter($params,function ($key) use ($keys) {
+            return !in_array($key,$keys);
+        },ARRAY_FILTER_USE_KEY);
+    }
 }

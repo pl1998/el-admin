@@ -31,6 +31,9 @@ return [
         'rbac' => Latent\ElAdmin\Middleware\RbacMiddleware::class,
     ],
 
+    // Whether to enable database logging
+    'log'   => true,
+
     /*
     |--------------------------------------------------------------------------
     | el-admin database settings
@@ -56,7 +59,10 @@ return [
         'menus_table' => 'admin_menus',
         'menus_model' =>  Latent\ElAdmin\Models\AdminMenu::class,
 
-        'connection'  => 'mysql'
+        'log_table' => 'admin_logs',
+        'log_model' => Latent\ElAdmin\Models\AdminLog::class,
+
+        'connection'  => 'mysql',
     ],
 
     /*

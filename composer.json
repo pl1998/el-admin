@@ -13,7 +13,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "tymon/jwt-auth": "^2.0"
+        "tymon/jwt-auth": "^2.0",
+        "illuminate/support": "~9|~10",
+        "jenssegers/agent": "^3.0@dev"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +26,10 @@
         "laravel": {
             "providers": [
                 "Latent\\ElAdmin\\ElAdminServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "ElAdmin": "Latent\\ElAdmin\\Facades\\ElAdmin"
+            }
         }
     },
     "autoload-dev": {

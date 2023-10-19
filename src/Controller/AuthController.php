@@ -53,7 +53,7 @@ JSON)]
         ]);
 
         if (! $token = auth($this->guard)->attempt(Arr::only($params,['email','password']))) {
-            return $this->fail(trans('el_admin::auth.login_error'));
+            return $this->fail(trans('admin::auth.login_error'));
         }
         return (new AuthServices())->respondWithToken((string)$token);
     }
