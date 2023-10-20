@@ -6,6 +6,7 @@ namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Latent\ElAdmin\Support\Helpers;
 use Throwable;
 
 class UserService
@@ -42,20 +43,26 @@ class UserService
                 'updated_at' => $date,
             ]);
             $userRoles = [];
-            foreach ($params['role'] as $roleId) {
-                $userRoles[] = [
-                    'user_id' => $userId,
-                    'role_id' => $roleId,
-                    'created_at' => $date,
-                    'updated_at' => $date,
-                ];
+            if(!empty($params['role'])) {
+                foreach ($params['role'] as $roleId) {
+                    $userRoles[] = [
+                        'user_id' => $userId,
+                        'role_id' => $roleId,
+                        'created_at' => $date,
+                        'updated_at' => $date,
+                    ];
+                }
+                $this->getUserRolesModel()
+                    ->insert($userRoles);
             }
-            $this->getUserRolesModel()
-                ->insert($userRoles);
         });
     }
 
+
     /**
+     *
+     * @param array $params
+     * @return void
      * @throws Throwable
      */
     public function update(array $params): void
@@ -64,6 +71,15 @@ class UserService
             $date = now()->toDateTimeString();
 
             $userId = $params['id'];
+
+            $save = Helpers::filterNull([
+                'name'     => $params['name'] ?? null,
+                'email'    => $params['email'] ?? null,
+                'password' => $params['password'] ? Hash::make($params['password']) : null,
+            ]);
+
+            !empty($save) &&   $this->getUserModel()->where('id', $userId)->update($save);
+
             $userRoles = [];
             foreach ($params['role'] as $roleId) {
                 $userRoles[] = [

@@ -34,6 +34,7 @@ class UsersController extends Controller
                 'name' => 'required|string|'.$this->getTableRules('unique','users_table'),
                 'email' => 'required|email|'.$this->getTableRules('unique','users_table'),
                 'password' => 'required|min:6|max:20',
+                'repeated_password' => 'required|min:6|max:20|confirmed_password',
                 'rule' => 'array',
             ]);
 
@@ -51,15 +52,13 @@ class UsersController extends Controller
     public function update($id, UserService $userService): JsonResponse
     {
         $params = $this->validator([
-            'id' => 'required|string|exists:connection.'.config('el_admin.database.connection').
-                ','.config('el_admin.database.users_table'),
-            'name' => 'required|string|unique:connection.'.config('el_admin.database.connection').
-                ','.config('el_admin.database.users_table'),
-            'email' => 'required|email|unique:connection.'.config('el_admin.database.connection').',
-            '.config('el_admin.database.users_table'),
-            'password' => 'required|min:6|max:20',
-            'rule' => 'array',
-        ], array_merge(request()->post(), ['id' => $id]));
+            'id'       => 'required|'.$this->getTableRules('exists','users_table'),
+            'name'     => 'string|'.$this->getTableRules('unique','users_table',(int)$id),
+            'email'    => 'email|'.$this->getTableRules('unique','users_table',(int)$id),
+            'password' => 'min:6|max:20',
+            'repeated_password' => 'min:6|max:20|current_password',
+            'rule'     => 'array',
+        ], $this->mergeParams(['id' => $id]));
 
         $userService->update($params);
 

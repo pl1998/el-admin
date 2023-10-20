@@ -33,14 +33,20 @@ trait Validate
         return $params;
     }
 
+
     /**
-     * @param $rules
-     * @param $table
+     * @param string $rules
+     * @param string $table
+     * @param int $id
      * @return string
      */
-    public function getTableRules(string $rules,string $table) {
+    public function getTableRules(string $rules,string $table, int $id = 0): string
+    {
         $table = config('el_admin.database.'.$table);
         $conn = config('el_admin.database.connection');
-        return "$rules:connection.$conn,$table";
+        if($id) {
+            return "$rules:$conn.$table,".$id;
+        }
+        return "$rules:$conn.$table";
     }
 }

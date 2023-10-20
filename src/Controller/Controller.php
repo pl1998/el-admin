@@ -19,4 +19,13 @@ class Controller extends BaseController
     use Validate;
 
 
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function mergeParams(array $params)
+    {
+        return array_merge(request()->input(), $params);
+    }
+
 }
