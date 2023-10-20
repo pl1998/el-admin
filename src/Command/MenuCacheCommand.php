@@ -24,16 +24,15 @@ class MenuCacheCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws InvalidArgumentException
      */
-    public function handle() :void
+    public function handle(): void
     {
         $userId = $this->argument('user_id');
-        MenusCache::delMenusCache((int)$userId);
-        if($userId) {
+        MenusCache::delMenusCache((int) $userId);
+        if ($userId) {
             $this->info("Cleared user_id: $userId menus cache");
-        } else{
+        } else {
             $this->info('Cleared all menus cache');
         }
     }

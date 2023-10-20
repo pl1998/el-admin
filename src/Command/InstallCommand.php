@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Command;
-
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -28,8 +26,6 @@ class InstallCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {

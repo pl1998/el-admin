@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
@@ -13,40 +12,34 @@ class UserService
 {
     use Permission;
 
-    /**
-     * @param array $params
-     * @return array
-     */
-    public function list(array $params) :array
+    public function list(array $params): array
     {
         $query = $this->getUserModel()
-            ->when(!empty($params['name']),function ($q) use($params){
-                $q->where('name','like',"{$params['name']}");
+            ->when(!empty($params['name']), function ($q) use ($params) {
+                $q->where('name', 'like', "{$params['name']}");
             });
+
         return [
-            'list'  => $query->page($params['page'] ?? 1,$params['page_size'])->get()?->toArray(),
+            'list' => $query->page($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
             'total' => $query->count(),
-            'page'  => (int)($params['page'] ?? 1)
+            'page' => (int) ($params['page'] ?? 1),
         ];
     }
 
     /**
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
-    public function add(array $params) :void
+    public function add(array $params): void
     {
-        DB::connection(config('el_admin.database.connection'))->transaction(function () use( $params) {
-
+        DB::connection(config('el_admin.database.connection'))->transaction(function () use ($params) {
             $date = now()->toDateTimeString();
 
-            $userId =  $this->getUserModel()->insertGetId([
-                'name'       => $params['name'],
-                'password'   => Hash::make($params['password']),
-                'email'      => $params['email'],
+            $userId = $this->getUserModel()->insertGetId([
+                'name' => $params['name'],
+                'password' => Hash::make($params['password']),
+                'email' => $params['email'],
                 'created_at' => $date,
-                'updated_at' => $date
+                'updated_at' => $date,
             ]);
             $userRoles = [];
             foreach ($params['role'] as $roleId) {
@@ -54,7 +47,7 @@ class UserService
                     'user_id' => $userId,
                     'role_id' => $roleId,
                     'created_at' => $date,
-                    'updated_at' => $date
+                    'updated_at' => $date,
                 ];
             }
             $this->getUserRolesModel()
@@ -63,14 +56,11 @@ class UserService
     }
 
     /**
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
-    public function update(array $params) :void
+    public function update(array $params): void
     {
-        DB::connection(config('el_admin.database.connection'))->transaction(function () use( $params) {
-
+        DB::connection(config('el_admin.database.connection'))->transaction(function () use ($params) {
             $date = now()->toDateTimeString();
 
             $userId = $params['id'];
@@ -80,11 +70,11 @@ class UserService
                     'user_id' => $userId,
                     'role_id' => $roleId,
                     'created_at' => $date,
-                    'updated_at' => $date
+                    'updated_at' => $date,
                 ];
             }
-            $model =  $this->getUserRolesModel();
-            $model->where('user_id',$userId)->delete();
+            $model = $this->getUserRolesModel();
+            $model->where('user_id', $userId)->delete();
             $this->getUserRolesModel()
                 ->insert($userRoles);
         });

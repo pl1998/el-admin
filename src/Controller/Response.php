@@ -2,42 +2,35 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Controller;
 
 trait Response
 {
     /**
-     * success response
-     * @param $data
-     * @param string $message
-     * @param int $status
+     * success response.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function success($data = [],string $message = 'success', int $status = 200)
+    public function success($data = [], string $message = 'success', int $status = 200)
     {
         return response()->json([
-            'data'    => $data,
+            'data' => $data,
             'message' => $message,
-            'status'  => $status
+            'status' => $status,
         ]);
     }
 
-
     /**
-     * fail response
-     * @param string $message
-     * @param int $status
-     * @param array|object $data
-     * @param int $code
+     * fail response.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function fail(string $message = 'error', int $status = 0,array|object $data = [],int $code = 200)
+    public function fail(string $message = 'error', int $status = 0, array|object $data = [], int $code = 200)
     {
         return response()->json([
-            'data'    => $data,
+            'data' => $data,
             'message' => $message,
-            'status'  => $status
-        ],$code);
+            'status' => $status,
+        ], $code);
     }
 }

@@ -13,10 +13,8 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
 {
     /**
      * Register services.
-     *
-     * @return void
      */
-    public function register() :void
+    public function register(): void
     {
         // register merge config/auth.php
         $this->mergeConfigFrom(
@@ -26,7 +24,6 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
 
     /**
      * Bootstrap services.
-     * @return void
      */
     public function boot(): void
     {
@@ -36,15 +33,12 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
         $this->loadMigrations();
         $this->loadResources();
         $this->runningCommands();
-
     }
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
-    public function provides() :array
+    public function provides(): array
     {
         return [
             InstallCommand::class,
@@ -53,10 +47,9 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * Release config
-     * @return void
+     * Release config.
      */
-    protected function loadConfigs() :void
+    protected function loadConfigs(): void
     {
         $this->publishes([
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
@@ -66,28 +59,25 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * Release routes
-     * @return void
+     * Release routes.
      */
-    protected function loadRoutes() :void
+    protected function loadRoutes(): void
     {
         // register routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         // release routes
         $this->publishes([
-            __DIR__.'/../routes/api.php' => base_path().'/routes/admin.php'
+            __DIR__.'/../routes/api.php' => base_path().'/routes/admin.php',
         ]);
-
     }
 
     /**
-     * Release lang
-     * @return void
+     * Release lang.
      */
-    protected function loadTranslations() :void
+    protected function loadTranslations(): void
     {
         // register lang
-        $this->loadTranslationsFrom(__DIR__.'/../lang','el-admin');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'el-admin');
         // release lang
         $this->publishes([
             __DIR__.'/../lang' => $this->app->langPath('vendor/el-admin'),
@@ -95,10 +85,9 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * Registered migrations database
-     * @return void
+     * Registered migrations database.
      */
-    protected function loadMigrations() :void
+    protected function loadMigrations(): void
     {
         // registered migrations sql files
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -109,10 +98,9 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * release resources
-     * @return void
+     * release resources.
      */
-    protected function loadResources() :void
+    protected function loadResources(): void
     {
         // logo
         $this->publishes([
@@ -121,16 +109,15 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     }
 
     /**
-     * register commands
-     * @return void
+     * register commands.
      */
-    protected function runningCommands() :void
+    protected function runningCommands(): void
     {
         // register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                MenuCacheCommand::class
+                MenuCacheCommand::class,
             ]);
         }
     }
