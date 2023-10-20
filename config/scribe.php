@@ -3,7 +3,6 @@
 use Knuckles\Scribe\Extracting\Strategies;
 
 return [
-
     'theme' => 'default',
 
     /*
@@ -182,24 +181,24 @@ return [
     ],
 
     'try_it_out' => [
-        /**
+        /*
          * Add a Try It Out button to your endpoints so consumers can test endpoints right from their browser.
          * Don't forget to enable CORS headers for your endpoints.
          */
         'enabled' => true,
 
-        /**
+        /*
          * The base URL for the API tester to use (for example, you can set this to your staging URL).
          * Leave as null to use the current app URL when generating (config("app.url")).
          */
         'base_url' => null,
 
-        /**
+        /*
          * Fetch a CSRF token before each request, and add it as an X-XSRF-TOKEN header. Needed if you're using Laravel Sanctum.
          */
         'use_csrf' => false,
 
-        /**
+        /*
          * The URL to fetch the CSRF token from (if `use_csrf` is true).
          */
         'csrf_url' => '/sanctum/csrf-cookie',
@@ -348,7 +347,7 @@ INTRO
      */
     'logo' => false,
 
-    /**
+    /*
      * Customize the "Last updated" value displayed in the docs by specifying tokens and formats.
      * Examples:
      * - {date:F j Y} => March 28, 2022
@@ -375,7 +374,7 @@ INTRO
         'models_source' => ['factoryCreate', 'factoryMake', 'databaseFirst'],
     ],
 
-    /**
+    /*
      * The strategies Scribe will use to extract information about your routes at each stage.
      * If you create or install a custom strategy, add it here.
      */
@@ -434,11 +433,11 @@ INTRO
      */
     'routeMatcher' => \Knuckles\Scribe\Matching\RouteMatcher::class,
 
-    /**
+    /*
      * For response calls, API resource responses and transformer responses,
      * Scribe will try to start database transactions, so no changes are persisted to your database.
      * Tell Scribe which connections should be transacted here.
      * If you only use one db connection, you can leave this as is.
      */
-    'database_connections_to_transact' => [config('database.default')]
+    'database_connections_to_transact' => [config('database.default')],
 ];

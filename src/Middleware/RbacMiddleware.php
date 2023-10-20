@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Middleware;
-
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,11 +15,10 @@ use Latent\ElAdmin\Controller\Response as ApiResponse;
 
 class RbacMiddleware
 {
-    use Permission,ApiResponse;
+    use Permission;
+    use ApiResponse;
 
     /**
-     * @param Request $request
-     * @param Closure $next
      * @return Response|RedirectResponse|JsonResponse
      */
     public function handle(Request $request, Closure $next)
@@ -30,9 +27,10 @@ class RbacMiddleware
 
         app()->make(LogWriteService::class)->handle();
 
-        if($this->checkApiPermission($request->path(),$request->method())) {
+        if ($this->checkApiPermission($request->path(), $request->method())) {
             return $next($request);
         }
-        return $this->fail('permission denied',401);
+
+        return $this->fail('permission denied', 401);
     }
 }

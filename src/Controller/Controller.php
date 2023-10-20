@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Controller;
-
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -16,25 +14,27 @@ use Latent\ElAdmin\Exceptions\ValidateException;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Response;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
+    use Response;
 
     /**
-     * check params
+     * check params.
+     *
      * @param array $rule
-     * @param array $params
-     * @param array $message
-     * @return JsonResponse|string|array|null
      */
-    public function validator(array $rules, array $params =[], array $message=[]): JsonResponse|string|array|null
+    public function validator(array $rules, array $params = [], array $message = []): JsonResponse|string|array|null
     {
-        if(empty($params)) {
+        if (empty($params)) {
             $params = request()->post();
         }
 
-        $validate = Validator::make($params,$rules,$message);
-        if($validate->fails()) {
+        $validate = Validator::make($params, $rules, $message);
+        if ($validate->fails()) {
             throw new ValidateException($validate->errors()->first());
         }
+
         return $params;
     }
 }

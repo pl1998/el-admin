@@ -12,30 +12,27 @@ Route::group([
     'middleware' => ['auth:api'],
     'prefix' => 'api/v1/el_admin',
 ], function () {
-
-    Route::post('login', [AuthController::class,'login'])->withoutMiddleware('auth:api');
-    Route::post('logout', [AuthController::class,'logout']);
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('me', [AuthController::class,'me']);
+    Route::post('login', [AuthController::class, 'login'])->withoutMiddleware('auth:api');
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 
     Route::group([
-       'middleware' =>RbacMiddleware::class
-    ],function () {
+       'middleware' => RbacMiddleware::class,
+    ], function () {
+        Route::resource('role', RolesController::class)->only([
+            'index', 'store', 'update', 'destroy',
+        ]);
+        Route::resource('menu', MenusController::class)->only([
+            'index', 'store', 'update', 'destroy',
+        ]);
+        Route::resource('user', UsersController::class)->only([
+            'index', 'store', 'update', 'destroy',
+        ]);
+        Route::resource('log', LogsController::class)->only([
+            'index', 'destroy',
+        ]);
 
-        Route::resource('role',RolesController::class)->only([
-            'index','store', 'update', 'destroy'
-        ]);
-        Route::resource('menu',MenusController::class)->only([
-            'index','store', 'update', 'destroy'
-        ]);
-        Route::resource('user',UsersController::class)->only([
-            'index','store', 'update', 'destroy'
-        ]);
-        Route::resource('log',LogsController::class)->only([
-            'index', 'destroy'
-        ]);
-
-        Route::get('roleMenus', [MenusController::class,'getRoleMenu']);
-
+        Route::get('roleMenus', [MenusController::class, 'getRoleMenu']);
     });
 });

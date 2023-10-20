@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Models;
 
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +12,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminUser extends Authenticatable implements JWTSubject
 {
-
     use Notifiable;
 
     // Rest omitted for brevity
@@ -37,7 +35,7 @@ class AdminUser extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
         'deleted_at',
-        'status'
+        'status',
     ];
 
     /**
@@ -59,24 +57,29 @@ class AdminUser extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
     /**
-     * Get User Avatar
+     * Get User Avatar.
+     *
      * @return array|mixed|string
      */
     public function getAvatarAttribute()
     {
         $avatar = $this->attributes['avatar'];
-        if($avatar) {
-            if(! URL::isValidUrl($avatar)) {
-                $avatar =  Storage::disk('public')->files($avatar);
+        if ($avatar) {
+            if (!URL::isValidUrl($avatar)) {
+                $avatar = Storage::disk('public')->files($avatar);
             }
-        }else{
+        } else {
             $avatar = asset(config('el_admin.logo'));
         }
+
         return $avatar;
     }
+
     /**
-     * Get User Roles
+     * Get User Roles.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
@@ -85,7 +88,6 @@ class AdminUser extends Authenticatable implements JWTSubject
 
         $relatedModel = config('el_admin.database.roles_model');
 
-        return $this->belongsToMany($pivotTable,$relatedModel,'user_id','role_id')->withTimestamps();
+        return $this->belongsToMany($pivotTable, $relatedModel, 'user_id', 'role_id')->withTimestamps();
     }
-
 }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Http\JsonResponse;
@@ -16,8 +15,8 @@ use Latent\ElAdmin\Services\AuthServices;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Support\Helpers;
 
-#[Group("用户登录相关", "用户登录相关接口")]
-#[Subgroup("Auth", "登录控制器")]
+#[Group('用户登录相关', '用户登录相关接口')]
+#[Subgroup('Auth', '登录控制器')]
 class AuthController extends Controller
 {
     use Permission;
@@ -31,12 +30,9 @@ class AuthController extends Controller
 
     /**
      * Get a JWT via given credentials.
-     *
-     * @return JsonResponse
      */
-
-    #[BodyParam("email", "string", "邮箱")]
-    #[BodyParam("password", "string", "密码")]
+    #[BodyParam('email', 'string', '邮箱')]
+    #[BodyParam('password', 'string', '密码')]
     #[Response(<<<JSON
 {
     "access_token": "token",
@@ -44,25 +40,23 @@ class AuthController extends Controller
     "expires_in": 216000
 }
 JSON)]
-    public function login() :JsonResponse
+    public function login(): JsonResponse
     {
         $params = $this->validator([
             'email' => 'required|email',
-            'password' => 'required|min:6|max:20'
+            'password' => 'required|min:6|max:20',
         ]);
 
-        if (! $token = auth($this->guard)->attempt(Arr::only($params,['email','password']))) {
+        if (!$token = auth($this->guard)->attempt(Arr::only($params, ['email', 'password']))) {
             return $this->fail(trans('admin::auth.login_error'));
         }
-        return (new AuthServices())->respondWithToken((string)$token);
+
+        return (new AuthServices())->respondWithToken((string) $token);
     }
 
     /**
      * Get the authenticated User.
-     *
-     * @return JsonResponse
      */
-
     #[Authenticated]
     #[Response(<<<JSON
 {
@@ -81,21 +75,19 @@ JSON)]
     "status": 200
 }
 JSON)]
-    public function me() :JsonResponse
+    public function me(): JsonResponse
     {
         $user = auth($this->guard)->user()?->toArray();
-        list($menus,$nodes) = $this->getUserMenusAndNode();
+        list($menus, $nodes) = $this->getUserMenusAndNode();
         $menus = Helpers::getTree($menus);
         $nodes = Helpers::getTree($nodes);
-        return $this->success(array_merge($user,['menus' => $menus,'nodes' => $nodes]));
+
+        return $this->success(array_merge($user, ['menus' => $menus, 'nodes' => $nodes]));
     }
 
     /**
      * Log the user out (Invalidate the token).
-     *
-     * @return JsonResponse
      */
-
     #[Authenticated]
     #[Response(<<<JSON
 {
@@ -104,7 +96,7 @@ JSON)]
     "status": 200
 }
 JSON)]
-    public function logout() :JsonResponse
+    public function logout(): JsonResponse
     {
         auth($this->guard)->logout();
 
@@ -113,10 +105,7 @@ JSON)]
 
     /**
      * Refresh a token.
-     *
-     * @return JsonResponse
      */
-
     #[Authenticated]
     #[Response(<<<JSON
 {
@@ -125,10 +114,8 @@ JSON)]
     "expires_in": 216000
 }
 JSON)]
-    public function refresh() :JsonResponse
+    public function refresh(): JsonResponse
     {
-        return (new AuthServices())->respondWithToken((string)(auth($this->guard)->refresh()));
+        return (new AuthServices())->respondWithToken((string) auth($this->guard)->refresh());
     }
-
-
 }
