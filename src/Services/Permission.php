@@ -57,13 +57,36 @@ trait Permission
         ];
     }
 
+    /**
+     * @return array|null
+     * @throws InvalidArgumentException
+     */
+    public function getUserRoutes() :array
+    {
+        $list = $this->getUserMenus();
+        return   collect($list)->where('type', ModelEnum::MENU)->map(function ($menu){
+            return [
+                'meta' => [
+                    'title' => $menu->name,
+                    'icon'  => $menu->icon,
+                ],
+                'path'      => $menu->route_path,
+                'component' => $menu->component,
+                'redirect'  => '/',
+                'name'      => $menu->route_name,
+                'parent_id' => $menu->parent_id,
+                'id'        => $menu->id
+            ];
+        })?->toArray();
+    }
+
     public function getRoleMenus(array $roleId): array
     {
         $menes = [];
         $this->getRoleMenusModel()
             ->with('menus')
             ->where('role_id', $roleId)
-            ->get()
+            ->get([''])
             ->map(function ($items) use (&$menes) {
                 if (!empty($items->menus)) {
                     foreach ($items->menus as $item) {

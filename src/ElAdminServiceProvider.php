@@ -74,10 +74,10 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     protected function loadTranslations(): void
     {
-        // release lang
-        $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath(),'el-admin-lang'
-        ]);
+//        // release lang
+//        $this->publishes([
+//            __DIR__.'/../lang' => $this->app->langPath(),'el-admin-lang'
+//        ]);
     }
 
     /**

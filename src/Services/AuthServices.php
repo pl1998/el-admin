@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Services;
 
 use Illuminate\Http\JsonResponse;
+use Latent\ElAdmin\Traits\Response;
 
 class AuthServices
 {
+    use Response;
     /**
      * Get the token array structure.
      */
@@ -15,12 +17,10 @@ class AuthServices
     {
         app()->make(LogWriteService::class)->handle();
 
-        return response()->json([
+        return  $this->success([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => (auth(config('el_admin.guard'))->factory()->getTTL() ?? 0) * 60,
-            'status'     => 200,
-            'message'    => 'Success'
         ]);
     }
 }

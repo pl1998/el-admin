@@ -10,6 +10,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 use Latent\ElAdmin\Services\MenuServices;
 use Latent\ElAdmin\Services\Permission;
 use Illuminate\Http\JsonResponse;
+use Latent\ElAdmin\Support\Helpers;
 
 class MenusController extends Controller
 {
@@ -117,5 +118,18 @@ JSON)]
         $params = $this->validator(['id' => 'required|int']);
 
         return $this->success($this->getRoleMenus($params));
+    }
+
+
+    /**
+     * @return JsonResponse
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    #[Authenticated]
+    public function getRouteList()
+    {
+        return $this->success(Helpers::getTree(
+            $this->getUserRoutes()
+        ));
     }
 }

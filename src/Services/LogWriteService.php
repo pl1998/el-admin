@@ -35,16 +35,16 @@ class LogWriteService
 
         $this->getLogModel()
             ->create([
-                'user_id' => $user->id ?? 0,
+                'user_id'   => $user->id ?? 0,
                 'user_name' => $user->name ?? '未知',
-                'param' => Helpers::filterParams($params, $this->filters),
-                'method' => MethodEnum::METHOD[strtolower(request()->method())],
-                'ip' => ip2long(request()->ip()),
-                'path' => request()->path(),
+                'param'     => Helpers::filterParams($params, $this->filters),
+                'method'    => MethodEnum::METHOD[strtolower(request()->method())],
+                'ip'        => ip2long(request()->ip()),
+                'path'      => request()->path(),
                 'device_info' => json_encode([
-                    'device' => $this->agent->device(),
+                    'device'   => $this->agent->device(),
                     'platform' => $this->agent->platform(),
-                    'browser' => $this->agent->browser(),
+                    'browser'  => $this->agent->browser(),
                 ], JSON_UNESCAPED_UNICODE),
             ]);
     }

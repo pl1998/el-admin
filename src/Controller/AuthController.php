@@ -58,6 +58,7 @@ JSON)]
      * Get the authenticated User.
      */
     #[Authenticated]
+    #[BodyParam('is_menus', 'bool', '是否通过该接口获取菜单信息 默认不展示 展示为 true')]
     #[Response(<<<JSON
 {
     "data": {
@@ -78,11 +79,13 @@ JSON)]
     public function me(): JsonResponse
     {
         $user = auth($this->guard)->user()?->toArray();
-        list($menus, $nodes) = $this->getUserMenusAndNode();
-        $menus = Helpers::getTree($menus);
-        $nodes = Helpers::getTree($nodes);
-
-        return $this->success(array_merge($user, ['menus' => $menus, 'nodes' => $nodes]));
+        if(request()->post('is_menus')) {
+            list($menus, $nodes) = $this->getUserMenusAndNode();
+            $menus = Helpers::getTree($menus);
+            $nodes = Helpers::getTree($nodes);
+            $user = array_merge($user, ['menus' => $menus, 'nodes' => $nodes]);
+        }
+        return $this->success($user);
     }
 
     /**

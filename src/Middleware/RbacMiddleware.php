@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Middleware;
 
+use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Closure;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Services\LogWriteService;
 use Latent\ElAdmin\Services\Permission;
-use Latent\ElAdmin\Controller\Response as ApiResponse;
+use Latent\ElAdmin\Traits\Response as ApiResponse;
 
 class RbacMiddleware
 {

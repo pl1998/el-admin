@@ -22,10 +22,9 @@ return new class() extends Migration {
             $table->string('path')->default('')->comment('api path');
             $table->string('ip_address')->default(0)->comment('ip address');
             $table->tinyInteger('is_danger')->default(0)->comment('danger or not request 0.no 1.yes');
-            $table->json('device_info')->default('')->comment('device info');
+            $table->string('device_info')->comment('device info');
             $table->comment('admin logs');
             $table->timestamps();
-            $table->index('created_at');
         });
     }
 
