@@ -29,16 +29,18 @@ class UsersController extends Controller
      */
     public function store(UserService $userService): JsonResponse
     {
-        $params = $this->validator([
-            'name' => 'required|string|unique:connection.'.config('el_admin.database.connection').
-                ','.config('el_admin.database.users_table'),
-            'email' => 'required|email|unique:connection.'.config('el_admin.database.connection').',
-            '.config('el_admin.database.users_table'),
-            'password' => 'required|min:6|max:20',
-            'rule' => 'array',
-        ]);
+        try {
+            $params = $this->validator([
+                'name' => 'required|string|'.$this->getTableRules('unique','users_table'),
+                'email' => 'required|email|'.$this->getTableRules('unique','users_table'),
+                'password' => 'required|min:6|max:20',
+                'rule' => 'array',
+            ]);
 
-        $userService->add($params);
+            $userService->add($params);
+        }catch (Throwable $e) {
+            return  $this->fail($e->getMessage().$e->getFile().$e->getLine());
+        }
 
         return $this->success();
     }

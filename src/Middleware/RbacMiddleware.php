@@ -26,11 +26,11 @@ class RbacMiddleware
         $request->path();
 
         app()->make(LogWriteService::class)->handle();
-
+        return $next($request);
         if ($this->checkApiPermission($request->path(), $request->method())) {
             return $next($request);
         }
 
-        return $this->fail('permission denied', 401);
+        return $this->fail(trans('el_admin.permission_error'), 401);
     }
 }

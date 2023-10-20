@@ -21,7 +21,7 @@ class ElAdminSeeder extends Seeder
         AdminUser::create([
             'name' => 'Administrator',
             'password' => Hash::make('123456'),
-            'email' => 'admin@gamil.com',
+            'email' => 'admin@gmail.com',
             'created_at' => $created,
         ]);
 

@@ -18,7 +18,7 @@
         "php": "^8.0",
         "tymon/jwt-auth": "^2.0",
         "illuminate/support": "~9|~10",
-        "jenssegers/agent": "^3.0@dev"
+        "jenssegers/agent": "v2.6.4"
     },
     "autoload": {
         "psr-4": {
@@ -42,6 +42,8 @@
     },
     "minimum-stability": "dev",
     "require-dev": {
-        "knuckleswtf/scribe": "dev-master"
+        "knuckleswtf/scribe": "dev-master",
+        "phpunit/phpunit": "9.6.x-dev",
+        "mockery/mockery": "1.7.x-dev"
     }
 }

@@ -19,6 +19,8 @@ class AuthServices
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => (auth(config('el_admin.guard'))->factory()->getTTL() ?? 0) * 60,
+            'status'     => 200,
+            'message'    => 'Success'
         ]);
     }
 }
