@@ -36,8 +36,14 @@ class Helpers
         }
     }
 
+
     /**
-     * Get the infinity tree.
+     * @param $list
+     * @param string $pk
+     * @param string $pid
+     * @param string|array|null $child
+     * @param int $root
+     * @return array
      */
     public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0): array
     {

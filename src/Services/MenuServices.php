@@ -11,14 +11,18 @@ class MenuServices
     use Permission;
 
     /** @var array request params */
-    protected array $params = [];
+    public array $params = [];
 
+    /**
+     * @param array $params
+     * @return array
+     */
     public function list(array $params): array
     {
+        $this->params = $params;
         $query = $this->getMenusModel()
             ->when(!empty($params['name']), function ($q) {
-                $q->where('name', 'like', "{$this->params['name']}")
-                    ->orWhere('route_name', 'like', "{$this->params['name']}");
+                $q->where('name', 'like', "{$this->params['name']}%")->orWhere('route_name', 'like', "{$this->params['name']}%");
             })
             ->when(!empty($params['type']), function ($q) {
                 $q->where('type', "{$this->params['type']}");
@@ -28,12 +32,12 @@ class MenuServices
             })
             ->when(!empty($params['hidden']), function ($q) {
                 $q->where('hidden', "{$this->params['hidden']}");
-            })->orderDesc('sort');
+            })->orderByDesc('sort');
 
         return [
-            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
+            'list'  =>Helpers::getTree($query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray()) ,
             'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 
