@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Latent\ElAdmin\Enum\ModelEnum;
 
-class AdminRoleMenu extends Admin
+class AdminRoleMenu extends Model
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

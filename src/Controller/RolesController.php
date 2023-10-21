@@ -91,10 +91,10 @@ JSON)]
     public function update($id, RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
-            'id' => 'required|exists:connection.'.config('el_admin.database.connection').','.config('el_admin.database.roles_table').',id',
+            'id' => 'required|'.$this->getTableRules('exists','roles_table'),
             'name' => 'required|string|min:1,max:20',
-            'menu' => 'required|array',
-        ], array_merge(request()->post(), ['id' => $id]));
+            'menu' => 'array',
+        ], array_merge(request()->input(), ['id' => $id]));
 
         $roleServices->update($params);
 

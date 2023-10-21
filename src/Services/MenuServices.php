@@ -31,7 +31,7 @@ class MenuServices
             })->orderDesc('sort');
 
         return [
-            'list' => $query->page($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
+            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
             'total' => $query->count(),
             'page' => (int) ($params['page'] ?? 1),
         ];

@@ -18,9 +18,9 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::get('getRouteList', [MenusController::class, 'getRouteList']);
-
+    Route::get('getAllMenus', [MenusController::class, 'getAllMenus']);
     Route::group([
-       'middleware' => RbacMiddleware::class,
+        'middleware' => RbacMiddleware::class,
     ], function () {
         Route::resource('role', RolesController::class)->only([
             'index', 'store', 'update', 'destroy',

@@ -6,6 +6,7 @@ namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Support\Helpers;
 use Throwable;
 
@@ -13,17 +14,37 @@ class UserService
 {
     use Permission;
 
+    /**
+     * get User List
+     * @param array $params
+     * @return array
+     */
     public function list(array $params): array
     {
         $query = $this->getUserModel()
+            ->with('roles')
             ->when(!empty($params['name']), function ($q) use ($params) {
                 $q->where('name', 'like', "{$params['name']}");
+            })
+            ->when(!empty($params['email']), function ($q) use ($params) {
+                $q->where('email', 'like', "{$params['email']}");
             });
 
+        $list = $query
+            ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
+            ->get()
+            ->map(function ($user){
+                $data = $user->toArray();
+                $data['roles'] = Helpers::getKeyValue(
+                    collect($data['roles'])
+                        ->where('status',ModelEnum::NORMAL)?->toArray()
+                    ,['id','name']);
+                return $data;
+            })?->toArray();
         return [
-            'list' => $query->page($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
+            'list'  => $list,
             'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 

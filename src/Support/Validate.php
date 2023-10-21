@@ -40,12 +40,12 @@ trait Validate
      * @param int $id
      * @return string
      */
-    public function getTableRules(string $rules,string $table, int $id = 0): string
+    public function getTableRules(string $rules,string $table, string $filed = ''): string
     {
         $table = config('el_admin.database.'.$table);
         $conn = config('el_admin.database.connection');
-        if($id) {
-            return "$rules:$conn.$table,".$id;
+        if(!empty($filed)) {
+            return "$rules:$conn.$table,".$filed;
         }
         return "$rules:$conn.$table";
     }

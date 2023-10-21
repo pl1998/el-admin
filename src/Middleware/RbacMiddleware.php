@@ -24,8 +24,7 @@ class RbacMiddleware
     public function handle(Request $request, Closure $next)
     {
         $request->path();
-
-        app()->make(LogWriteService::class)->handle();
+        app()->make(config('el_admin.log_class'))->handle();
         return $next($request);
         if ($this->checkApiPermission($request->path(), $request->method())) {
             return $next($request);

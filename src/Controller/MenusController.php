@@ -7,6 +7,7 @@ namespace Latent\ElAdmin\Controller;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\UrlParam;
+use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Services\MenuServices;
 use Latent\ElAdmin\Services\Permission;
 use Illuminate\Http\JsonResponse;
@@ -134,10 +135,6 @@ JSON)]
                 "title": "演示",
                 "icon": "sidebar-default"
             },
-            "path": "/",
-            "component": "",
-            "redirect": "/",
-            "name": "",
             "parent_id": 0,
             "id": 1,
             "children": [
@@ -151,47 +148,7 @@ JSON)]
                     "redirect": "/",
                     "name": "multilevelMenuExample",
                     "parent_id": 1,
-                    "id": 2,
-                    "children": [
-                        {
-                            "meta": {
-                                "title": "导航1",
-                                "icon": "sidebar-menu "
-                            },
-                            "path": "page",
-                            "component": "multilevel_menu_example/page.vue",
-                            "redirect": "/",
-                            "name": "multilevelMenuExample1",
-                            "parent_id": 2,
-                            "id": 3
-                        },
-                        {
-                            "meta": {
-                                "title": "导航2",
-                                "icon": "sidebar-menu "
-                            },
-                            "path": "level2",
-                            "component": "/multilevel_menu_example/level2/page",
-                            "redirect": "/",
-                            "name": "multilevelMenuExample2",
-                            "parent_id": 2,
-                            "id": 4,
-                            "children": [
-                                {
-                                    "meta": {
-                                        "title": "导航2-1",
-                                        "icon": "sidebar-menu"
-                                    },
-                                    "path": "page",
-                                    "component": "multilevel_menu_example/level2/page.vue",
-                                    "redirect": "/",
-                                    "name": "multilevelMenuExample2-1",
-                                    "parent_id": 4,
-                                    "id": 5
-                                }
-                            ]
-                        }
-                    ]
+                    "id": 2
                 }
             ]
         }
@@ -202,8 +159,23 @@ JSON)]
 JSON)]
     public function getRouteList()
     {
+        $params = $this->validator([
+            'type' => 'int|in:0,1',
+            'route' => 'int|in:0,1,2'
+        ]);
+
         return $this->success(Helpers::getTree(
-            $this->getUserRoutes()
+            $this->getUserRoutes($params)
         ));
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getAllMenus() :JsonResponse
+    {
+        $list = $this->getMenusModel()->where('hidden',ModelEnum::NORMAL)
+            ->get()?->toArray();
+        return $this->success(Helpers::getTree($list));
     }
 }

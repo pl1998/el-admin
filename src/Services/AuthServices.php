@@ -15,7 +15,7 @@ class AuthServices
      */
     public function respondWithToken(string $token): JsonResponse
     {
-        app()->make(LogWriteService::class)->handle();
+        app()->make(config('el_admin.log_class'))->handle();
 
         return  $this->success([
             'access_token' => $token,

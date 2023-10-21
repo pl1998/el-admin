@@ -4,22 +4,38 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Models;
 
-use Latent\ElAdmin\Enum\ModelEnum;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AdminRole extends Admin
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function allRoleMenus()
-    {
-        return $this->hasMany(config('el_admin.database.role_menus_model'), 'role_id', 'id')
-            ->where('status', ModelEnum::NORMAL);
-    }
-
     /** @var string[] */
     protected $fillable = [
         'name',
         'status',
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'deleted_at',
+        'updated_at',
+    ];
+
+    /**
+     * Get User Roles.
+     *
+     * @return BelongsToMany
+     */
+    public function menus(): BelongsToMany
+    {
+        $pivotTable = config('el_admin.database.menus_model');
+
+        $table = config('el_admin.database.role_menus_model');
+
+        return $this->belongsToMany($pivotTable, $table, 'role_id','menu_id')
+            ->withTimestamps();
+    }
 }

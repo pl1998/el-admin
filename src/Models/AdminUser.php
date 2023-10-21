@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -29,6 +30,7 @@ class AdminUser extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'status',
     ];
 
     /**
@@ -40,7 +42,6 @@ class AdminUser extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
         'deleted_at',
-        'status',
     ];
 
     /**
@@ -48,7 +49,7 @@ class AdminUser extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
@@ -58,7 +59,7 @@ class AdminUser extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
@@ -68,7 +69,7 @@ class AdminUser extends Authenticatable implements JWTSubject
      *
      * @return array|mixed|string
      */
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): mixed
     {
         $avatar = $this->attributes['avatar'];
         if ($avatar) {
@@ -85,14 +86,14 @@ class AdminUser extends Authenticatable implements JWTSubject
     /**
      * Get User Roles.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function roles()
+    public function roles(): BelongsToMany
     {
-        $pivotTable = config('el_admin.database.user_roles_model');
+        $pivotTable = config('el_admin.database.roles_model');
 
-        $relatedModel = config('el_admin.database.roles_model');
+        $table = config('el_admin.database.user_roles_table');
 
-        return $this->belongsToMany($pivotTable, $relatedModel, 'user_id', 'role_id')->withTimestamps();
+        return $this->belongsToMany($pivotTable, $table, 'user_id','role_id')->withTimestamps();
     }
 }

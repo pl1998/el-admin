@@ -16,8 +16,9 @@ class UsersController extends Controller
     public function index(UserService $userService): JsonResponse
     {
         $params = $this->validator([
-            'name' => 'string|min:1,max:20',
-            'page' => 'integer',
+            'name'  => 'string|min:1,max:20',
+            'email' => 'string|min:1,max:30',
+            'page'  => 'integer',
             'page_size' => 'integer',
         ]);
 
@@ -53,8 +54,8 @@ class UsersController extends Controller
     {
         $params = $this->validator([
             'id'       => 'required|'.$this->getTableRules('exists','users_table'),
-            'name'     => 'string|'.$this->getTableRules('unique','users_table',(int)$id),
-            'email'    => 'email|'.$this->getTableRules('unique','users_table',(int)$id),
+            'name'     => 'string|'.$this->getTableRules('unique','users_table','id'),
+            'email'    => 'email|'.$this->getTableRules('unique','users_table','id'),
             'password' => 'min:6|max:20',
             'repeated_password' => 'min:6|max:20|current_password',
             'rule'     => 'array',
