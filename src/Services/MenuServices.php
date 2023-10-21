@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Services;
 
+use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Support\Helpers;
 
 class MenuServices
@@ -48,8 +49,10 @@ class MenuServices
      */
     public function add(array $params)
     {
-        $this->getMenusModel()->create(Helpers::filterNull([
+
+        $create = Helpers::filterNull([
             'name' => $params['name'] ?? null,
+            'method' => $params['method'] ?? null,
             'sort' => $params['sort'] ?? null,
             'parent_id' => $params['parent_id'] ?? null,
             'route_path' => $params['route_path'] ?? null,
@@ -58,7 +61,12 @@ class MenuServices
             'component' => $params['component'] ?? null,
             'route_name' => $params['route_name'] ?? null,
             'icon' => $params['icon'] ?? null,
-        ]));
+        ]);
+
+        if($params['type'] == ModelEnum::API) {
+            unset($params['component']);
+        }
+        $this->getMenusModel()->create($create);
     }
 
     /**

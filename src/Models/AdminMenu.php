@@ -9,12 +9,15 @@ class AdminMenu extends Admin
     /** @var string[] */
     protected $fillable = [
         'parent_id',
+        'name',
         'icon',
         'route_name',
         'route_path',
-        'method',
         'component',
         'sort',
         'type',
+        'method',
+        'hidden',
+        'perm',
     ];
 }

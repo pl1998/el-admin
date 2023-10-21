@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\UrlParam;
@@ -52,15 +53,16 @@ JSON)]
     public function store(MenuServices $menuServices)
     {
         $params = $this->validator([
-            'name' => 'required|string',
+            'name' => 'required|string|max:30',
             'sort' => 'required|int',
             'parent_id' => 'required|int',
             'route_path' => 'required|string',
             'type' => 'int|in:0,1',
-            'hidden' => 'int|in:0,1',
-            'component' => 'exclude_if:type,1|string',
-            'route_name' => 'required|exclude_if:type,1|string',
-            'icon' => 'required|exclude_if:type,1|string',
+            'method' => 'required|int|in:0,1,2,3,4,5,6',
+            'hidden' => 'boolean',
+            'component' => 'exclude_if:type,1|required|string',
+            'route_name' => 'nullable',
+            'icon' => 'exclude_if:type,1|required|string',
         ]);
 
         $menuServices->add($params);
