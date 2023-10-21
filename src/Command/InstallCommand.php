@@ -30,6 +30,8 @@ class InstallCommand extends Command
      */
     public function handle(): int
     {
+        (new ElAdminSeeder())
+            ->run();die;
         if(!file_exists(base_path().'/.env')) {
             ShellCommand::execute('cp .env.example .env');
         }

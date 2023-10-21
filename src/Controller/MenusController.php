@@ -126,6 +126,80 @@ JSON)]
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     #[Authenticated]
+    #[Response(<<<JSON
+{
+    "data": [
+        {
+            "meta": {
+                "title": "演示",
+                "icon": "sidebar-default"
+            },
+            "path": "/",
+            "component": "",
+            "redirect": "/",
+            "name": "",
+            "parent_id": 0,
+            "id": 1,
+            "children": [
+                {
+                    "meta": {
+                        "title": "多级导航",
+                        "icon": "sidebar-menu "
+                    },
+                    "path": "/multilevel_menu_example",
+                    "component": "Layout",
+                    "redirect": "/",
+                    "name": "multilevelMenuExample",
+                    "parent_id": 1,
+                    "id": 2,
+                    "children": [
+                        {
+                            "meta": {
+                                "title": "导航1",
+                                "icon": "sidebar-menu "
+                            },
+                            "path": "page",
+                            "component": "multilevel_menu_example/page.vue",
+                            "redirect": "/",
+                            "name": "multilevelMenuExample1",
+                            "parent_id": 2,
+                            "id": 3
+                        },
+                        {
+                            "meta": {
+                                "title": "导航2",
+                                "icon": "sidebar-menu "
+                            },
+                            "path": "level2",
+                            "component": "/multilevel_menu_example/level2/page",
+                            "redirect": "/",
+                            "name": "multilevelMenuExample2",
+                            "parent_id": 2,
+                            "id": 4,
+                            "children": [
+                                {
+                                    "meta": {
+                                        "title": "导航2-1",
+                                        "icon": "sidebar-menu"
+                                    },
+                                    "path": "page",
+                                    "component": "multilevel_menu_example/level2/page.vue",
+                                    "redirect": "/",
+                                    "name": "multilevelMenuExample2-1",
+                                    "parent_id": 4,
+                                    "id": 5
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "message": "success",
+    "status": 200
+}
+JSON)]
     public function getRouteList()
     {
         return $this->success(Helpers::getTree(

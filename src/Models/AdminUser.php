@@ -14,6 +14,11 @@ class AdminUser extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
     // Rest omitted for brevity
     /**
      * The attributes that are mass assignable.

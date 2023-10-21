@@ -17,8 +17,8 @@ trait Response
     /** @var string|null  */
     public null|string $message;
 
-    /** @var array|object  */
-    public array|object|null $data ;
+    /** @var  */
+    public  $data ;
 
     /**
      * @param int $code

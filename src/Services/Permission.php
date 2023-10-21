@@ -65,18 +65,25 @@ trait Permission
     {
         $list = $this->getUserMenus();
         return   collect($list)->where('type', ModelEnum::MENU)->map(function ($menu){
-            return [
+            $data =  [
                 'meta' => [
-                    'title' => $menu->name,
-                    'icon'  => $menu->icon,
+                    'title' => $menu['name'],
+                    'icon'  => $menu['icon'],
                 ],
-                'path'      => $menu->route_path,
-                'component' => $menu->component,
+                'path'      => $menu['route_path'],
+                'component' => $menu['component'],
                 'redirect'  => '/',
-                'name'      => $menu->route_name,
-                'parent_id' => $menu->parent_id,
-                'id'        => $menu->id
+                'name'      => $menu['route_name'],
+                'parent_id' => $menu['parent_id'],
+                'id'        => $menu['id'],
             ];
+//            if($menu['parent_id'] ==0) {
+//                unset($data['redirect']);
+//                unset($data['component']);
+//                unset($data['name']);
+//                unset($data['path']);
+//            }
+            return $data;
         })?->toArray();
     }
 
@@ -86,7 +93,7 @@ trait Permission
         $this->getRoleMenusModel()
             ->with('menus')
             ->where('role_id', $roleId)
-            ->get([''])
+            ->get()
             ->map(function ($items) use (&$menes) {
                 if (!empty($items->menus)) {
                     foreach ($items->menus as $item) {

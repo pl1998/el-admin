@@ -78,8 +78,11 @@ JSON)]
 JSON)]
     public function me(): JsonResponse
     {
+        $params = $this->validator([
+            'is_menus' => 'int|in:0,1'
+        ]);
         $user = auth($this->guard)->user()?->toArray();
-        if(request()->post('is_menus')) {
+        if(!empty($params['is_menus'])) {
             list($menus, $nodes) = $this->getUserMenusAndNode();
             $menus = Helpers::getTree($menus);
             $nodes = Helpers::getTree($nodes);
