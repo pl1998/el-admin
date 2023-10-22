@@ -30,8 +30,7 @@ class InstallCommand extends Command
      */
     public function handle(): int
     {
-
-        if(!file_exists(base_path().'/.env')) {
+        if (!file_exists(base_path().'/.env')) {
             ShellCommand::execute('cp .env.example .env');
         }
 

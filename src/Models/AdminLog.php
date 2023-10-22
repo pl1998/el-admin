@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdminLog extends Model
 {
-
     /**
      * @var string[]
      */
@@ -34,14 +33,14 @@ class AdminLog extends Model
     ];
 
     /**
-     * @param $key
      * @return false|string
      */
     public function getIpAttribute($key)
     {
-        if(is_numeric($key)) {
+        if (is_numeric($key)) {
             return long2ip($key);
         }
-        return  $key;
+
+        return $key;
     }
 }

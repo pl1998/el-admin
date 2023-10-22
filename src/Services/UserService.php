@@ -15,9 +15,7 @@ class UserService
     use Permission;
 
     /**
-     * get User List
-     * @param array $params
-     * @return array
+     * get User List.
      */
     public function list(array $params): array
     {
@@ -33,18 +31,19 @@ class UserService
         $list = $query
             ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
             ->get()
-            ->map(function ($user){
+            ->map(function ($user) {
                 $data = $user->toArray();
                 $data['roles'] = Helpers::getKeyValue(
                     collect($data['roles'])
-                        ->where('status',ModelEnum::NORMAL)?->toArray()
-                    ,['id','name']);
+                        ->where('status', ModelEnum::NORMAL)?->toArray(), ['id', 'name']);
+
                 return $data;
             })?->toArray();
+
         return [
-            'list'  => $list,
+            'list' => $list,
             'total' => $query->count(),
-            'page'  => (int) ($params['page'] ?? 1),
+            'page' => (int) ($params['page'] ?? 1),
         ];
     }
 
@@ -64,7 +63,7 @@ class UserService
                 'updated_at' => $date,
             ]);
             $userRoles = [];
-            if(!empty($params['role'])) {
+            if (!empty($params['role'])) {
                 foreach ($params['role'] as $roleId) {
                     $userRoles[] = [
                         'user_id' => $userId,
@@ -79,11 +78,7 @@ class UserService
         });
     }
 
-
     /**
-     *
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
     public function update(array $params): void
@@ -94,14 +89,14 @@ class UserService
             $userId = $params['id'];
 
             $save = Helpers::filterNull([
-                'name'     => $params['name'] ?? null,
-                'email'    => $params['email'] ?? null,
+                'name' => $params['name'] ?? null,
+                'email' => $params['email'] ?? null,
                 'password' => $params['password'] ? Hash::make($params['password']) : null,
             ]);
 
-            !empty($save) &&   $this->getUserModel()->where('id', $userId)->update($save);
+            !empty($save) && $this->getUserModel()->where('id', $userId)->update($save);
 
-            if(!empty($params['role'])) {
+            if (!empty($params['role'])) {
                 $userRoles = [];
                 foreach ($params['role'] as $roleId) {
                     $userRoles[] = [

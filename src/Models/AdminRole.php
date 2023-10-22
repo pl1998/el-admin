@@ -26,8 +26,6 @@ class AdminRole extends Admin
 
     /**
      * Get User Roles.
-     *
-     * @return BelongsToMany
      */
     public function menus(): BelongsToMany
     {
@@ -35,7 +33,7 @@ class AdminRole extends Admin
 
         $table = config('el_admin.database.role_menus_model');
 
-        return $this->belongsToMany($pivotTable, $table, 'role_id','menu_id')
+        return $this->belongsToMany($pivotTable, $table, 'role_id', 'menu_id')
             ->withTimestamps();
     }
 }

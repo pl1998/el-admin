@@ -15,12 +15,10 @@ trait Permission
 {
     use GetModelTraits;
 
-    /** @var array  */
     public array  $params = [];
 
     /**
-     * Get users all roles
-     * @return array|null
+     * Get users all roles.
      */
     public function getAllRoles(): ?array
     {
@@ -31,6 +29,7 @@ trait Permission
 
     /**
      * Get users all menus.
+     *
      * @throws InvalidArgumentException
      */
     public function getUserMenus(): array
@@ -42,7 +41,6 @@ trait Permission
         }
         $menes = $this->getRoleMenus($this->getAllRoles());
 
-
         MenusCache::setCache($userId, $menes);
 
         return $menes;
@@ -50,6 +48,7 @@ trait Permission
 
     /**
      * Get users all menus.
+     *
      * @throws InvalidArgumentException
      */
     public function getUserAllPermission(): array
@@ -81,104 +80,94 @@ trait Permission
         ];
     }
 
-
     /**
-     * @param array $params
      * @return array|null
+     *
      * @throws InvalidArgumentException
      */
-    public function getUserRoutes( array $params) :array
+    public function getUserRoutes(array $params): array
     {
         $this->params = $params;
         $list = $this->getUserMenus();
-        return   collect($list)
+
+        return collect($list)
             ->where('type', $this->params['type'])
-            ->map(function ($menu){
-            if(!empty($this->params['route']) && $this->params['route'] == ModelEnum::API) {
-                $data =  [
-                    'meta' => [
-                        'title' => $menu['name'],
-                        'icon'  => $menu['icon'],
-                    ],
-                    'type'      => $menu['type'],
-                    'path'      => $menu['route_path'],
-                    'component' => $menu['component'],
-                    'name'      => $menu['route_name'],
-                    'parent_id' => $menu['parent_id'],
-                    'id'        => $menu['id'],
-                ];
-                if($menu['parent_id'] ==0) {
-                    unset($data['redirect'],$data['component'],$data['name'],$data['path']);
+            ->map(function ($menu) {
+                if (!empty($this->params['route']) && ModelEnum::API == $this->params['route']) {
+                    $data = [
+                        'meta' => [
+                            'title' => $menu['name'],
+                            'icon' => $menu['icon'],
+                        ],
+                        'type' => $menu['type'],
+                        'path' => $menu['route_path'],
+                        'component' => $menu['component'],
+                        'name' => $menu['route_name'],
+                        'parent_id' => $menu['parent_id'],
+                        'id' => $menu['id'],
+                    ];
+                    if (0 == $menu['parent_id']) {
+                        unset($data['redirect'],$data['component'],$data['name'],$data['path']);
+                    }
+                } else {
+                    return Arr::only($menu, ['type', 'id', 'name', 'icon', 'parent_id']);
                 }
-            }else {
-                return Arr::only($menu,['type','id','name','icon','parent_id']);
-            }
-            return $data;
-        })?->toArray();
+
+                return $data;
+            })?->toArray();
     }
 
     /**
-     * get role menus
-     * @param array $roleId
-     * @return array
+     * get role menus.
      */
     public function getRoleMenus(array $roleId = []): array
     {
-        if(empty($roleId)) {
+        if (empty($roleId)) {
             return [];
         }
         $menus = [];
         $this->getRoleModel()
-            ->whereIn('id',$roleId)
+            ->whereIn('id', $roleId)
             ->with('menus')
             ->get()
-            ->map(function ($roles) use(&$menus){
+            ->map(function ($roles) use (&$menus) {
                 $data = $roles->toArray();
-                collect($data['menus'])->map(function ($item) use(&$menus){
-                        $menus[]=$item;
-                    })?->toArray();
+                collect($data['menus'])->map(function ($item) use (&$menus) {
+                    $menus[] = $item;
+                })?->toArray();
             })?->toArray();
+
         return $menus;
     }
 
-
     /**
      * check permission.
-     * @param string $path
-     * @param string $method
-     * @param string $routeName
-     * @return bool
+     *
      * @throws InvalidArgumentException
      */
-    public function checkApiPermission(string $path, string $method,  string $routeName): bool
+    public function checkApiPermission(string $path, string $method, string $routeName): bool
     {
         $menes = $this->getUserMenus();
 
         if (empty($menes)) {
             return false;
         }
-        if ($this->isCheck($menes,$method,'route_path',$path)){
+        if ($this->isCheck($menes, $method, 'route_path', $path)) {
             return true;
         }
-        if ($this->isCheck($menes,$method,'route_name',$routeName)){
+        if ($this->isCheck($menes, $method, 'route_name', $routeName)) {
             return true;
         }
+
         return false;
     }
 
-    /**
-     * @param array $menes
-     * @param string $method
-     * @param string $key
-     * @param string $value
-     * @return bool
-     */
-    protected function isCheck(array $menes,string $method, string $key, string $value ) :bool
+    protected function isCheck(array $menes, string $method, string $key, string $value): bool
     {
         return collect($menes)
             ->where('type', ModelEnum::API)
-            ->where($key,$value)
+            ->where($key, $value)
             ->where('method', MethodEnum::METHOD[strtolower($method)] ?? 1)
-            ->isEmpty() ? false :true;
+            ->isEmpty() ? false : true;
     }
 }

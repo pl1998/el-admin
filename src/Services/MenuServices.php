@@ -14,10 +14,6 @@ class MenuServices
     /** @var array request params */
     public array $params = [];
 
-    /**
-     * @param array $params
-     * @return array
-     */
     public function list(array $params): array
     {
         $this->params = $params;
@@ -39,9 +35,9 @@ class MenuServices
             })->orderBy('parent_id')->orderByDesc('sort');
 
         return [
-            'list'  =>Helpers::getTree($query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray()) ,
+            'list' => Helpers::getTree($query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray()),
             'total' => $query->count(),
-            'page'  => (int) ($params['page'] ?? 1),
+            'page' => (int) ($params['page'] ?? 1),
         ];
     }
 
@@ -52,7 +48,6 @@ class MenuServices
      */
     public function add(array $params)
     {
-
         $create = Helpers::filterNull([
             'name' => $params['name'] ?? null,
             'method' => $params['method'] ?? null,
@@ -66,7 +61,7 @@ class MenuServices
             'icon' => $params['icon'] ?? null,
         ]);
 
-        if($params['type'] == ModelEnum::API) {
+        if (ModelEnum::API == $params['type']) {
             unset($params['component']);
         }
         $this->getMenusModel()->create($create);

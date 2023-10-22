@@ -17,7 +17,9 @@ class ElAdminSeeder extends Seeder
      */
     public function run()
     {
-        if(env('APP_ENV') != 'local') return;
+        if ('local' != env('APP_ENV')) {
+            return;
+        }
 
         $created = date('Y-m-d H:i:s');
         // create users
@@ -295,19 +297,19 @@ class ElAdminSeeder extends Seeder
                 'type' => ModelEnum::API,
                 'created_at' => $created,
                 'updated_at' => $created,
-            ]
+            ],
         ]);
         // create permission
         AdminLog::truncate();
 
         AdminRoleMenu::truncate();
-        $addMenus=[];
+        $addMenus = [];
 
         AdminMenu::query()->pluck('id')
-            ->map(function ($id) use(&$addMenus){
+            ->map(function ($id) use (&$addMenus) {
                 $addMenus[] = [
                   'role_id' => 1,
-                  'menu_id' => $id
+                  'menu_id' => $id,
                 ];
             });
         AdminRoleMenu::query()->insert($addMenus);

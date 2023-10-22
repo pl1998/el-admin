@@ -15,11 +15,6 @@ class RoleServices
 {
     use GetModelTraits;
 
-
-    /**
-     * @param array $params
-     * @return array
-     */
     public function list(array $params): array
     {
         $query = $this->getRoleModel()
@@ -31,10 +26,11 @@ class RoleServices
         return [
             'list' => $query->forPage($params['page'] ?? 1, $params['page_size'])
                 ->get()
-                ->map(function ($roles){
+                ->map(function ($roles) {
                     $data = $roles->toArray();
                     $data['menus'] = collect($data['menus'])
-                        ->where('status',ModelEnum::NORMAL)?->toArray();
+                        ->where('status', ModelEnum::NORMAL)?->toArray();
+
                     return $data;
                 })?->toArray(),
             'total' => $query->count(),
@@ -66,7 +62,7 @@ class RoleServices
                     'updated_at' => $date,
                 ];
             }
-            if(!empty($roleMenus)) {
+            if (!empty($roleMenus)) {
                 $this->getRoleMenusModel()
                     ->insert($roleMenus);
                 // 清理缓存
@@ -98,15 +94,15 @@ class RoleServices
                 'status' => $params['status'] ?? null,
                 'name' => $params['name'] ?? null,
             ]);
-            if(!empty($save)) {
+            if (!empty($save)) {
                 $this->getRoleModel()
-                    ->where('id',$params['id'])
+                    ->where('id', $params['id'])
                     ->update($save);
             }
 
             $model = $this->getRoleMenusModel();
 
-            if(!empty($roleMenus)) {
+            if (!empty($roleMenus)) {
                 $model->where('role_id', $params['id'])->delete();
 
                 $model->insert($roleMenus);

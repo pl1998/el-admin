@@ -46,8 +46,6 @@ class AdminUser extends Authenticatable implements JWTSubject
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
      */
     public function getJWTIdentifier(): mixed
     {
@@ -56,8 +54,6 @@ class AdminUser extends Authenticatable implements JWTSubject
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
      */
     public function getJWTCustomClaims(): array
     {
@@ -85,8 +81,6 @@ class AdminUser extends Authenticatable implements JWTSubject
 
     /**
      * Get User Roles.
-     *
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -94,6 +88,6 @@ class AdminUser extends Authenticatable implements JWTSubject
 
         $table = config('el_admin.database.user_roles_table');
 
-        return $this->belongsToMany($pivotTable, $table, 'user_id','role_id')->withTimestamps();
+        return $this->belongsToMany($pivotTable, $table, 'user_id', 'role_id')->withTimestamps();
     }
 }

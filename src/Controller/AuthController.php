@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
     use Permission;
 
-    /** @var string|mixed  */
+    /** @var string|mixed */
     protected string $guard;
 
     public function __construct()
@@ -24,9 +24,7 @@ class AuthController extends Controller
         $this->guard = config('el_admin.guard');
     }
 
-
     /**
-     * @return JsonResponse
      * @throws ValidateException
      */
     public function login(): JsonResponse
@@ -43,31 +41,28 @@ class AuthController extends Controller
         return (new AuthServices())->respondWithToken((string) $token);
     }
 
-
     /**
      * Get the authenticated User.
-     * @return JsonResponse
+     *
      * @throws InvalidArgumentException
      * @throws ValidateException
      */
     public function me(): JsonResponse
     {
         $params = $this->validator([
-            'is_menus' => 'int|in:0,1'
+            'is_menus' => 'int|in:0,1',
         ]);
         $user = auth($this->guard)->user()?->toArray();
-        if(!empty($params['is_menus'])) {
+        if (!empty($params['is_menus'])) {
             list($menus, $nodes) = $this->getUserMenusAndNode();
             $menus = Helpers::getTree($menus);
             $nodes = Helpers::getTree($nodes);
             $user = array_merge($user, ['menus' => $menus, 'nodes' => $nodes]);
         }
+
         return $this->success($user);
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function logout(): JsonResponse
     {
         auth($this->guard)->logout();
@@ -75,10 +70,8 @@ class AuthController extends Controller
         return $this->success();
     }
 
-
     /**
      * Refresh a token.
-     * @return JsonResponse
      */
     public function refresh(): JsonResponse
     {
