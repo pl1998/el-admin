@@ -22,12 +22,6 @@ English | [简体中文](./README.zh_CN.md)
 
 ![](docs/database.png)
 
-### Getting started
-
-```shell
-composer require tymon/jwt-auth
-```
-
 ### Must
   * PHP  >= 8.0
   * Laravel 9~10
@@ -43,9 +37,15 @@ composer require "latent/el-admin"
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
 ```
 
-### Build
+### Other commands
 ```shell
 php artisan el-admin:install
+```
+
+### 其它命令
+```shell
+php artisan el-admin:el-admin:clear //Clear all menu caches
+php artisan el-admin:el-admin:clear {id} // Clears the specified user menu cache
 ```
 
 ### Update

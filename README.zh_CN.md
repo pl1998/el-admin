@@ -21,11 +21,6 @@
 
 ![](docs/database.png)
 
-### ElAdmin包 授权服务依赖于' tymon/jwt-auth '。
-
-```shell
-composer require tymon/jwt-auth
-```
 
 ### 依赖
 * PHP  >= 8.0
@@ -45,6 +40,12 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
 ### 执行构建脚本
 ```shell
 php artisan el-admin:install
+```
+
+### 其它命令
+```shell
+php artisan el-admin:el-admin:clear //清除全部菜单缓存
+php artisan el-admin:el-admin:clear {id} //清除指定用户菜单缓存
 ```
 
 ### 兼容
