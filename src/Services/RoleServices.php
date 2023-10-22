@@ -66,8 +66,12 @@ class RoleServices
                     'updated_at' => $date,
                 ];
             }
-            $this->getRoleMenusModel()
-                ->insert($roleMenus);
+            if(!empty($roleMenus)) {
+                $this->getRoleMenusModel()
+                    ->insert($roleMenus);
+                // 清理缓存
+                MenusCache::delMenusCache();
+            }
         });
     }
 
@@ -90,14 +94,25 @@ class RoleServices
                     'updated_at' => $date,
                 ];
             }
+            $save = Helpers::filterNull([
+                'status' => $params['status'] ?? null,
+                'name' => $params['name'] ?? null,
+            ]);
+            if(!empty($save)) {
+                $this->getRoleModel()
+                    ->where('id',$params['id'])
+                    ->update($save);
+            }
+
             $model = $this->getRoleMenusModel();
 
-            $model->where('role_id', $params['id'])->delete();
+            if(!empty($roleMenus)) {
+                $model->where('role_id', $params['id'])->delete();
 
-            $model->insert($roleMenus);
-            // 清理缓存
-            MenusCache::delMenusCache();
-
+                $model->insert($roleMenus);
+                // 清理缓存
+                MenusCache::delMenusCache();
+            }
         });
     }
 }

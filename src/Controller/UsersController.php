@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\GetModelTraits;
 use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Services\UserService;
@@ -13,6 +14,11 @@ class UsersController extends Controller
 {
     use GetModelTraits;
 
+    /**
+     * @param UserService $userService
+     * @return JsonResponse
+     * @throws ValidateException
+     */
     public function index(UserService $userService): JsonResponse
     {
         $params = $this->validator([
@@ -25,8 +31,10 @@ class UsersController extends Controller
         return $this->success($userService->list($params));
     }
 
+
     /**
-     * @throws Throwable
+     * @param UserService $userService
+     * @return JsonResponse
      */
     public function store(UserService $userService): JsonResponse
     {
@@ -34,8 +42,8 @@ class UsersController extends Controller
             $params = $this->validator([
                 'name' => 'required|string|'.$this->getTableRules('unique','users_table'),
                 'email' => 'required|email|'.$this->getTableRules('unique','users_table'),
-                'password' => 'required|min:6|max:20',
-                'repeated_password' => 'required|min:6|max:20|confirmed_password',
+                'password' => 'required|min:6|max:20|confirmed:password_confirmation',
+                'password_confirmation' => 'required|min:6|max:20',
                 'rule' => 'array',
             ]);
 
@@ -47,8 +55,13 @@ class UsersController extends Controller
         return $this->success();
     }
 
+
     /**
+     * @param $id
+     * @param UserService $userService
+     * @return JsonResponse
      * @throws Throwable
+     * @throws ValidateException
      */
     public function update($id, UserService $userService): JsonResponse
     {
@@ -56,8 +69,8 @@ class UsersController extends Controller
             'id'       => 'required|'.$this->getTableRules('exists','users_table'),
             'name'     => 'string|'.$this->getTableRules('unique','users_table','id'),
             'email'    => 'email|'.$this->getTableRules('unique','users_table','id'),
-            'password' => 'min:6|max:20',
-            'repeated_password' => 'min:6|max:20|current_password',
+            'password' => 'nullable|min:6|max:20|confirmed:password_confirmation',
+            'password_confirmation' => 'nullable|min:6|max:20',
             'rule'     => 'array',
         ], $this->mergeParams(['id' => $id]));
 
@@ -67,7 +80,8 @@ class UsersController extends Controller
     }
 
     /**
-     * delete a user.
+     * @param $id
+     * @return JsonResponse
      */
     public function destroy($id): JsonResponse
     {

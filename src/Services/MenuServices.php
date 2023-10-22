@@ -31,9 +31,12 @@ class MenuServices
             ->when(!empty($params['parent_id']), function ($q) {
                 $q->where('parent_id', "{$this->params['parent_id']}");
             })
+            ->when(!empty($params['method']), function ($q) {
+                $q->where('method', "{$this->params['method']}");
+            })
             ->when(!empty($params['hidden']), function ($q) {
                 $q->where('hidden', "{$this->params['hidden']}");
-            })->orderByDesc('sort');
+            })->orderBy('parent_id')->orderByDesc('sort');
 
         return [
             'list'  =>Helpers::getTree($query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray()) ,

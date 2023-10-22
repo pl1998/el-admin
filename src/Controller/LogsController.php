@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 use Latent\ElAdmin\Enum\MethodEnum;
+use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\GetModelTraits;
 use Latent\ElAdmin\Services\LogServices;
 
@@ -14,11 +16,15 @@ class LogsController extends Controller
 {
     use GetModelTraits;
 
-    public function index()
+    /**
+     * @return JsonResponse
+     * @throws BindingResolutionException
+     * @throws ValidateException
+     */
+    public function index() :JsonResponse
     {
         $params = $this->validator([
             'ip' => 'string',
-            'method' => ['int', Rule::in(array_values(MethodEnum::METHOD))],
             'user_id' => 'int',
             'page' => 'int',
             'page_size' => 'int',
@@ -31,6 +37,10 @@ class LogsController extends Controller
         );
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function destroy($id): JsonResponse
     {
         $this->getLogModel()->where('id', $id)->delete();

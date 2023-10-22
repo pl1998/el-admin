@@ -8,10 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdminLog extends Model
 {
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
-        'param' => 'array',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'user_id',
         'user_name',
@@ -24,4 +32,16 @@ class AdminLog extends Model
         'is_danger',
         'ip_address',
     ];
+
+    /**
+     * @param $key
+     * @return false|string
+     */
+    public function getIpAttribute($key)
+    {
+        if(is_numeric($key)) {
+            return long2ip($key);
+        }
+        return  $key;
+    }
 }

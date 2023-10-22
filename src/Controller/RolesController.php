@@ -4,40 +4,25 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\Subgroup;
-use Knuckles\Scribe\Attributes\UrlParam;
-use Knuckles\Scribe\Attributes\BodyParam;
+use Latent\ElAdmin\Enum\ModelEnum;
+use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\GetModelTraits;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-#[Group('用户角色相关', '用户角色相关接口')]
-#[Subgroup('Roles', '角色控制器')]
 class RolesController extends Controller
 {
     use GetModelTraits;
     use Permission;
 
-    #[Authenticated]
-    #[UrlParam('name', 'string', '角色名称')]
-    #[UrlParam('page', 'int', '分页页码')]
-    #[UrlParam('page_size', 'int', '每页条数')]
-    #[Response(<<<JSON
-{
-    "data": {
-       "list":[],
-       "page": 1,
-       "total": 0
-    },
-    "message": "success",
-    "status": 200
-}
-JSON)]
+
+    /**
+     * @param RoleServices $roleServices
+     * @return JsonResponse
+     * @throws ValidateException
+     */
     public function index(RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
@@ -49,19 +34,13 @@ JSON)]
         return $this->success($roleServices->list($params));
     }
 
+
     /**
+     * @param RoleServices $roleServices
+     * @return JsonResponse
      * @throws Throwable
+     * @throws ValidateException
      */
-    #[BodyParam('name', 'string', '角色名称')]
-    #[BodyParam('menu', 'array', '菜单ID数组')]
-    #[Authenticated]
-    #[Response(<<<JSON
-{
-    "data": [],
-    "message": "success",
-    "status": 200
-}
-JSON)]
     public function store(RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
@@ -74,26 +53,21 @@ JSON)]
         return $this->success();
     }
 
+
     /**
+     * @param $id
+     * @param RoleServices $roleServices
+     * @return JsonResponse
      * @throws Throwable
+     * @throws ValidateException
      */
-    #[BodyParam('id', 'string', '角色ID')]
-    #[BodyParam('name', 'string', '角色名称')]
-    #[BodyParam('menu', 'array', '菜单ID数组')]
-    #[Authenticated]
-    #[Response(<<<JSON
-{
-    "data": [],
-    "message": "success",
-    "status": 200
-}
-JSON)]
     public function update($id, RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
             'id' => 'required|'.$this->getTableRules('exists','roles_table'),
-            'name' => 'required|string|min:1,max:20',
+            'name' => 'string|min:1,max:20',
             'menu' => 'array',
+            'status' => 'int:0,1'
         ], array_merge(request()->input(), ['id' => $id]));
 
         $roleServices->update($params);
@@ -101,19 +75,25 @@ JSON)]
         return $this->success();
     }
 
-    #[BodyParam('id', 'string', '角色ID')]
-    #[Authenticated]
-    #[Response(<<<JSON
-{
-    "data": [],
-    "message": "success",
-    "status": 200
-}
-JSON)]
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function destroy($id): JsonResponse
     {
         $this->getRoleModel()->where('id', $id)->delete();
 
         return $this->success();
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getAllRole() :JsonResponse
+    {
+        $list = $this->getRoleModel()->where('status',ModelEnum::NORMAL)
+            ->get(['id','name'])?->toArray();
+        return $this->success($list);
     }
 }

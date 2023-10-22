@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Services;
 
+use Illuminate\Support\Arr;
+use Latent\ElAdmin\Enum\MethodEnum;
 use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Models\GetModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
@@ -32,6 +34,25 @@ trait Permission
      * @throws InvalidArgumentException
      */
     public function getUserMenus(): array
+    {
+        $userId = auth(config('el_admin.guard'))->user()->id ?? 0;
+
+        if ($data = MenusCache::getCache()->get(MenusCache::getPrefix($userId))) {
+            return $data;
+        }
+        $menes = $this->getRoleMenus($this->getAllRoles());
+
+
+        MenusCache::setCache($userId, $menes);
+
+        return $menes;
+    }
+
+    /**
+     * Get users all menus.
+     * @throws InvalidArgumentException
+     */
+    public function getUserAllPermission(): array
     {
         $userId = auth(config('el_admin.guard'))->user()->id ?? 0;
 
@@ -70,17 +91,16 @@ trait Permission
     {
         $this->params = $params;
         $list = $this->getUserMenus();
-
         return   collect($list)
-            ->when(!empty($this->params['type']),function ($q){
-              $q->where('type', $this->params['type']);
-            })->map(function ($menu){
+            ->where('type', $this->params['type'])
+            ->map(function ($menu){
             if(!empty($this->params['route']) && $this->params['route'] == ModelEnum::API) {
                 $data =  [
                     'meta' => [
                         'title' => $menu['name'],
                         'icon'  => $menu['icon'],
                     ],
+                    'type'      => $menu['type'],
                     'path'      => $menu['route_path'],
                     'component' => $menu['component'],
                     'name'      => $menu['route_name'],
@@ -88,18 +108,10 @@ trait Permission
                     'id'        => $menu['id'],
                 ];
                 if($menu['parent_id'] ==0) {
-                    unset($data['redirect']);
-                    unset($data['component']);
-                    unset($data['name']);
-                    unset($data['path']);
+                    unset($data['redirect'],$data['component'],$data['name'],$data['path']);
                 }
             }else {
-                return [
-                    'parent_id' => $menu['parent_id'],
-                    'id'        => $menu['id'],
-                    'name'      => $menu['name'],
-                    'icon'      => $menu['icon'],
-                ];
+                return Arr::only($menu,['type','id','name','icon','parent_id']);
             }
             return $data;
         })?->toArray();
@@ -129,27 +141,44 @@ trait Permission
         return $menus;
     }
 
+
     /**
      * check permission.
-     *
+     * @param string $path
+     * @param string $method
+     * @param string $routeName
+     * @return bool
      * @throws InvalidArgumentException
      */
-    public function checkApiPermission(string $path, string $method): bool
+    public function checkApiPermission(string $path, string $method,  string $routeName): bool
     {
         $menes = $this->getUserMenus();
 
         if (empty($menes)) {
             return false;
         }
-
-        if (collect($menes)
-            ->where('type', ModelEnum::API)
-            ->where('path', $path)
-            ->where('method', $method)
-            ->isEmpty()) {
-            return false;
+        if ($this->isCheck($menes,$method,'route_path',$path)){
+            return true;
         }
+        if ($this->isCheck($menes,$method,'route_name',$routeName)){
+            return true;
+        }
+        return false;
+    }
 
-        return true;
+    /**
+     * @param array $menes
+     * @param string $method
+     * @param string $key
+     * @param string $value
+     * @return bool
+     */
+    protected function isCheck(array $menes,string $method, string $key, string $value ) :bool
+    {
+        return collect($menes)
+            ->where('type', ModelEnum::API)
+            ->where($key,$value)
+            ->where('method', MethodEnum::METHOD[strtolower($method)] ?? 1)
+            ->isEmpty() ? false :true;
     }
 }

@@ -23,6 +23,8 @@ class MenusCache
         }
     }
 
+
+
     /**
      * Get cache prefix.
      */

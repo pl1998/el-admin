@@ -20,15 +20,14 @@ class LogServices
         $query->when(!empty($this->params['user_id']), function ($q) {
             $q->where('user_id', $this->params['user_id']);
         })
-            ->when(!empty($this->params['method']), function ($q) {
-                $q->where('method', $this->params['method']);
-            })
             ->when(!empty($this->params['ip']), function ($q) {
-                $q->where('ip', ip2long($this->params['method']));
+                $q->where('ip', ip2long($this->params['ip']));
             });
 
         return [
-            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'])->get()?->toArray(),
+            'list' => $query
+                ->forPage($params['page'] ?? 1, $params['page_size']??10)
+                ->get()?->toArray(),
             'total' => $query->count(),
             'page' => (int) ($params['page'] ?? 1),
         ];

@@ -101,19 +101,21 @@ class UserService
 
             !empty($save) &&   $this->getUserModel()->where('id', $userId)->update($save);
 
-            $userRoles = [];
-            foreach ($params['role'] as $roleId) {
-                $userRoles[] = [
-                    'user_id' => $userId,
-                    'role_id' => $roleId,
-                    'created_at' => $date,
-                    'updated_at' => $date,
-                ];
+            if(!empty($params['role'])) {
+                $userRoles = [];
+                foreach ($params['role'] as $roleId) {
+                    $userRoles[] = [
+                        'user_id' => $userId,
+                        'role_id' => $roleId,
+                        'created_at' => $date,
+                        'updated_at' => $date,
+                    ];
+                }
+                $model = $this->getUserRolesModel();
+                $model->where('user_id', $userId)->delete();
+                $this->getUserRolesModel()
+                    ->insert($userRoles);
             }
-            $model = $this->getUserRolesModel();
-            $model->where('user_id', $userId)->delete();
-            $this->getUserRolesModel()
-                ->insert($userRoles);
         });
     }
 }

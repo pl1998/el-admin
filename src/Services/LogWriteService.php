@@ -37,7 +37,7 @@ class LogWriteService
             ->create([
                 'user_id'   => $user->id ?? 0,
                 'user_name' => $user->name ?? '未知',
-                'param'     => Helpers::filterParams($params, $this->filters),
+                'param'     => json_encode(Helpers::filterParams($params, $this->filters),JSON_UNESCAPED_UNICODE),
                 'method'    => MethodEnum::METHOD[strtolower(request()->method())],
                 'ip'        => ip2long(request()->ip()),
                 'path'      => request()->path(),

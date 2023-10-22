@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Latent\ElAdmin\Enum\Http;
 
 trait Response
 {
-    /** @var int  */
-    public null|int $code;
+    /** @var int */
+    public int $code;
 
     /** @var int|null  */
     public null|int $status;
@@ -24,7 +25,7 @@ trait Response
      * @param int $code
      * @return $this
      */
-    public function withHttpCode(int $code=200)
+    public function withHttpCode(int $code= Http::SUCCESS_STATUS): static
     {
         $this->code = $code;
         return $this;
@@ -34,7 +35,8 @@ trait Response
      * @param int $status
      * @return $this
      */
-    public function withStatus (int $status=200) {
+    public function withStatus (int $status= Http::SUCCESS_STATUS): static
+    {
         $this->status = $status;
         return $this;
     }
@@ -43,7 +45,7 @@ trait Response
      * @param string $message
      * @return $this
      */
-    public function setMessage( string $message)
+    public function setMessage( string $message): static
     {
         $this->message = $message;
         return $this;
@@ -53,7 +55,7 @@ trait Response
      * @param array $data
      * @return $this
      */
-    public function setData( array $data)
+    public function setData( array $data): static
     {
         $this->data = $data;
         return $this;
@@ -62,9 +64,12 @@ trait Response
     /**
      * success response.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param  $data
+     * @param string $message
+     * @param int $status
+     * @return JsonResponse
      */
-    public function success($data = [], string $message = 'success', int $status = 200) :JsonResponse
+    public function success($data = [], string $message = 'success', int $status = Http::SUCCESS_STATUS) :JsonResponse
     {
         return response()->json([
             'data'    => $this->data ?? $data,
@@ -76,12 +81,16 @@ trait Response
     /**
      * fail response.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param string $message
+     * @param int $status
+     * @param  $data
+     * @param int $code
+     * @return JsonResponse
      */
-    public function fail(string $message = 'error', int $status = 0, array|object $data = [], int $code = 200) :JsonResponse
+    public function fail(string $message = 'error', int $status = Http::FAIL_STATUS ,  $data = [], int $code = Http::SUCCESS_STATUS) :JsonResponse
     {
         return response()->json([
-            'data'    => $this->data,
+            'data'    => $this->data ?? $data,
             'message' => $this->message ?? $message,
             'status'  => $this->status ?? $status,
         ], $code);

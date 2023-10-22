@@ -6,21 +6,17 @@ namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\BodyParam;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\Subgroup;
+use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Services\AuthServices;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Support\Helpers;
+use Psr\SimpleCache\InvalidArgumentException;
 
-#[Group('用户登录相关', '用户登录相关接口')]
-#[Subgroup('Auth', '登录控制器')]
 class AuthController extends Controller
 {
     use Permission;
 
+    /** @var string|mixed  */
     protected string $guard;
 
     public function __construct()
@@ -28,18 +24,11 @@ class AuthController extends Controller
         $this->guard = config('el_admin.guard');
     }
 
+
     /**
-     * Get a JWT via given credentials.
+     * @return JsonResponse
+     * @throws ValidateException
      */
-    #[BodyParam('email', 'string', '邮箱')]
-    #[BodyParam('password', 'string', '密码')]
-    #[Response(<<<JSON
-{
-    "access_token": "token",
-    "token_type": "bearer",
-    "expires_in": 216000
-}
-JSON)]
     public function login(): JsonResponse
     {
         $params = $this->validator([
@@ -54,28 +43,13 @@ JSON)]
         return (new AuthServices())->respondWithToken((string) $token);
     }
 
+
     /**
      * Get the authenticated User.
+     * @return JsonResponse
+     * @throws InvalidArgumentException
+     * @throws ValidateException
      */
-    #[Authenticated]
-    #[BodyParam('is_menus', 'bool', '是否通过该接口获取菜单信息 默认不展示 展示为 true')]
-    #[Response(<<<JSON
-{
-    "data": {
-        "id": 1,
-        "name": "Administrator",
-        "email": "admin@gamil.com",
-        "avatar": "http://dev.admin.com/logo.png",
-        "created_at": "2023-10-18T12:53:45.000000Z",
-        "updated_at": "2023-10-18T12:53:45.000000Z",
-        "menus": [
-        ],
-        "nodes": []
-    },
-    "message": "success",
-    "status": 200
-}
-JSON)]
     public function me(): JsonResponse
     {
         $params = $this->validator([
@@ -92,16 +66,8 @@ JSON)]
     }
 
     /**
-     * Log the user out (Invalidate the token).
+     * @return JsonResponse
      */
-    #[Authenticated]
-    #[Response(<<<JSON
-{
-    "data": [],
-    "message": "success",
-    "status": 200
-}
-JSON)]
     public function logout(): JsonResponse
     {
         auth($this->guard)->logout();
@@ -109,17 +75,11 @@ JSON)]
         return $this->success();
     }
 
+
     /**
      * Refresh a token.
+     * @return JsonResponse
      */
-    #[Authenticated]
-    #[Response(<<<JSON
-{
-    "access_token": "token",
-    "token_type": "bearer",
-    "expires_in": 216000
-}
-JSON)]
     public function refresh(): JsonResponse
     {
         return (new AuthServices())->respondWithToken((string) auth($this->guard)->refresh());

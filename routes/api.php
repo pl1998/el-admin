@@ -19,6 +19,7 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::get('getRouteList', [MenusController::class, 'getRouteList']);
     Route::get('getAllMenus', [MenusController::class, 'getAllMenus']);
+    Route::get('getAllRole', [RolesController::class, 'getAllRole']);
     Route::group([
         'middleware' => RbacMiddleware::class,
     ], function () {

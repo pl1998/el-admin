@@ -5,6 +5,7 @@ namespace Latent\ElAdmin\Models;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Latent\ElAdmin\Enum\MethodEnum;
 use Latent\ElAdmin\Enum\ModelEnum;
 
 class ElAdminSeeder extends Seeder
@@ -34,6 +35,11 @@ class ElAdminSeeder extends Seeder
            'name' => 'Administrator',
             'created_at' => $created,
         ]);
+        AdminUserRole::truncate();
+        AdminUserRole::create([
+            'role_id' => 1,
+            'user_id' => 1,
+        ]);
         Artisan::call('el-admin:clear 0');
         // create permission
         AdminMenu::truncate();
@@ -47,6 +53,7 @@ class ElAdminSeeder extends Seeder
                 'component' => '',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -59,6 +66,7 @@ class ElAdminSeeder extends Seeder
                 'component' => 'Layout',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -71,6 +79,7 @@ class ElAdminSeeder extends Seeder
                 'component' => 'admin/user.vue',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -83,6 +92,7 @@ class ElAdminSeeder extends Seeder
                 'component' => 'admin/role.vue',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -95,6 +105,7 @@ class ElAdminSeeder extends Seeder
                 'component' => 'admin/menu.vue',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -107,6 +118,7 @@ class ElAdminSeeder extends Seeder
                 'component' => 'admin/log.vue',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
@@ -119,24 +131,185 @@ class ElAdminSeeder extends Seeder
                 'component' => 'admin/system.vue',
                 'sort' => 0,
                 'type' => ModelEnum::MENU,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
                 'created_at' => $created,
                 'updated_at' => $created,
             ],
-//            [
-//                'parent_id' => 0,
-//                'name' => '演示',
-//                'icon' => 'sidebar-default',
-//                'route_name' => '',
-//                'route_path' => '/',
-//                'component' => '',
-//                'sort' => 0,
-//                'type' => ModelEnum::MENU,
-//                'created_at' => $created,
-//                'updated_at' => $created,
-//            ],
+            // 用户api
+            [
+                'parent_id' => 3,
+                'name' => '用户列表',
+                'icon' => '',
+                'route_name' => 'user.index',
+                'route_path' => 'api/v1/el_admin/user',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 3,
+                'name' => '添加用户',
+                'icon' => '',
+                'route_name' => 'user.store',
+                'route_path' => 'api/v1/el_admin/user',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::POST],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 3,
+                'name' => '更新用户',
+                'icon' => '',
+                'route_name' => 'user.update',
+                'route_path' => 'api/v1/el_admin/user/{user}',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::PUT],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
 
+            // 角色api
+            [
+                'parent_id' => 4,
+                'name' => '角色列表',
+                'icon' => '',
+                'route_name' => 'role.index',
+                'route_path' => 'api/v1/el_admin/role',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 4,
+                'name' => '添加角色',
+                'icon' => '',
+                'route_name' => 'role.store',
+                'route_path' => 'api/v1/el_admin/role',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::POST],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 4,
+                'name' => '更新角色',
+                'icon' => '',
+                'route_name' => 'role.update',
+                'route_path' => 'api/v1/el_admin/role/{role}',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::PUT],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            // 菜单api
+            [
+                'parent_id' => 5,
+                'name' => '菜单列表',
+                'icon' => '',
+                'route_name' => 'menu.index',
+                'route_path' => 'api/v1/el_admin/menu',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 5,
+                'name' => '添加菜单',
+                'icon' => '',
+                'route_name' => 'menu.store',
+                'route_path' => 'api/v1/el_admin/menu',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::POST],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 5,
+                'name' => '更新菜单',
+                'icon' => '',
+                'route_name' => 'menu.update',
+                'route_path' => 'api/v1/el_admin/menu/{menu}',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::PUT],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 5,
+                'name' => '删除菜单',
+                'icon' => '',
+                'route_name' => 'menu.destroy',
+                'route_path' => 'api/v1/el_admin/menu/{menu}',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::DELETE],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            // 日志api
+            [
+                'parent_id' => 6,
+                'name' => '日志列表',
+                'icon' => '',
+                'route_name' => 'log.index',
+                'route_path' => 'api/v1/el_admin/log',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::GET],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ],
+            [
+                'parent_id' => 6,
+                'name' => '删除日志',
+                'icon' => '',
+                'route_name' => 'user.destroy',
+                'route_path' => 'api/v1/el_admin/log/{log}',
+                'component' => '',
+                'sort' => 0,
+                'method' => MethodEnum::METHOD[MethodEnum::DELETE],
+                'type' => ModelEnum::API,
+                'created_at' => $created,
+                'updated_at' => $created,
+            ]
         ]);
         // create permission
         AdminLog::truncate();
+
+        AdminRoleMenu::truncate();
+        $addMenus=[];
+
+        AdminMenu::query()->pluck('id')
+            ->map(function ($id) use(&$addMenus){
+                $addMenus[] = [
+                  'role_id' => 1,
+                  'menu_id' => $id
+                ];
+            });
+        AdminRoleMenu::query()->insert($addMenus);
     }
 }
