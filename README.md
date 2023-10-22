@@ -29,7 +29,7 @@ English | [简体中文](./README.zh_CN.md)
 ### Installed
 
 ```shell
-composer require "latent/el-admin"
+composer require latent/el-admin
 ```
 
 ###  Release Config

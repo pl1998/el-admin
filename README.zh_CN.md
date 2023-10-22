@@ -29,7 +29,7 @@
 ### 安装
 
 ```shell
-composer require "latent/el-admin"
+composer require latent/el-admin
 ```
 
 ###  配置发布
