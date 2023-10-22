@@ -10,18 +10,11 @@ use Latent\ElAdmin\Enum\Http;
 
 class ValidateException extends Exception
 {
-    /**
-     * @param $message
-     * @param $code
-     */
     public function __construct($message = '', $code = Http::SUCCESS_STATUS)
     {
         parent::__construct($message, $code);
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function render(): JsonResponse
     {
         return response()->json(

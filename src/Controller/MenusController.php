@@ -17,8 +17,6 @@ class MenusController extends Controller
     use Permission;
 
     /**
-     * @param MenuServices $menuServices
-     * @return JsonResponse
      * @throws ValidateException
      */
     public function index(MenuServices $menuServices): JsonResponse
@@ -37,11 +35,9 @@ class MenusController extends Controller
     }
 
     /**
-     * @param MenuServices $menuServices
-     * @return JsonResponse
      * @throws ValidateException
      */
-    public function store(MenuServices $menuServices) :JsonResponse
+    public function store(MenuServices $menuServices): JsonResponse
     {
         $params = $this->validator([
             'name' => 'required|string|max:30',
@@ -61,14 +57,10 @@ class MenusController extends Controller
         return $this->success();
     }
 
-
     /**
-     * @param $id
-     * @param MenuServices $menuServices
-     * @return JsonResponse
      * @throws ValidateException
      */
-    public function update($id, MenuServices $menuServices) :JsonResponse
+    public function update($id, MenuServices $menuServices): JsonResponse
     {
         $params = $this->validator([
             'id' => 'required|int',
@@ -88,12 +80,7 @@ class MenusController extends Controller
         return $this->success();
     }
 
-
-    /**
-     * @param $id
-     * @return JsonResponse
-     */
-    public function destroy($id) :JsonResponse
+    public function destroy($id): JsonResponse
     {
         $this->getMenusModel()
             ->where('id', $id)->delete();
@@ -101,9 +88,7 @@ class MenusController extends Controller
         return $this->success();
     }
 
-
     /**
-     * @return JsonResponse
      * @throws ValidateException
      */
     public function getRoleMenu(): JsonResponse
@@ -113,17 +98,15 @@ class MenusController extends Controller
         return $this->success($this->getRoleMenus($params));
     }
 
-
     /**
-     * @return JsonResponse
      * @throws ValidateException
      * @throws InvalidArgumentException
      */
-    public function getRouteList() :JsonResponse
+    public function getRouteList(): JsonResponse
     {
         $params = $this->validator([
             'type' => 'int|in:0,1',
-            'route' => 'int|in:0,1,2'
+            'route' => 'int|in:0,1,2',
         ]);
 
         return $this->success(Helpers::getTree(
@@ -131,17 +114,14 @@ class MenusController extends Controller
         ));
     }
 
-
-    /**
-     * @return JsonResponse
-     */
-    public function getAllMenus() :JsonResponse
+    public function getAllMenus(): JsonResponse
     {
-        $list = $this->getMenusModel()->where('hidden',ModelEnum::NORMAL)
+        $list = $this->getMenusModel()->where('hidden', ModelEnum::NORMAL)
             ->get()?->toArray();
+
         return $this->success([
-            'ids'  => array_column($list,'id'),
-            'list' => Helpers::getTree($list)
+            'ids' => array_column($list, 'id'),
+            'list' => Helpers::getTree($list),
         ]);
     }
 }

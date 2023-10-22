@@ -17,10 +17,7 @@ class RolesController extends Controller
     use GetModelTraits;
     use Permission;
 
-
     /**
-     * @param RoleServices $roleServices
-     * @return JsonResponse
      * @throws ValidateException
      */
     public function index(RoleServices $roleServices): JsonResponse
@@ -34,10 +31,7 @@ class RolesController extends Controller
         return $this->success($roleServices->list($params));
     }
 
-
     /**
-     * @param RoleServices $roleServices
-     * @return JsonResponse
      * @throws Throwable
      * @throws ValidateException
      */
@@ -53,21 +47,17 @@ class RolesController extends Controller
         return $this->success();
     }
 
-
     /**
-     * @param $id
-     * @param RoleServices $roleServices
-     * @return JsonResponse
      * @throws Throwable
      * @throws ValidateException
      */
     public function update($id, RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
-            'id' => 'required|'.$this->getTableRules('exists','roles_table'),
+            'id' => 'required|'.$this->getTableRules('exists', 'roles_table'),
             'name' => 'string|min:1,max:20',
             'menu' => 'array',
-            'status' => 'int:0,1'
+            'status' => 'int:0,1',
         ], array_merge(request()->input(), ['id' => $id]));
 
         $roleServices->update($params);
@@ -75,11 +65,6 @@ class RolesController extends Controller
         return $this->success();
     }
 
-
-    /**
-     * @param $id
-     * @return JsonResponse
-     */
     public function destroy($id): JsonResponse
     {
         $this->getRoleModel()->where('id', $id)->delete();
@@ -87,13 +72,11 @@ class RolesController extends Controller
         return $this->success();
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function getAllRole() :JsonResponse
+    public function getAllRole(): JsonResponse
     {
-        $list = $this->getRoleModel()->where('status',ModelEnum::NORMAL)
-            ->get(['id','name'])?->toArray();
+        $list = $this->getRoleModel()->where('status', ModelEnum::NORMAL)
+            ->get(['id', 'name'])?->toArray();
+
         return $this->success($list);
     }
 }

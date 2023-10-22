@@ -6,12 +6,12 @@ namespace Latent\ElAdmin\Support;
 
 use Symfony\Component\Process\Process;
 use Exception;
+
 class ShellCommand
 {
     /**
-     * 执行命令
-     * @param $cmd
-     * @return string
+     * 执行命令.
+     *
      * @throws Exception
      */
     public static function execute($cmd): string
@@ -19,18 +19,19 @@ class ShellCommand
         $process = Process::fromShellCommandline($cmd);
         $processOutput = '';
 
-        $captureOutput  = function ($type,$line) use(&$processOutput) {
-            $processOutput.=$line;
+        $captureOutput = function ($type, $line) use (&$processOutput) {
+            $processOutput .= $line;
         };
 
         $process->setTimeout(null)
             ->run($captureOutput);
 
-        if ( $process->getExitCode()) {
-            $exception = new Exception($cmd. "-".$processOutput);
+        if ($process->getExitCode()) {
+            $exception = new Exception($cmd.'-'.$processOutput);
             report($exception);
-            throw new $exception;
+            throw new $exception();
         }
+
         return $processOutput;
     }
 }

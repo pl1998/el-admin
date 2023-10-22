@@ -26,7 +26,7 @@ class LogServices
 
         return [
             'list' => $query
-                ->forPage($params['page'] ?? 1, $params['page_size']??10)
+                ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
                 ->get()?->toArray(),
             'total' => $query->count(),
             'page' => (int) ($params['page'] ?? 1),

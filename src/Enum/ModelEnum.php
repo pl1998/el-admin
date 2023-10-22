@@ -16,6 +16,6 @@ class ModelEnum
     public const MENU = 0;
     /** @var int api */
     public const API = 1;
-    /** @var int  */
+    /** @var int */
     public const ALL_PREM = 2;
 }

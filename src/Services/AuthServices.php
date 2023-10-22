@@ -10,6 +10,7 @@ use Latent\ElAdmin\Traits\Response;
 class AuthServices
 {
     use Response;
+
     /**
      * Get the token array structure.
      */
@@ -17,7 +18,7 @@ class AuthServices
     {
         app()->make(config('el_admin.log_class'))->handle();
 
-        return  $this->success([
+        return $this->success([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => (auth(config('el_admin.guard'))->factory()->getTTL() ?? 0) * 60,

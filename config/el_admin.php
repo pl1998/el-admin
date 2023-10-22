@@ -1,14 +1,13 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | el-admin logo
     |--------------------------------------------------------------------------
     |
     */
-    'logo'  => 'logo.png',
+    'logo' => 'logo.png',
 
     /*
    |--------------------------------------------------------------------------
@@ -32,10 +31,9 @@ return [
     ],
 
     // Whether to enable database logging
-    'log'   => true,
+    'log' => true,
 
-    //
-    'log_class'   => Latent\ElAdmin\Services\LogWriteService::class,
+    'log_class' => Latent\ElAdmin\Services\LogWriteService::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -60,12 +58,12 @@ return [
         'role_menus_model' => Latent\ElAdmin\Models\AdminRoleMenu::class,
 
         'menus_table' => 'admin_menus',
-        'menus_model' =>  Latent\ElAdmin\Models\AdminMenu::class,
+        'menus_model' => Latent\ElAdmin\Models\AdminMenu::class,
 
         'log_table' => 'admin_logs',
         'log_model' => Latent\ElAdmin\Models\AdminLog::class,
 
-        'connection'  => 'mysql',
+        'connection' => 'mysql',
     ],
 
     /*
@@ -77,12 +75,12 @@ return [
     |
     */
     'menus' => [
-        /** @var bool Whether to enable menu caching */
+        /* @var bool Whether to enable menu caching */
         'cache' => false,
-        /** @var int Cache expiration time (minutes)  */
-        'ttl'   => 60,
-        /** @var string cache disk */
-        'disk'  => 'file',
-        'prefix'   => 'el:admin:menu_'
-    ]
+        /* @var int Cache expiration time (minutes) */
+        'ttl' => 60,
+        /* @var string cache disk */
+        'disk' => 'file',
+        'prefix' => 'el:admin:menu_',
+    ],
 ];

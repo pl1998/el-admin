@@ -18,19 +18,19 @@ class MethodEnum
     const PUT = 'put';
     /** @var string */
     const DELETE = 'delete';
-    /** @var string  */
+    /** @var string */
     const OPTIONS = 'options';
 
     /**
      * @var int[]
      */
     public const  METHOD = [
-        MethodEnum::HEAD    => 0,
-        MethodEnum::GET     => 1,
-        MethodEnum::POST    => 2,
-        MethodEnum::PUT     => 3,
-        MethodEnum::PATCH   => 4,
-        MethodEnum::DELETE  => 5,
+        MethodEnum::HEAD => 0,
+        MethodEnum::GET => 1,
+        MethodEnum::POST => 2,
+        MethodEnum::PUT => 3,
+        MethodEnum::PATCH => 4,
+        MethodEnum::DELETE => 5,
         MethodEnum::OPTIONS => 6,
     ];
 }
