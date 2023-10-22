@@ -4,8 +4,10 @@
 
 <p align="center">
 
-<a href="https://packagist.org/packages/pltrue/thirdparty_oauth"><img src="https://img.shields.io/badge/php-v8.0+-blue" /></a>
-<a href="https://packagist.org/packages/pltrue/thirdparty_oauth"><img src="https://img.shields.io/badge/downloads-37-brightgreen" /></a>
+<a href="https://packagist.org/packages/pl1998/el-admin"><img src="https://img.shields.io/badge/php-v8.0+-blue" /></a>
+<a href="https://packagist.org/packages/pl1998/el-admin"><img src="https://github.styleci.io/repos/707259849/shield?branch=master"/></a>
+<img src="https://img.shields.io/badge/license-MIT-green" />
+<img src="https://img.shields.io/github/repo-size/pl1998/el-admin">
 </p>
 
 
@@ -40,6 +42,7 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  -
 ### Shell Build
 ```shell
 php artisan el-admin:install
+php artisan route:cache
 ```
 
 ### Other commands
