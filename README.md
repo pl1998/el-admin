@@ -47,8 +47,8 @@ php artisan route:cache
 
 ### Other commands
 ```shell
-php artisan el-admin:el-admin:clear //Clear all menu caches
-php artisan el-admin:el-admin:clear {id} // Clears the specified user menu cache
+php artisan el-admin:clear //Clear all menu caches
+php artisan el-admin:clear {id} // Clears the specified user menu cache
 ```
 
 ### Update

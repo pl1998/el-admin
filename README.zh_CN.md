@@ -47,8 +47,8 @@ php artisan route:cache
 
 ### 其它命令
 ```shell
-php artisan el-admin:el-admin:clear //清除全部菜单缓存
-php artisan el-admin:el-admin:clear {id} //清除指定用户菜单缓存
+php artisan el-admin:clear //清除全部菜单缓存
+php artisan el-admin:clear {id} //清除指定用户菜单缓存
 ```
 
 ### 兼容
