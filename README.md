@@ -34,15 +34,15 @@ composer require latent/el-admin
 
 ###  Release Config
 ```shell
-php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
+php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 ```
 
-### Other commands
+### Shell Build
 ```shell
 php artisan el-admin:install
 ```
 
-### 其它命令
+### Other commands
 ```shell
 php artisan el-admin:el-admin:clear //Clear all menu caches
 php artisan el-admin:el-admin:clear {id} // Clears the specified user menu cache
@@ -73,6 +73,11 @@ php artisan el-admin:el-admin:clear {id} // Clears the specified user menu cache
         return $next($request);
     }
 ```
+
+### Example
+
+ * [Vue3 Admin](https://github.com/pl1998/basic)
+
 
 ## License
  MIT License

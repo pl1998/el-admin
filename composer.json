@@ -44,5 +44,8 @@
     "require-dev": {
         "phpunit/phpunit": "9.6.x-dev",
         "mockery/mockery": "1.7.x-dev"
+    },
+    "config": {
+        "secure-http": false
     }
 }

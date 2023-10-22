@@ -34,7 +34,7 @@ composer require latent/el-admin
 
 ###  配置发布
 ```shell
-php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"
+php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 ```
 
 ### 执行构建脚本
@@ -73,6 +73,10 @@ php artisan el-admin:el-admin:clear {id} //清除指定用户菜单缓存
         return $next($request);
     }
 ```
+
+### 示例 
+
+[Vue3实现的管理后台](https://github.com/pl1998/basic)
 
 ## License
 MIT License

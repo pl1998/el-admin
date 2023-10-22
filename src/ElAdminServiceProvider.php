@@ -52,7 +52,6 @@ class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvid
     protected function loadConfigs(): void
     {
         $this->publishes([__DIR__.'/../config/auth.php' => config_path('auth.php')]);
-        $this->publishes([__DIR__.'/../config/scribe.php' => config_path('scribe.php')]);
         $this->publishes([__DIR__.'/../config/el_admin.php' => config_path('el_admin.php')]);
     }
 
