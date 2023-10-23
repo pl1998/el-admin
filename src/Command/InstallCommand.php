@@ -33,8 +33,8 @@ class InstallCommand extends Command
         if (!file_exists(base_path().'/.env')) {
             ShellCommand::execute('cp .env.example .env');
             Artisan::call('key:generate');
-            Artisan::call('jwt:secret');
         }
+        Artisan::call('jwt:secret');
         // database migration
         Artisan::call('migrate');
         // Initialize the data population
