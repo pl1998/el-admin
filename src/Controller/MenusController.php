@@ -65,14 +65,14 @@ class MenusController extends Controller
         $params = $this->validator([
             'id' => 'required|int',
             'name' => 'required|string',
-            'sort' => 'required|int',
+            'sort' => 'int',
             'parent_id' => 'required|int',
             'route_path' => 'required|string',
             'type' => 'int|in:0,1',
             'hidden' => 'int|in:0,1',
-            'component' => 'exclude_if:type,1|string',
-            'route_name' => 'required|exclude_if:type,1|string',
-            'icon' => 'required|exclude_if:type,1|string',
+            'component' => 'string',
+            'route_name' => 'string',
+            'icon' => 'string',
         ], array_merge(request()->post(), ['id' => $id]));
 
         $menuServices->update($params);
