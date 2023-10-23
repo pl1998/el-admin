@@ -21,16 +21,16 @@ class MenuServices
             ->when(!empty($params['name']), function ($q) {
                 $q->where('name', 'like', "{$this->params['name']}%")->orWhere('route_name', 'like', "{$this->params['name']}%");
             })
-            ->when(!empty($params['type']), function ($q) {
+            ->when(isset($params['type']), function ($q) {
                 $q->where('type', "{$this->params['type']}");
             })
-            ->when(!empty($params['parent_id']), function ($q) {
+            ->when(isset($params['parent_id']), function ($q) {
                 $q->where('parent_id', "{$this->params['parent_id']}");
             })
-            ->when(!empty($params['method']), function ($q) {
+            ->when(isset($params['method']), function ($q) {
                 $q->where('method', "{$this->params['method']}");
             })
-            ->when(!empty($params['hidden']), function ($q) {
+            ->when(isset($params['hidden']), function ($q) {
                 $q->where('hidden', "{$this->params['hidden']}");
             })->orderBy('parent_id')->orderByDesc('sort');
 

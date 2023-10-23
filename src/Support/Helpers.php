@@ -9,34 +9,6 @@ use Exception;
 class Helpers
 {
     /**
-     * @return mixed|string
-     */
-    public static function ElConfig(string $path = ''): mixed
-    {
-        try {
-            $config = config('config.el_admin');
-            if (empty($config)) {
-                $config = require __DIR__.'/../config/el_admin.php';
-            }
-            if (empty($path)) {
-                return $config;
-            }
-            $data = explode('.', $path);
-
-            foreach ($data as $value) {
-                if (!isset($config[$value])) {
-                    return '';
-                }
-                $config = $config[$value];
-            }
-
-            return $config;
-        } catch (Exception) {
-            return '';
-        }
-    }
-
-    /**
      * @param $list
      * @param string $pk
      * @param string $pid
@@ -44,13 +16,19 @@ class Helpers
      * @param int $root
      * @return array
      */
-    public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0): array
+    public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0 ,array $allPid = []): array
     {
         $tree = [];
         if (empty($list)) {
             return $tree;
         }
+        if($root ==0) {
+            $allPid = array_column($list,'id');
+        }
         foreach ($list as $key => $val) {
+            if(!in_array($val[$pid],$allPid) && $val[$pid]!=0 && $root == 0){
+                $tree[] = $val;
+            }
             if ($val[$pid] === $root) {
                 unset($list[$key]);
                 if (!empty($list)) {
@@ -62,7 +40,6 @@ class Helpers
                 $tree[] = $val;
             }
         }
-
         return $tree;
     }
 
