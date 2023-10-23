@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
 use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Services\AuthServices;
@@ -35,9 +34,9 @@ class AuthController extends Controller
             'password' => 'required|min:6|max:20',
         ]);
         if (!$token = auth($this->guard)->attempt([
-            'email'    => $params['email'],
+            'email' => $params['email'],
             'password' => $params['password'],
-            'status'   => ModelEnum::NORMAL]
+            'status' => ModelEnum::NORMAL]
         )) {
             return $this->fail(trans('el_admin.login_error'));
         }
@@ -67,9 +66,6 @@ class AuthController extends Controller
         return $this->success($user);
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function logout(): JsonResponse
     {
         auth($this->guard)->logout();

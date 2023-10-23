@@ -19,14 +19,15 @@ class UserTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->withHeader('Authorization:',"Bearer $token")->postJson($this->host.'/user',[
+        $this->withHeader('Authorization:', "Bearer $token")->postJson($this->host.'/user', [
             'email' => time().'test@qq.com',
             'name' => time().'demo',
             'password' => 'demo123',
             'repeated_password' => 'demo123',
-        ])   ->assertStatus(201)
-            ->assertJsonPath('status',200);
+        ])->assertStatus(201)
+            ->assertJsonPath('status', 200);
     }
+
     /**
      * @return void
      *
@@ -36,13 +37,13 @@ class UserTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->withHeader('Authorization:',"Bearer $token")->putJson($this->host.'/user',[
-            'id'    =>2,
-            'email'    => time().'test1@qq.com',
-            'name'     => time().'demo1',
+        $this->withHeader('Authorization:', "Bearer $token")->putJson($this->host.'/user', [
+            'id' => 2,
+            'email' => time().'test1@qq.com',
+            'name' => time().'demo1',
             'password' => 'demo123',
             'repeated_password' => 'demo123',
-        ])   ->assertStatus(201)
-            ->assertJsonPath('status',200);
+        ])->assertStatus(201)
+            ->assertJsonPath('status', 200);
     }
 }
