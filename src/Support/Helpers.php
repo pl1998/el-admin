@@ -4,28 +4,19 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Support;
 
-
 class Helpers
 {
-    /**
-     * @param $list
-     * @param string $pk
-     * @param string $pid
-     * @param string|array|null $child
-     * @param int $root
-     * @return array
-     */
-    public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0 ,array $allPid = []): array
+    public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0, array $allPid = []): array
     {
         $tree = [];
         if (empty($list)) {
             return $tree;
         }
-        if($root ==0) {
-            $allPid = array_column($list,'id');
+        if (0 == $root) {
+            $allPid = array_column($list, 'id');
         }
         foreach ($list as $key => $val) {
-            if(!in_array($val[$pid],$allPid) && $val[$pid]!=0 && $root == 0){
+            if (!in_array($val[$pid], $allPid) && 0 != $val[$pid] && 0 == $root) {
                 $tree[] = $val;
             }
             if ($val[$pid] === $root) {
@@ -39,6 +30,7 @@ class Helpers
                 $tree[] = $val;
             }
         }
+
         return $tree;
     }
 
