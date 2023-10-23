@@ -1,7 +1,5 @@
 <?php
 
-use Latent\ElAdmin\Enum\MethodEnum;
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +37,7 @@ return [
     'log_filter_method' => [
         Latent\ElAdmin\Enum\MethodEnum::GET,
         Latent\ElAdmin\Enum\MethodEnum::OPTIONS,
-        Latent\ElAdmin\Enum\MethodEnum::HEAD
+        Latent\ElAdmin\Enum\MethodEnum::HEAD,
     ],
 
     'log_class' => Latent\ElAdmin\Services\LogWriteService::class,
