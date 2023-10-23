@@ -6,7 +6,6 @@ namespace Latent\ElAdmin;
 
 use Illuminate\Testing\Fluent\AssertableJson;
 
-
 trait TestConfig
 {
     /** @var string test host */
@@ -20,17 +19,15 @@ trait TestConfig
         'email' => 'admin@gmail.com',
         'password' => '123456',
     ];
-    /**
-     * @return mixed
-     */
-    public function getToken() :mixed
+
+    public function getToken(): mixed
     {
-        $response = $this->post($this->host.'/login',$this->loginForms);
+        $response = $this->post($this->host.'/login', $this->loginForms);
         $response
-            ->assertJson(fn (AssertableJson $json)=>
-            $json->has('data')
+            ->assertJson(fn (AssertableJson $json) => $json->has('data')
                 ->missing('access_token')
             );
+
         return $response->json()['data']['access_token'];
     }
 }

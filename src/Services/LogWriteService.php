@@ -16,13 +16,12 @@ class LogWriteService
     /** @var string[] filter keys maps */
     protected $filters = ['password'];
 
-    /** @var array|mixed|string[]  */
+    /** @var array|mixed|string[] */
     protected $filterMethod;
 
     /** @var Agent */
     protected $agent;
 
-    /** @var  */
     protected $method;
 
     public function __construct()
@@ -32,16 +31,13 @@ class LogWriteService
         $this->method = strtolower(request()->method());
     }
 
-    /**
-     * @return void
-     */
     public function handle(): void
     {
         if (!config('el_admin.log')) {
             return;
         }
 
-        if(in_array($this->method,$this->filterMethod)) {
+        if (in_array($this->method, $this->filterMethod)) {
             return;
         }
 
