@@ -47,9 +47,9 @@ class MenusController extends Controller
             'type' => 'int|in:0,1',
             'method' => 'required|int|in:0,1,2,3,4,5,6',
             'hidden' => 'boolean',
-            'component' => 'exclude_if:type,1|required|string',
+            'component' => 'string',
             'route_name' => 'nullable',
-            'icon' => 'exclude_if:type,1|required|string',
+            'icon' => 'string',
         ]);
 
         $menuServices->add($params);
