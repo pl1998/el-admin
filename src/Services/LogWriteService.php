@@ -16,17 +16,32 @@ class LogWriteService
     /** @var string[] filter keys maps */
     protected $filters = ['password'];
 
+    /** @var array|mixed|string[]  */
+    protected $filterMethod;
+
     /** @var Agent */
     protected $agent;
+
+    /** @var  */
+    protected $method;
 
     public function __construct()
     {
         $this->agent = new Agent();
+        $this->filterMethod = config('el_admin.log_filter_method') ?? [];
+        $this->method = strtolower(request()->method());
     }
 
+    /**
+     * @return void
+     */
     public function handle(): void
     {
         if (!config('el_admin.log')) {
+            return;
+        }
+
+        if(in_array($this->method,$this->filterMethod)) {
             return;
         }
 
@@ -38,7 +53,7 @@ class LogWriteService
                 'user_id' => $user->id ?? 0,
                 'user_name' => $user->name ?? '未知',
                 'param' => json_encode(Helpers::filterParams($params, $this->filters), JSON_UNESCAPED_UNICODE),
-                'method' => MethodEnum::METHOD[strtolower(request()->method())],
+                'method' => MethodEnum::METHOD[$this->method],
                 'ip' => ip2long(request()->ip()),
                 'path' => request()->path(),
                 'device_info' => json_encode([

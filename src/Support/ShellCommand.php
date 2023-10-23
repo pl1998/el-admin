@@ -10,8 +10,7 @@ use Exception;
 class ShellCommand
 {
     /**
-     * 执行命令.
-     *
+     * Executive command
      * @throws Exception
      */
     public static function execute($cmd): string

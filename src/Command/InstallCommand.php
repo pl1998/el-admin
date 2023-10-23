@@ -32,15 +32,12 @@ class InstallCommand extends Command
     {
         if (!file_exists(base_path().'/.env')) {
             ShellCommand::execute('cp .env.example .env');
+            Artisan::call('key:generate');
+            Artisan::call('jwt:secret');
         }
-
-        // release jwt config
-//        Artisan::call('vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"');
-//        Artisan::call('vendor:publish --tag=scribe-config');
-
+        // database migration
         Artisan::call('migrate');
-        Artisan::call('jwt:secret');
-
+        // Initialize the data population
         (new ElAdminSeeder())
             ->run();
 

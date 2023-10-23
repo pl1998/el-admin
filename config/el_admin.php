@@ -1,5 +1,7 @@
 <?php
 
+use Latent\ElAdmin\Enum\MethodEnum;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -32,6 +34,13 @@ return [
 
     // Whether to enable database logging
     'log' => true,
+
+    // Log filtering request method records
+    'log_filter_method' => [
+        Latent\ElAdmin\Enum\MethodEnum::GET,
+        Latent\ElAdmin\Enum\MethodEnum::OPTIONS,
+        Latent\ElAdmin\Enum\MethodEnum::HEAD
+    ],
 
     'log_class' => Latent\ElAdmin\Services\LogWriteService::class,
 

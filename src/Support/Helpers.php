@@ -36,6 +36,14 @@ class Helpers
         }
     }
 
+    /**
+     * @param $list
+     * @param string $pk
+     * @param string $pid
+     * @param string|array|null $child
+     * @param int $root
+     * @return array
+     */
     public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0): array
     {
         $tree = [];
@@ -58,6 +66,10 @@ class Helpers
         return $tree;
     }
 
+    /**
+     * @param array $map
+     * @return array
+     */
     public static function filterNull(array $map): array
     {
         return array_filter($map, function ($val) {
@@ -65,6 +77,11 @@ class Helpers
         });
     }
 
+    /**
+     * @param $params
+     * @param $keys
+     * @return array
+     */
     public static function filterParams($params, $keys = []): array
     {
         if (empty($params) || !is_array($params)) {
