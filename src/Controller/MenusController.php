@@ -46,10 +46,10 @@ class MenusController extends Controller
             'route_path' => 'required|string',
             'type' => 'int|in:0,1',
             'method' => 'required|int|in:0,1,2,3,4,5,6',
-            'hidden' => 'boolean',
-            'component' => 'string',
+            'hidden' => 'int|in:0,1',
+            'component' => 'nullable',
             'route_name' => 'nullable',
-            'icon' => 'string',
+            'icon' => 'nullable',
         ]);
 
         $menuServices->add($params);
@@ -70,9 +70,9 @@ class MenusController extends Controller
             'route_path' => 'required|string',
             'type' => 'int|in:0,1',
             'hidden' => 'int|in:0,1',
-            'component' => 'string',
-            'route_name' => 'string',
-            'icon' => 'string',
+            'component' => 'nullable',
+            'route_name' => 'nullable',
+            'icon' => 'nullable',
         ], array_merge(request()->post(), ['id' => $id]));
 
         $menuServices->update($params);
