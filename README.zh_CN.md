@@ -31,7 +31,7 @@
 ### 安装
 
 ```shell
-composer require latent/el-admin
+composer require latent/el-admin:dev-master
 ```
 
 ###  配置发布
@@ -42,7 +42,6 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  -
 ### 执行构建脚本
 ```shell
 php artisan el-admin:install
-php artisan route:cache
 ```
 
 ### 其它命令
