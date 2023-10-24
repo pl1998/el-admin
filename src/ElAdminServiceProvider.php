@@ -57,6 +57,7 @@ class ElAdminServiceProvider extends ServiceProvider
 
     protected function loadTranslations(): void
     {
+        $this->loadTranslationsFrom(__DIR__.'/../lang');
         $this->publishes([
             __DIR__.'/../lang' => lang_path(),
         ]);
