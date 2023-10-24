@@ -31,7 +31,7 @@ English | [简体中文](./README.zh_CN.md)
 ### Installed
 
 ```shell
-composer require latent/el-admin
+composer require latent/el-admin:dev-master
 ```
 
 ###  Release Config
@@ -42,7 +42,6 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  -
 ### Shell Build
 ```shell
 php artisan el-admin:install
-php artisan route:cache
 ```
 
 ### Other commands

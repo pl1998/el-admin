@@ -22,22 +22,19 @@
     },
     "autoload": {
         "psr-4": {
-            "Latent\\ElAdmin\\": "src/"
+            "Latent\\ElAdmin\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Latent\\ElAdmin\\ElAdminServiceProvider"
-            ],
-            "aliases": {
-                "ElAdmin": "Latent\\ElAdmin\\Facades\\ElAdmin"
-            }
+            ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Latent\\ElAdmin\\": "tests/"
+            "Latent\\ElAdmin\\tests": "tests"
         }
     },
     "minimum-stability": "dev",
