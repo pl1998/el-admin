@@ -10,7 +10,6 @@ use Latent\ElAdmin\Command\MenuCacheCommand;
 
 class ElAdminServiceProvider extends ServiceProvider
 {
-
     public function register(): void
     {
         // register merge config/auth.php
@@ -37,7 +36,6 @@ class ElAdminServiceProvider extends ServiceProvider
         ];
     }
 
-
     protected function publishesConfigs(): void
     {
         $this->publishes([__DIR__.'/../config/auth.php' => config_path('auth.php')]);
@@ -47,13 +45,12 @@ class ElAdminServiceProvider extends ServiceProvider
 
     protected function registerRouters(): void
     {
-        if(file_exists(base_path().'/routers/admin.php')) {
+        if (file_exists(base_path().'/routers/admin.php')) {
             $this->loadRoutesFrom(base_path().'/routers/admin.php');
-        } else{
-            $this->loadRoutesFrom(realpath(__DIR__ . '/api.php'));
+        } else {
+            $this->loadRoutesFrom(realpath(__DIR__.'/api.php'));
         }
     }
-
 
     protected function loadTranslations(): void
     {
@@ -71,14 +68,12 @@ class ElAdminServiceProvider extends ServiceProvider
         ]);
     }
 
-
     protected function loadResources(): void
     {
         $this->publishes([
             __DIR__.'/../docs/logo.png' => public_path().'/logo.png',
         ]);
     }
-
 
     protected function runningCommands(): void
     {
