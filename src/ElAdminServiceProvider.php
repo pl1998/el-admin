@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Latent\ElAdmin\Command\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 use Latent\ElAdmin\Command\MenuCacheCommand;
 
-class ElAdminServiceProvider extends ServiceProvider
+class ElAdminServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-
+    /**
+     * Register services.
+     */
     public function register(): void
     {
         // register merge config/auth.php
@@ -19,16 +22,22 @@ class ElAdminServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     * Bootstrap services.
+     */
     public function boot(): void
     {
-        $this->publishesConfigs();
-        $this->registerRouters();
+        $this->loadConfigs();
+        $this->loadRoutes();
         $this->loadTranslations();
         $this->loadMigrations();
         $this->loadResources();
         $this->runningCommands();
     }
 
+    /**
+     * Get the services provided by the provider.
+     */
     public function provides(): array
     {
         return [
@@ -37,34 +46,45 @@ class ElAdminServiceProvider extends ServiceProvider
         ];
     }
 
-
-    protected function publishesConfigs(): void
+    /**
+     * Release config.
+     */
+    protected function loadConfigs(): void
     {
         $this->publishes([__DIR__.'/../config/auth.php' => config_path('auth.php')]);
         $this->publishes([__DIR__.'/../config/el_admin.php' => config_path('el_admin.php')]);
-        $this->publishes([__DIR__.'/api.php' => base_path().'/routers/admin.php']);
     }
 
-    protected function registerRouters(): void
+    /**
+     * Release routes.
+     */
+    protected function loadRoutes(): void
     {
-        if(file_exists(base_path().'/routers/admin.php')) {
-            $this->loadRoutesFrom(base_path().'/routers/admin.php');
-        } else{
-            $this->loadRoutesFrom(realpath(__DIR__ . '/api.php'));
-        }
-    }
-
-
-    protected function loadTranslations(): void
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../lang');
+        // register routes
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        // release routes
         $this->publishes([
-            __DIR__.'/../lang' => lang_path(),
+            __DIR__.'/../routes/api.php' => base_path().'/routes/admin.php',
         ]);
     }
 
+    /**
+     * Release lang.
+     */
+    protected function loadTranslations(): void
+    {
+//        // release lang
+//        $this->publishes([
+//            __DIR__.'/../lang' => $this->app->langPath(),'el-admin-lang'
+//        ]);
+    }
+
+    /**
+     * Registered migrations database.
+     */
     protected function loadMigrations(): void
     {
+        // registered migrations sql files
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
@@ -72,17 +92,23 @@ class ElAdminServiceProvider extends ServiceProvider
         ]);
     }
 
-
+    /**
+     * release resources.
+     */
     protected function loadResources(): void
     {
+        // logo
         $this->publishes([
             __DIR__.'/../docs/logo.png' => public_path().'/logo.png',
         ]);
     }
 
-
+    /**
+     * register commands.
+     */
     protected function runningCommands(): void
     {
+        // register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
