@@ -13,16 +13,36 @@ class LogWriteService
 {
     use ModelTraits;
 
-    /** @var string[] filter keys maps */
+    /**
+     * Filter keys maps
+     *
+     * @var string[]
+     */
     protected $filters = ['password'];
 
-    /** @var array|mixed|string[] */
-    protected $filterMethod;
+    /**
+     * Filter method maps
+     *
+     * @var array
+     */
+    protected array  $filterMethod;
 
-    /** @var Agent */
+
+    /**
+     * This is Device info class
+     *
+     * @var Agent
+     */
     protected $agent;
 
+
+    /**
+     * Request method
+     *
+     * @var string
+     */
     protected $method;
+
 
     public function __construct()
     {
@@ -31,6 +51,12 @@ class LogWriteService
         $this->method = strtolower(request()->method());
     }
 
+    /**
+     * Log write database
+     *
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function handle(): void
     {
         if (!config('el_admin.log')) {

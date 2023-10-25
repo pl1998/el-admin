@@ -11,9 +11,20 @@ class MenuServices
 {
     use Permission;
 
-    /** @var array request params */
+    /**
+     * Request params
+     *
+     * @var array
+     */
     public array $params = [];
 
+    /**
+     * Menu list
+     *
+     * @param array $params
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function list(array $params): array
     {
         $this->params = $params;
@@ -46,7 +57,7 @@ class MenuServices
      *
      * @return void
      */
-    public function add(array $params)
+    public function add(array $params) :void
     {
         $create = Helpers::filterNull([
             'name' => $params['name'] ?? null,
@@ -72,7 +83,7 @@ class MenuServices
      *
      * @return void
      */
-    public function update(array $params)
+    public function update(array $params) :void
     {
         $this->getMenusModel()
             ->where('id', $params['id'])

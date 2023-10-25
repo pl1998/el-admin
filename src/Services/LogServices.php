@@ -9,7 +9,7 @@ class LogServices
     use ModelTraits;
 
     /** @var array */
-    protected $params = [];
+    protected array $params = [];
 
     public function handler($params): array
     {
@@ -25,11 +25,9 @@ class LogServices
             });
 
         return [
-            'list' => $query
-                ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
-                ->get()?->toArray(),
+            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray(),
             'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 }

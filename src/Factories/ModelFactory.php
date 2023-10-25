@@ -10,7 +10,11 @@ use InvalidArgumentException;
 
 class ModelFactory
 {
+
     /**
+     * Get model factory
+     * @param $modelName
+     * @return Model
      * @throws BindingResolutionException
      */
     public static function create($modelName): Model

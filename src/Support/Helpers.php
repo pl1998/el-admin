@@ -6,6 +6,18 @@ namespace Latent\ElAdmin\Support;
 
 class Helpers
 {
+
+    /**
+     * Get tree list
+     *
+     * @param $list
+     * @param string $pk
+     * @param string $pid
+     * @param string|array|null $child
+     * @param int $root
+     * @param array $allPid
+     * @return array
+     */
     public static function getTree($list, string $pk = 'id', string $pid = 'parent_id', string|array|null $child = 'children', int $root = 0, array $allPid = []): array
     {
         $tree = [];
@@ -34,6 +46,12 @@ class Helpers
         return $tree;
     }
 
+    /**
+     * Filter null to array
+     *
+     * @param array $map
+     * @return array
+     */
     public static function filterNull(array $map): array
     {
         return array_filter($map, function ($val) {
@@ -41,6 +59,13 @@ class Helpers
         });
     }
 
+    /**
+     * Filter array keys
+     *
+     * @param $params
+     * @param $keys
+     * @return array
+     */
     public static function filterParams($params, $keys = []): array
     {
         if (empty($params) || !is_array($params)) {
@@ -52,7 +77,11 @@ class Helpers
         }, ARRAY_FILTER_USE_KEY);
     }
 
+
     /**
+     * Get array keys
+     * @param array $params
+     * @param array $keys
      * @return array
      */
     public static function getKeyValue(array $params, array $keys)
@@ -64,7 +93,6 @@ class Helpers
                 }
             }
         }
-
         return $params;
     }
 }

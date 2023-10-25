@@ -1,0 +1,9 @@
+preset: laravel
+
+persist:
+  - '*.php'
+rules:
+  standard_php: true
+
+options:
+  'comment_to_phpdoc/keep': ['//', '/*', '/**']

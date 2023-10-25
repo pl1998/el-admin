@@ -10,7 +10,14 @@ use Illuminate\Http\JsonResponse;
 
 trait Validate
 {
+
     /**
+     * Check request params
+     *
+     * @param array $rules
+     * @param array $params
+     * @param array $message
+     * @return JsonResponse|string|array|null
      * @throws ValidateException
      */
     public function validator(array $rules, array $params = [], array $message = []): JsonResponse|string|array|null
@@ -27,8 +34,13 @@ trait Validate
         return $params;
     }
 
+
     /**
-     * @param int $id
+     * Get tables in rules
+     * @param string $rules
+     * @param string $table
+     * @param string $filed
+     * @return string
      */
     public function getTableRules(string $rules, string $table, string $filed = ''): string
     {
