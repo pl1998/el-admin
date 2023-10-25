@@ -10,9 +10,7 @@ use Latent\ElAdmin\Factories\ModelFactory;
 
 trait ModelTraits
 {
-
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getUserModel(): Model
@@ -21,7 +19,6 @@ trait ModelTraits
     }
 
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getRoleModel(): Model
@@ -30,7 +27,6 @@ trait ModelTraits
     }
 
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getRoleMenusModel(): Model
@@ -39,7 +35,6 @@ trait ModelTraits
     }
 
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getMenusModel(): Model
@@ -48,7 +43,6 @@ trait ModelTraits
     }
 
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getUserRolesModel(): Model
@@ -57,7 +51,6 @@ trait ModelTraits
     }
 
     /**
-     * @return Model
      * @throws BindingResolutionException
      */
     public function getLogModel(): Model
