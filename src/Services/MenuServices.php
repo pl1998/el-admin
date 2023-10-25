@@ -12,17 +12,13 @@ class MenuServices
     use Permission;
 
     /**
-     * Request params
-     *
-     * @var array
+     * Request params.
      */
     public array $params = [];
 
     /**
-     * Menu list
+     * Menu list.
      *
-     * @param array $params
-     * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function list(array $params): array
@@ -54,10 +50,8 @@ class MenuServices
 
     /**
      * create menus.
-     *
-     * @return void
      */
-    public function add(array $params) :void
+    public function add(array $params): void
     {
         $create = Helpers::filterNull([
             'name' => $params['name'] ?? null,
@@ -80,10 +74,8 @@ class MenuServices
 
     /**
      * create menus.
-     *
-     * @return void
      */
-    public function update(array $params) :void
+    public function update(array $params): void
     {
         $this->getMenusModel()
             ->where('id', $params['id'])

@@ -10,9 +10,6 @@ use Latent\ElAdmin\Enum\ModelEnum;
 
 class AdminRoleMenu extends Model
 {
-    /**
-     * @return HasOne
-     */
     public function menus(): HasOne
     {
         return $this->hasOne(config('el_admin.database.menus_model'), 'id', 'menu_id')

@@ -16,10 +16,8 @@ class RoleServices
     use ModelTraits;
 
     /**
-     * Get roles list
+     * Get roles list.
      *
-     * @param array $params
-     * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function list(array $params): array
@@ -45,12 +43,9 @@ class RoleServices
         ];
     }
 
-
     /**
      * Create role and to menus.
      *
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
     public function add(array $params): void
@@ -81,12 +76,9 @@ class RoleServices
         });
     }
 
-
     /**
      * Update role and to menus.
      *
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
     public function update(array $params): void

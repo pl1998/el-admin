@@ -9,12 +9,9 @@ use Exception;
 
 class ShellCommand
 {
-
     /**
-     * Build commands
+     * Build commands.
      *
-     * @param $cmd
-     * @return string
      * @throws Exception
      */
     public static function execute($cmd): string
