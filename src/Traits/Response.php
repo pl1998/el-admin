@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Traits;
 
 use Illuminate\Http\JsonResponse;
-use Latent\ElAdmin\Enum\Http;
+use Latent\ElAdmin\Enum\Status;
 
 trait Response
 {
@@ -20,7 +20,7 @@ trait Response
     /**
      * @return $this
      */
-    public function withHttpCode(int $code = Http::SUCCESS_STATUS): static
+    public function withHttpCode(int $code = Status::SUCCESS_STATUS): static
     {
         $this->code = $code;
 
@@ -30,7 +30,7 @@ trait Response
     /**
      * @return $this
      */
-    public function withStatus(int $status = Http::SUCCESS_STATUS): static
+    public function withStatus(int $status = Status::SUCCESS_STATUS): static
     {
         $this->status = $status;
 
@@ -60,7 +60,7 @@ trait Response
     /**
      * success response.
      */
-    public function success($data = [], string $message = 'success', int $status = Http::SUCCESS_STATUS): JsonResponse
+    public function success($data = [], string $message = 'success', int $status = Status::SUCCESS_STATUS): JsonResponse
     {
         return response()->json([
             'data' => $this->data ?? $data,
@@ -72,7 +72,7 @@ trait Response
     /**
      * fail response.
      */
-    public function fail(string $message = 'error', int $status = Http::FAIL_STATUS, $data = [], int $code = Http::SUCCESS_STATUS): JsonResponse
+    public function fail(string $message = 'error', int $status = Status::FAIL_STATUS, $data = [], int $code = Status::SUCCESS_STATUS): JsonResponse
     {
         return response()->json([
             'data' => $this->data ?? $data,

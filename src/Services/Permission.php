@@ -7,13 +7,13 @@ namespace Latent\ElAdmin\Services;
 use Illuminate\Support\Arr;
 use Latent\ElAdmin\Enum\MethodEnum;
 use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
 use Psr\SimpleCache\InvalidArgumentException;
 
 trait Permission
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     public array  $params = [];
 
@@ -107,7 +107,7 @@ trait Permission
                         'id' => $menu['id'],
                     ];
                     if (0 == $menu['parent_id']) {
-                        unset($data['redirect'],$data['component'],$data['name'],$data['path']);
+                        unset($data['component'],$data['name'],$data['path']);
                     }
                 } else {
                     return Arr::only($menu, ['type', 'id', 'name', 'icon', 'parent_id']);

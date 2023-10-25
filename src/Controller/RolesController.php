@@ -6,7 +6,7 @@ namespace Latent\ElAdmin\Controller;
 
 use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Exceptions\ValidateException;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +14,7 @@ use Throwable;
 
 class RolesController extends Controller
 {
-    use GetModelTraits;
+    use ModelTraits;
     use Permission;
 
     /**

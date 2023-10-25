@@ -2,7 +2,7 @@
 
 namespace Latent\ElAdmin\Enum;
 
-class Http
+class Status
 {
     /** @var int */
     public const SUCCESS_STATUS = 200;

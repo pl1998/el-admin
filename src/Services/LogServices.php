@@ -2,11 +2,11 @@
 
 namespace Latent\ElAdmin\Services;
 
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 
 class LogServices
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     /** @var array */
     protected $params = [];
