@@ -102,9 +102,22 @@ class UserService
 
             !empty($save) && $this->getUserModel()->where('id', $userId)->update($save);
 
-            if (!empty($params['role'])) {
+            $roles = $params['role'];
+
+            // Filter out non-integer values
+            // Note: This is a temporary fix due to the frontend sending role array: [{}，1， 2].
+            // TODO: Remove this block once the frontend is fixed.
+            $roles = array_filter($roles, function ($value) {
+                return is_int($value);
+            });
+
+            // Remove duplicate values
+            // Note: This is a temporary fix due to the frontend sendind duplicated roleIds: [2，2, 2].
+            $roles = array_values(array_unique($roles));
+
+            if (!empty($roles)) {
                 $userRoles = [];
-                foreach ($params['role'] as $roleId) {
+                foreach ($roles as $roleId) {
                     $userRoles[] = [
                         'user_id' => $userId,
                         'role_id' => $roleId,
@@ -113,7 +126,8 @@ class UserService
                     ];
                 }
                 $model = $this->getUserRolesModel();
-                $model->where('user_id', $userId)->delete();
+                // Due to the soft delete duplicate records not being deleted,
+                $model->where('user_id', $userId)->forceDelete();
                 $this->getUserRolesModel()
                     ->insert($userRoles);
             }

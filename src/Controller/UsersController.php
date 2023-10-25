@@ -37,7 +37,7 @@ class UsersController extends Controller
                 'email' => 'required|email|'.$this->getTableRules('unique', 'users_table'),
                 'password' => 'required|min:6|max:20|confirmed:password_confirmation',
                 'password_confirmation' => 'required|min:6|max:20',
-                'rule' => 'array',
+                'role' => 'array',
             ]);
 
             $userService->add($params);
