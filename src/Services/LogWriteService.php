@@ -6,12 +6,12 @@ namespace Latent\ElAdmin\Services;
 
 use Jenssegers\Agent\Agent;
 use Latent\ElAdmin\Enum\MethodEnum;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Support\Helpers;
 
 class LogWriteService
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     /** @var string[] filter keys maps */
     protected $filters = ['password'];

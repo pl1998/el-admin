@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Controller;
 
 use Latent\ElAdmin\Exceptions\ValidateException;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Services\UserService;
 use Throwable;
 
 class UsersController extends Controller
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     /**
      * @throws ValidateException

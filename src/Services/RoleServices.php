@@ -6,14 +6,14 @@ namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
 use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
 use Latent\ElAdmin\Support\Helpers;
 use Throwable;
 
 class RoleServices
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     public function list(array $params): array
     {

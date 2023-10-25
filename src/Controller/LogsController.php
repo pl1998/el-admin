@@ -7,12 +7,12 @@ namespace Latent\ElAdmin\Controller;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Exceptions\ValidateException;
-use Latent\ElAdmin\Models\GetModelTraits;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Services\LogServices;
 
 class LogsController extends Controller
 {
-    use GetModelTraits;
+    use ModelTraits;
 
     /**
      * @throws BindingResolutionException

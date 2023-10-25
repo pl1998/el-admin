@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Latent\ElAdmin\Enum\Http;
+use Latent\ElAdmin\Enum\Status;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Traits\Response as ApiResponse;
 
@@ -28,6 +28,6 @@ class RbacMiddleware
             return $next($request);
         }
 
-        return $this->fail(trans('el_admin.permission_error'), Http::PREM_STATUS);
+        return $this->fail(trans('el_admin.permission_error'), Status::PREM_STATUS);
     }
 }
