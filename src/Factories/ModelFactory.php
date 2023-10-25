@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 namespace Latent\ElAdmin\Factories;
+
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
+
 class ModelFactory
 {
     /**
-     * @param $modelName
-     * @return Model
      * @throws BindingResolutionException
      */
     public static function create($modelName): Model
