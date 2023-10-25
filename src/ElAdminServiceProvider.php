@@ -10,7 +10,6 @@ use Latent\ElAdmin\Command\MenuCacheCommand;
 
 class ElAdminServiceProvider extends ServiceProvider
 {
-
     public function register(): void
     {
         // register merge config/auth.php

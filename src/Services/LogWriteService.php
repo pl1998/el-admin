@@ -14,35 +14,30 @@ class LogWriteService
     use ModelTraits;
 
     /**
-     * Filter keys maps
+     * Filter keys maps.
      *
      * @var string[]
      */
     protected $filters = ['password'];
 
     /**
-     * Filter method maps
-     *
-     * @var array
+     * Filter method maps.
      */
     protected array  $filterMethod;
 
-
     /**
-     * This is Device info class
+     * This is Device info class.
      *
      * @var Agent
      */
     protected $agent;
 
-
     /**
-     * Request method
+     * Request method.
      *
      * @var string
      */
     protected $method;
-
 
     public function __construct()
     {
@@ -52,9 +47,8 @@ class LogWriteService
     }
 
     /**
-     * Log write database
+     * Log write database.
      *
-     * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle(): void

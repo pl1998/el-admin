@@ -18,11 +18,9 @@ class RbacMiddleware
     use Permission;
     use ApiResponse;
 
-
     /**
-     * @param Request $request
-     * @param Closure $next
      * @return JsonResponse|mixed
+     *
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */

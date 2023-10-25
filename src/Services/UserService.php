@@ -14,12 +14,9 @@ class UserService
 {
     use Permission;
 
-
     /**
      * Get User List.
      *
-     * @param array $params
-     * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function list(array $params): array
@@ -52,12 +49,9 @@ class UserService
         ];
     }
 
-
     /**
-     * Add user
+     * Add user.
      *
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
     public function add(array $params): void
@@ -88,12 +82,9 @@ class UserService
         });
     }
 
-
     /**
-     * Update user info
+     * Update user info.
      *
-     * @param array $params
-     * @return void
      * @throws Throwable
      */
     public function update(array $params): void

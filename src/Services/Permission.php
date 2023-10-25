@@ -16,17 +16,13 @@ trait Permission
     use ModelTraits;
 
     /**
-     * Request params
-     *
-     * @var array
+     * Request params.
      */
     public array  $params = [];
-
 
     /**
      * Get users all roles.
      *
-     * @return array|null
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getAllRoles(): ?array
@@ -126,12 +122,9 @@ trait Permission
             })?->toArray();
     }
 
-
     /**
      * get role menus.
      *
-     * @param array $roleId
-     * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getRoleMenus(array $roleId = []): array
@@ -154,14 +147,9 @@ trait Permission
         return $menus;
     }
 
-
     /**
      * check permission.
      *
-     * @param string $path
-     * @param string $method
-     * @param string $routeName
-     * @return bool
      * @throws InvalidArgumentException
      */
     public function checkApiPermission(string $path, string $method, string $routeName): bool
@@ -181,15 +169,8 @@ trait Permission
         return false;
     }
 
-
     /**
      * check permission.
-     *
-     * @param array $menes
-     * @param string $method
-     * @param string $key
-     * @param string $value
-     * @return bool
      */
     protected function isCheck(array $menes, string $method, string $key, string $value): bool
     {
