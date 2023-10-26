@@ -21,7 +21,7 @@ class LogServices
         })
             ->when(!empty($this->params['ip']), function ($q) {
                 $q->where('ip', ip2long($this->params['ip']));
-            });
+            })->orderByDesc('id');
 
         return [
             'list' => $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray(),
