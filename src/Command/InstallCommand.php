@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Latent\ElAdmin\Models\ElAdminSeeder;
 use Latent\ElAdmin\Support\ShellCommand;
+use Illuminate\Support\Facades\File;
 
 class InstallCommand extends Command
 {
@@ -34,7 +35,14 @@ class InstallCommand extends Command
             ShellCommand::execute('cp .env.example .env');
             Artisan::call('key:generate');
         }
-        Artisan::call('jwt:secret');
+
+        $envContents = File::get(base_path('.env'));
+
+        // JWT_SECRET doesn't exist or doesn't have a value in the .env file.
+        if (strpos($envContents, 'JWT_SECRET=') === false || empty(env('JWT_SECRET'))) {
+            Artisan::call('jwt:secret');
+        }
+
         // database migration
         Artisan::call('migrate');
         // Initialize the data population

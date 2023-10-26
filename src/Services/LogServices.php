@@ -13,11 +13,11 @@ class LogServices
     public function handler($params): array
     {
         $this->params = $params;
-
+        $userId = isset($this->params['user_id']) ? (int) $this->params['user_id'] : null;
         $query = $this->getLogModel();
 
-        $query->when(!empty($this->params['user_id']), function ($q) {
-            $q->where('user_id', $this->params['user_id']);
+        $query = $query->when($userId, function ($q) use ($userId) {
+            return $q->where('user_id', 'LIKE', "%{$userId}%");
         })
             ->when(!empty($this->params['ip']), function ($q) {
                 $q->where('ip', ip2long($this->params['ip']));
