@@ -2,24 +2,27 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Controller;
 
-use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
 use Illuminate\Http\JsonResponse;
-use Throwable;
 
 class RolesController extends Controller
 {
     use ModelTraits;
     use Permission;
 
-    /**
-     * @throws ValidateException
-     */
     public function index(RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
@@ -31,10 +34,6 @@ class RolesController extends Controller
         return $this->success($roleServices->list($params));
     }
 
-    /**
-     * @throws Throwable
-     * @throws ValidateException
-     */
     public function store(RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
@@ -47,10 +46,6 @@ class RolesController extends Controller
         return $this->success();
     }
 
-    /**
-     * @throws Throwable
-     * @throws ValidateException
-     */
     public function update($id, RoleServices $roleServices): JsonResponse
     {
         $params = $this->validator([
@@ -65,18 +60,15 @@ class RolesController extends Controller
         return $this->success();
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($id, RoleServices $roleServices): JsonResponse
     {
-        $this->getRoleModel()->where('id', $id)->delete();
+        $roleServices->destroy((int) $id);
 
         return $this->success();
     }
 
-    public function getAllRole(): JsonResponse
+    public function getAllRole(RoleServices $roleServices): JsonResponse
     {
-        $list = $this->getRoleModel()->where('status', ModelEnum::NORMAL)
-            ->get(['id', 'name'])?->toArray();
-
-        return $this->success($list);
+        return $this->success($roleServices->getAllRole());
     }
 }

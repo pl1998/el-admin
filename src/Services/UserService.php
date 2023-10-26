@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
@@ -24,10 +33,10 @@ class UserService
         $query = $this->getUserModel()
             ->with('roles')
             ->when(!empty($params['name']), function ($q) use ($params) {
-                $q->where('name', 'like', "{$params['name']}");
+                $q->where('name', 'like', "%{$params['name']}%");
             })
             ->when(!empty($params['email']), function ($q) use ($params) {
-                $q->where('email', 'like', "{$params['email']}");
+                $q->where('email', 'like', "%{$params['email']}%");
             });
 
         $list = $query
@@ -97,12 +106,15 @@ class UserService
             $save = Helpers::filterNull([
                 'name' => $params['name'] ?? null,
                 'email' => $params['email'] ?? null,
-                'password' => $params['password'] ? Hash::make($params['password']) : null,
+                'password' => !empty($params['password']) ? Hash::make($params['password']) : null,
+                'status' => $params['status'] ?? null,
             ]);
 
-            !empty($save) && $this->getUserModel()->where('id', $userId)->update($save);
+            !empty($save) && $this->getUserModel()
+                ->where('id', $userId)
+                ->update($save);
 
-            $roles = $params['role'];
+            $roles = $params['role'] ?? [];
 
             // Filter out non-integer values
             // Note: This is a temporary fix due to the frontend sending role array: [{}，1， 2].
@@ -132,5 +144,13 @@ class UserService
                     ->insert($userRoles);
             }
         });
+    }
+
+    /**
+     * Destroy users.
+     */
+    public function destroy(int $id): void
+    {
+        $this->getUserModel()->where('id', $id)->delete();
     }
 }

@@ -2,9 +2,17 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Controller;
 
-use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Services\MenuServices;
 use Latent\ElAdmin\Services\Permission;
@@ -114,14 +122,8 @@ class MenusController extends Controller
         ));
     }
 
-    public function getAllMenus(): JsonResponse
+    public function getAllMenus(MenuServices $menuServices): JsonResponse
     {
-        $list = $this->getMenusModel()->where('hidden', ModelEnum::NORMAL)
-            ->get()?->toArray();
-
-        return $this->success([
-            'ids' => array_column($list, 'id'),
-            'list' => Helpers::getTree($list),
-        ]);
+        return $this->success($menuServices->getAllMenus());
     }
 }

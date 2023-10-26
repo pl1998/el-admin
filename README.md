@@ -1,60 +1,56 @@
 <p align="center">
-  <img width="200" src="docs/logo.png">
+  <img width="200" src="./docs/logo.png">
 </p>
 
 <p align="center">
-
-<a href="https://packagist.org/packages/pl1998/el-admin"><img src="https://img.shields.io/badge/php-v8.0+-blue" /></a>
 <a href="https://packagist.org/packages/pl1998/el-admin"><img src="https://github.styleci.io/repos/707259849/shield?branch=master"/></a>
 <img src="https://img.shields.io/badge/license-MIT-green" />
 <img src="https://img.shields.io/github/repo-size/pl1998/el-admin">
 </p>
 
-
 ## About ElAdmin
 
-English | [简体中文](./README.zh_CN.md)
+简体中文 | [English](./README_EN.md)
 
-### Info
+### 简介
 
-> `El-admin` is a third-party background extension package for Laravel. With the front-end scaffolding provided by it, it can be very convenient and fast to build the rbac management background that separates the front and back ends, so that users only care about the business module, without writing permission management.
+> El-admin 是一个Laravel的后台权限扩展包，它提供了权限管理必要的 `API`。配合它提供的前端脚手架，可以很方便快速的搭建前后端分离的rbac管理后台。
 
 
-### Permission based on RBAC model
+### 基于RBAC模型权限
 
 ![](docs/database.png)
 
-### Must
-  * PHP  >= 8.0
-  * Laravel 9~10
 
-### Installed
+### 依赖
+* PHP  >= 8.0
+* Laravel 9~10
+
+### 安装
 
 ```shell
 composer require latent/el-admin:dev-master
 ```
 
-###  Release Config
+###  配置发布
 ```shell
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 ```
 
-### Shell Build
+### 执行构建脚本
 ```shell
 php artisan el-admin:install
 ```
 
-### Other commands
+### 其它命令
 ```shell
-php artisan el-admin:clear //Clear all menu caches
-php artisan el-admin:clear {id} // Clears the specified user menu cache
+php artisan el-admin:clear //清除全部菜单缓存
+php artisan el-admin:clear {id} //清除指定用户菜单缓存
 ```
 
+### 示例 
 
-### Example
-
- * [Vue3 Admin](https://github.com/pl1998/basic)
-
+[Vue3实现的管理后台](https://github.com/pl1998/basic)
 
 ## License
- MIT License
+MIT License
