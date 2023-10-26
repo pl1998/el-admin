@@ -116,4 +116,29 @@ class RoleServices
             }
         });
     }
+
+    /**
+     * Destroy roles
+     *
+     * @param int $id
+     * @return void
+     */
+    public function destroy(int $id) :void
+    {
+        $this->getRoleModel()->where('id', $id)->delete();
+    }
+
+    /**
+     * Get all roles
+     *
+     * @return array|null
+     */
+    public function getAllRole() :?array
+    {
+        return $this->getRoleModel()
+            ->where('status', ModelEnum::NORMAL)
+            ->get(['id', 'name'])
+            ?->toArray();
+
+    }
 }

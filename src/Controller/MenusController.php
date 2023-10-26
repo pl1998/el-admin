@@ -114,14 +114,8 @@ class MenusController extends Controller
         ));
     }
 
-    public function getAllMenus(): JsonResponse
+    public function getAllMenus( MenuServices $menuServices): JsonResponse
     {
-        $list = $this->getMenusModel()->where('hidden', ModelEnum::NORMAL)
-            ->get()?->toArray();
-
-        return $this->success([
-            'ids' => array_column($list, 'id'),
-            'list' => Helpers::getTree($list),
-        ]);
+        return $this->success($menuServices->getAllMenus());
     }
 }

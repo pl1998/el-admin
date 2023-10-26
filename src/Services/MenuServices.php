@@ -91,4 +91,19 @@ class MenuServices
             'icon' => $params['icon'] ?? null,
         ]));
     }
+
+
+    /**
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getAllMenus() :array
+    {
+        $list = $this->getMenusModel()->where('hidden', ModelEnum::NORMAL)
+            ->get()?->toArray();
+        return  [
+            'ids'  => array_column($list, 'id'),
+            'list' => Helpers::getTree($list)
+        ];
+    }
 }

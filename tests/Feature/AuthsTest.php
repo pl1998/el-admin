@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Latent\ElAdmin;
+namespace Latent\ElAdmin\tests\Feature;
 
+use Latent\ElAdmin\TestConfig;
 use Tests\TestCase;
 
-class AuthTest extends TestCase
+class AuthsTest extends TestCase
 {
     use TestConfig;
 
