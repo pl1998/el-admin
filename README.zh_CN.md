@@ -50,32 +50,6 @@ php artisan el-admin:clear //清除全部菜单缓存
 php artisan el-admin:clear {id} //清除指定用户菜单缓存
 ```
 
-### 兼容
-> 修改 `config/el_admin.php` 将 `guard` 改成 `api`
-> 或者 `App\Http\Middleware\Authenticate` 加入这段代码。
-> 该目的在web接口和后台接口在同一项目时后台jwt配置不占用api的配置。
-```php
- /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string[]  ...$guards
-     * @return mixed
-     *
-     * @throws \Illuminate\Auth\AuthenticationException
-     */
-    public function handle($request, Closure $next, ...$guards)
-    {
-        // or $guards = [config('el_admin.guard')];
-        $guards = array_merge($guards,[config('el_admin.guard')]);
-      
-        $this->authenticate($request, $guards);
-
-        return $next($request);
-    }
-```
-
 ### 示例 
 
 [Vue3实现的管理后台](https://github.com/pl1998/basic)

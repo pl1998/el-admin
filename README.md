@@ -50,31 +50,6 @@ php artisan el-admin:clear //Clear all menu caches
 php artisan el-admin:clear {id} // Clears the specified user menu cache
 ```
 
-### Update
-> Update `config/el_admin.php` `-` `guard` to `api`
-> Or `App\Http\Middleware\Authenticate` add code。
-> The background jwt configuration does not occupy the api configuration when the web interface and background interface are in the same project.
-```php
- /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string[]  ...$guards
-     * @return mixed
-     *
-     * @throws \Illuminate\Auth\AuthenticationException
-     */
-    public function handle($request, Closure $next, ...$guards)
-    {
-        // or $guards = [config('el_admin.guard')];
-        $guards = array_merge($guards,[config('el_admin.guard')]);
-      
-        $this->authenticate($request, $guards);
-
-        return $next($request);
-    }
-```
 
 ### Example
 
