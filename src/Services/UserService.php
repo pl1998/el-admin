@@ -15,7 +15,9 @@ class UserService
     use Permission;
 
     /**
-     * get User List.
+     * Get User List.
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function list(array $params): array
     {
@@ -48,6 +50,8 @@ class UserService
     }
 
     /**
+     * Add user.
+     *
      * @throws Throwable
      */
     public function add(array $params): void
@@ -79,6 +83,8 @@ class UserService
     }
 
     /**
+     * Update user info.
+     *
      * @throws Throwable
      */
     public function update(array $params): void

@@ -11,6 +11,8 @@ use InvalidArgumentException;
 class ModelFactory
 {
     /**
+     * Get model factory.
+     *
      * @throws BindingResolutionException
      */
     public static function create($modelName): Model

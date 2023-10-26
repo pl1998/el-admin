@@ -15,10 +15,15 @@ trait Permission
 {
     use ModelTraits;
 
+    /**
+     * Request params.
+     */
     public array  $params = [];
 
     /**
      * Get users all roles.
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getAllRoles(): ?array
     {
@@ -119,6 +124,8 @@ trait Permission
 
     /**
      * get role menus.
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getRoleMenus(array $roleId = []): array
     {
@@ -162,6 +169,9 @@ trait Permission
         return false;
     }
 
+    /**
+     * check permission.
+     */
     protected function isCheck(array $menes, string $method, string $key, string $value): bool
     {
         return collect($menes)

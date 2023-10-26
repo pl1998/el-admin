@@ -35,7 +35,7 @@ class AdminLog extends Model
     /**
      * @return false|string
      */
-    public function getIpAttribute($key)
+    public function getIpAttribute($key): bool|string
     {
         if (is_numeric($key)) {
             return long2ip($key);

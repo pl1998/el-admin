@@ -16,15 +16,19 @@ class AuthController extends Controller
 {
     use Permission;
 
-    /** @var string|mixed */
+    /**
+     * User guard.
+     */
     protected string $guard;
 
     public function __construct()
     {
-        $this->guard = config('el_admin.guard');
+        $this->guard = (string) config('el_admin.guard');
     }
 
     /**
+     * User login.
+     *
      * @throws ValidateException
      */
     public function login(): JsonResponse
@@ -74,7 +78,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Refresh a token.
+     * Refresh token.
      */
     public function refresh(): JsonResponse
     {
