@@ -39,7 +39,7 @@ class InstallCommand extends Command
         $envContents = File::get(base_path('.env'));
 
         // JWT_SECRET doesn't exist or doesn't have a value in the .env file.
-        if (strpos($envContents, 'JWT_SECRET=') === false || empty(env('JWT_SECRET'))) {
+        if (false === strpos($envContents, 'JWT_SECRET=') || empty(env('JWT_SECRET'))) {
             Artisan::call('jwt:secret');
         }
 
