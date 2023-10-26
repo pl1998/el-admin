@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Controller;
 
 use Illuminate\Validation\Rule;
@@ -61,10 +70,10 @@ class UsersController extends Controller
             'id' => 'required|'.$this->getTableRules('exists', 'users_table'),
             'name' => 'string|'.$this->getTableRules('unique', 'users_table', 'id'),
             'email' => 'email|'.$this->getTableRules('unique', 'users_table', 'id'),
-            'password' => [new CheckPassword,'confirmed:password_confirmation'],
-            'password_confirmation' => [new CheckPassword],
+            'password' => [new CheckPassword(), 'confirmed:password_confirmation'],
+            'password_confirmation' => [new CheckPassword()],
             'rule' => 'array',
-            'status' => ['int',Rule::in([ModelEnum::NORMAL,ModelEnum::FORBIDDEN])]
+            'status' => ['int', Rule::in([ModelEnum::NORMAL, ModelEnum::FORBIDDEN])],
         ], $this->mergeParams(['id' => $id]));
 
         $userService->update($params);
@@ -72,9 +81,10 @@ class UsersController extends Controller
         return $this->success();
     }
 
-    public function destroy($id , UserService $userService): JsonResponse
+    public function destroy($id, UserService $userService): JsonResponse
     {
-        $userService->destroy((int)$id);
+        $userService->destroy((int) $id);
+
         return $this->success();
     }
 }
