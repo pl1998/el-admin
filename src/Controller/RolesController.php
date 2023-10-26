@@ -2,14 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Controller;
 
-use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
 use Illuminate\Http\JsonResponse;
-use Throwable;
 
 class RolesController extends Controller
 {
@@ -55,14 +62,13 @@ class RolesController extends Controller
 
     public function destroy($id, RoleServices $roleServices): JsonResponse
     {
-        $roleServices->destroy((int)$id);
+        $roleServices->destroy((int) $id);
 
         return $this->success();
     }
 
     public function getAllRole(RoleServices $roleServices): JsonResponse
     {
-
         return $this->success($roleServices->getAllRole());
     }
 }

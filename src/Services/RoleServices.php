@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the latent/el-admin.
+ *
+ * (c) latent<pltrueover@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
@@ -118,27 +127,21 @@ class RoleServices
     }
 
     /**
-     * Destroy roles
-     *
-     * @param int $id
-     * @return void
+     * Destroy roles.
      */
-    public function destroy(int $id) :void
+    public function destroy(int $id): void
     {
         $this->getRoleModel()->where('id', $id)->delete();
     }
 
     /**
-     * Get all roles
-     *
-     * @return array|null
+     * Get all roles.
      */
-    public function getAllRole() :?array
+    public function getAllRole(): ?array
     {
         return $this->getRoleModel()
             ->where('status', ModelEnum::NORMAL)
             ->get(['id', 'name'])
             ?->toArray();
-
     }
 }
