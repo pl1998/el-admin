@@ -97,7 +97,7 @@ trait HttpClient
      * @param  array  $params
      * @return $this
      */
-    public function get(string $url, array $params =[])
+    public function get(string $url, array $params = [])
     {
         $this->request($url, 'GET', $params);
 

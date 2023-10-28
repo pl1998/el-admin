@@ -14,6 +14,7 @@ namespace Latent\ElAdmin\Tests;
 class RolesTest extends TestCase
 {
     use TestConfig;
+
     /**
      * @return void
      *
@@ -25,7 +26,7 @@ class RolesTest extends TestCase
 
         $this->withHeader('Authorization', "Bearer $token")->post('/role', [
             'name' => time().'role',
-            'menu' => [1,2]
+            'menu' => [1, 2],
         ]);
         $this->assertStatus($this->httpCode);
         $this->assertStatus($this->json()['status'] ?? 0);
@@ -42,7 +43,7 @@ class RolesTest extends TestCase
 
         $this->withHeader('Authorization', "Bearer $token")->put('/role/2', [
             'name' => time().'role',
-            'menu' => [1,2,3,4]
+            'menu' => [1, 2, 3, 4],
         ]);
         $this->assertStatus($this->httpCode);
         $this->assertStatus($this->json()['status'] ?? 0);
