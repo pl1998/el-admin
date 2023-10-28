@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Tests;
 
-
 use Exception;
-
 
 class AuthsTest extends TestCase
 {

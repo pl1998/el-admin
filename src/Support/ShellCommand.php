@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Support;
 
-use Symfony\Component\Process\Process;
 use Exception;
+use Symfony\Component\Process\Process;
 
 class ShellCommand
 {

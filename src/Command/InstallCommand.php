@@ -15,9 +15,9 @@ namespace Latent\ElAdmin\Command;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Latent\ElAdmin\Models\ElAdminSeeder;
 use Latent\ElAdmin\Support\ShellCommand;
-use Illuminate\Support\Facades\File;
 
 class InstallCommand extends Command
 {
@@ -40,7 +40,7 @@ class InstallCommand extends Command
      */
     public function handle(): int
     {
-        if (!file_exists(base_path().'/.env')) {
+        if (! file_exists(base_path().'/.env')) {
             ShellCommand::execute('cp .env.example .env');
             Artisan::call('key:generate');
         }

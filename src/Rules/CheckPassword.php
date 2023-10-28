@@ -20,9 +20,8 @@ class CheckPassword implements Rule
     /**
      * 确定验证规则是否通过。
      *
-     * @param string $attribute
-     * @param mixed  $value
-     *
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
      */
     public function passes($attribute, $value)

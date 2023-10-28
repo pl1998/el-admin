@@ -11,7 +11,6 @@
 
 namespace Latent\ElAdmin\Tests;
 
-
 class LogsTest extends TestCase
 {
 }

@@ -19,7 +19,7 @@ class AdminUserRole extends Admin
      * @var string[]
      */
     protected $fillable = [
-      'user_id',
-      'role_id',
+        'user_id',
+        'role_id',
     ];
 }
