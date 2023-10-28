@@ -24,7 +24,7 @@ class AuthsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testAuthMe()  :void
+    public function testAuthMe(): void
     {
         $this->getToken();
     }
@@ -34,10 +34,10 @@ class AuthsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testMe()  :void
+    public function testMe(): void
     {
         $token = $this->getToken();
-        $this->withHeader('Authorization', "Bearer $token")->post('/me',['is_menus' => 1]);
+        $this->withHeader('Authorization', "Bearer $token")->post('/me', ['is_menus' => 1]);
         $this->assertStatus($this->httpCode);
         $this->assertStatus($this->json()['status'] ?? 0);
     }
@@ -47,7 +47,7 @@ class AuthsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testLogout() :void
+    public function testLogout(): void
     {
         $token = $this->getToken();
         $this->withHeader('Authorization', "Bearer $token")->post('/logout');
@@ -60,7 +60,7 @@ class AuthsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testRefresh() :void
+    public function testRefresh(): void
     {
         $token = $this->getToken();
         $this->withHeader('Authorization', "Bearer $token")->post('/refresh');
