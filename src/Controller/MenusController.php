@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Services\MenuServices;
 use Latent\ElAdmin\Services\Permission;
-use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Support\Helpers;
 use Psr\SimpleCache\InvalidArgumentException;
 

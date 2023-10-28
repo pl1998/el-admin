@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Services\Permission;
 use Latent\ElAdmin\Services\RoleServices;
-use Illuminate\Http\JsonResponse;
 
 class RolesController extends Controller
 {

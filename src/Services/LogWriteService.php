@@ -62,7 +62,7 @@ class LogWriteService
      */
     public function handle(): void
     {
-        if (!config('el_admin.log')) {
+        if (! config('el_admin.log')) {
             return;
         }
 

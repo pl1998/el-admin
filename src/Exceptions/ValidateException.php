@@ -28,10 +28,10 @@ class ValidateException extends Exception
     {
         return response()->json(
             [
-                'message' => !empty($this->message) ? $this->message : '参数校验失败',
+                'message' => ! empty($this->message) ? $this->message : '参数校验失败',
                 'status' => Status::FAIL_STATUS,
             ],
-            !empty($this->code) ? $this->code : Status::SUCCESS_STATUS
+            ! empty($this->code) ? $this->code : Status::SUCCESS_STATUS
         );
     }
 }

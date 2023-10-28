@@ -32,10 +32,10 @@ class UserService
     {
         $query = $this->getUserModel()
             ->with('roles')
-            ->when(!empty($params['name']), function ($q) use ($params) {
+            ->when(! empty($params['name']), function ($q) use ($params) {
                 $q->where('name', 'like', "%{$params['name']}%");
             })
-            ->when(!empty($params['email']), function ($q) use ($params) {
+            ->when(! empty($params['email']), function ($q) use ($params) {
                 $q->where('email', 'like', "%{$params['email']}%");
             });
 
@@ -76,7 +76,7 @@ class UserService
                 'updated_at' => $date,
             ]);
             $userRoles = [];
-            if (!empty($params['role'])) {
+            if (! empty($params['role'])) {
                 foreach ($params['role'] as $roleId) {
                     $userRoles[] = [
                         'user_id' => $userId,
@@ -106,11 +106,11 @@ class UserService
             $save = Helpers::filterNull([
                 'name' => $params['name'] ?? null,
                 'email' => $params['email'] ?? null,
-                'password' => !empty($params['password']) ? Hash::make($params['password']) : null,
+                'password' => ! empty($params['password']) ? Hash::make($params['password']) : null,
                 'status' => $params['status'] ?? null,
             ]);
 
-            !empty($save) && $this->getUserModel()
+            ! empty($save) && $this->getUserModel()
                 ->where('id', $userId)
                 ->update($save);
 
@@ -127,7 +127,7 @@ class UserService
             // Note: This is a temporary fix due to the frontend sendind duplicated roleIds: [2，2, 2].
             $roles = array_values(array_unique($roles));
 
-            if (!empty($roles)) {
+            if (! empty($roles)) {
                 $userRoles = [];
                 foreach ($roles as $roleId) {
                     $userRoles[] = [

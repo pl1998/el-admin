@@ -28,7 +28,7 @@ class LogServices
         $query = $query->when($userId, function ($q) use ($userId) {
             return $q->where('user_id', 'LIKE', "%{$userId}%");
         })
-            ->when(!empty($this->params['ip']), function ($q) {
+            ->when(! empty($this->params['ip']), function ($q) {
                 $q->where('ip', ip2long($this->params['ip']));
             })->orderByDesc('id');
 

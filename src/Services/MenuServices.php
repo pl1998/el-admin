@@ -34,7 +34,7 @@ class MenuServices
     {
         $this->params = $params;
         $query = $this->getMenusModel()
-            ->when(!empty($params['name']), function ($q) {
+            ->when(! empty($params['name']), function ($q) {
                 $q->where('name', 'like', "{$this->params['name']}%")->orWhere('route_name', 'like', "{$this->params['name']}%");
             })
             ->when(isset($params['type']), function ($q) {
@@ -89,16 +89,16 @@ class MenuServices
         $this->getMenusModel()
             ->where('id', $params['id'])
             ->update(Helpers::filterNull([
-            'name' => $params['name'] ?? null,
-            'sort' => $params['sort'] ?? null,
-            'parent_id' => $params['parent_id'] ?? null,
-            'route_path' => $params['route_path'] ?? null,
-            'type' => $params['type'] ?? null,
-            'hidden' => $params['hidden'] ?? null,
-            'component' => $params['component'] ?? null,
-            'route_name' => $params['route_name'] ?? null,
-            'icon' => $params['icon'] ?? null,
-        ]));
+                'name' => $params['name'] ?? null,
+                'sort' => $params['sort'] ?? null,
+                'parent_id' => $params['parent_id'] ?? null,
+                'route_path' => $params['route_path'] ?? null,
+                'type' => $params['type'] ?? null,
+                'hidden' => $params['hidden'] ?? null,
+                'component' => $params['component'] ?? null,
+                'route_name' => $params['route_name'] ?? null,
+                'icon' => $params['icon'] ?? null,
+            ]));
     }
 
     /**
