@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Latent\\ElAdmin\\": "src"
+            "Latent\\ElAdmin\\": "src/"
         }
     },
     "extra": {
@@ -34,7 +34,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Latent\\ElAdmin\\tests": "tests"
+            "Latent\\ElAdmin\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
