@@ -24,8 +24,47 @@ class AuthsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testAuthMe()
+    public function testAuthMe()  :void
     {
         $this->getToken();
+    }
+
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testMe()  :void
+    {
+        $token = $this->getToken();
+        $this->withHeader('Authorization', "Bearer $token")->post('/me',['is_menus' => 1]);
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testLogout() :void
+    {
+        $token = $this->getToken();
+        $this->withHeader('Authorization', "Bearer $token")->post('/logout');
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testRefresh() :void
+    {
+        $token = $this->getToken();
+        $this->withHeader('Authorization', "Bearer $token")->post('/refresh');
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
     }
 }

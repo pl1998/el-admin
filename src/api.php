@@ -28,6 +28,7 @@ Route::group([
     Route::get('getRouteList', [MenusController::class, 'getRouteList']);
     Route::get('getAllMenus', [MenusController::class, 'getAllMenus']);
     Route::get('getAllRole', [RolesController::class, 'getAllRole']);
+    Route::get('roleMenus', [MenusController::class, 'getRoleMenu']);
     Route::group([
         'middleware' => RbacMiddleware::class,
     ], function () {
@@ -43,7 +44,5 @@ Route::group([
         Route::resource('log', LogsController::class)->only([
             'index', 'destroy',
         ]);
-
-        Route::get('roleMenus', [MenusController::class, 'getRoleMenu']);
     });
 });

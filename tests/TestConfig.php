@@ -53,6 +53,7 @@ trait TestConfig
     public function assertStatus(int $httpCode): void
     {
         if ($this->httpCode != $httpCode) {
+            var_dump($this->response);
             throw new Exception('http响应码结果为：'.$httpCode);
         }
     }

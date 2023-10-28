@@ -11,6 +11,24 @@
 
 namespace Latent\ElAdmin\Tests;
 
+use Exception;
+
 class LogsTest extends TestCase
 {
+    use TestConfig;
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testLogIndex() :void
+    {
+        $token = $this->getToken();
+        $this->withHeader('Authorization', "Bearer $token")->get('/log',[
+            'ip' => '127.0.0.1',
+            'user_id' => 1
+        ]);
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
+    }
 }
