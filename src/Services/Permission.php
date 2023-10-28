@@ -16,8 +16,8 @@ namespace Latent\ElAdmin\Services;
 use Illuminate\Support\Arr;
 use Latent\ElAdmin\Enum\MethodEnum;
 use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
+use Latent\ElAdmin\Models\ModelTraits;
 use Psr\SimpleCache\InvalidArgumentException;
 
 trait Permission
@@ -89,8 +89,8 @@ trait Permission
         $list = $this->getUserMenus();
 
         return [
-          collect($list)->where('type', ModelEnum::MENU)?->toArray(),
-          collect($list)->where('type', ModelEnum::API)?->toArray(),
+            collect($list)->where('type', ModelEnum::MENU)?->toArray(),
+            collect($list)->where('type', ModelEnum::API)?->toArray(),
         ];
     }
 
@@ -107,7 +107,7 @@ trait Permission
         return collect($list)
             ->where('type', $this->params['type'])
             ->map(function ($menu) {
-                if (!empty($this->params['route']) && ModelEnum::API == $this->params['route']) {
+                if (! empty($this->params['route']) && ModelEnum::API == $this->params['route']) {
                     $data = [
                         'meta' => [
                             'title' => $menu['name'],

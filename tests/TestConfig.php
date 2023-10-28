@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Tests;
 
-
 use Exception;
 
 trait TestConfig
@@ -28,7 +27,7 @@ trait TestConfig
         'password' => '123456',
     ];
 
-    /** @var string  */
+    /** @var string */
     public string|null $access_token;
 
     /**
@@ -41,19 +40,20 @@ trait TestConfig
         $this->assertStatus(200);
         $this->access_token = $this->json()['data']['access_token'] ?? '';
         $this->assertNotEmpty($this->access_token);
+
         return  $this->access_token;
     }
 
     /**
-     * @param int $httpCode
+     * @param  int  $httpCode
      * @return void
+     *
      * @throws Exception
      */
-    public function assertStatus(int $httpCode) :void
+    public function assertStatus(int $httpCode): void
     {
-        if($this->httpCode!=$httpCode) {
+        if ($this->httpCode != $httpCode) {
             throw new Exception('http响应码结果为：'.$httpCode);
         }
     }
-
 }

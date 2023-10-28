@@ -15,8 +15,8 @@ namespace Latent\ElAdmin\Services;
 
 use Illuminate\Support\Facades\DB;
 use Latent\ElAdmin\Enum\ModelEnum;
-use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Models\MenusCache;
+use Latent\ElAdmin\Models\ModelTraits;
 use Latent\ElAdmin\Support\Helpers;
 use Throwable;
 
@@ -33,7 +33,7 @@ class RoleServices
     {
         $query = $this->getRoleModel()
             ->with('menus')
-            ->when(!empty($params['name']), function ($q) use ($params) {
+            ->when(! empty($params['name']), function ($q) use ($params) {
                 $q->where('name', 'like', "{$params['name']}");
             });
 
@@ -63,10 +63,10 @@ class RoleServices
             $date = now()->toDateTimeString();
 
             $roleId = $this->getRoleModel()->insertGetId([
-                    'name' => $params['name'],
-                    'created_at' => $date,
-                    'updated_at' => $date,
-                ]);
+                'name' => $params['name'],
+                'created_at' => $date,
+                'updated_at' => $date,
+            ]);
             $roleMenus = [];
             foreach ($params['menu'] as $menuId) {
                 $roleMenus[] = [
@@ -76,7 +76,7 @@ class RoleServices
                     'updated_at' => $date,
                 ];
             }
-            if (!empty($roleMenus)) {
+            if (! empty($roleMenus)) {
                 $this->getRoleMenusModel()
                     ->insert($roleMenus);
                 // 清理缓存
@@ -108,7 +108,7 @@ class RoleServices
                 'status' => $params['status'] ?? null,
                 'name' => $params['name'] ?? null,
             ]);
-            if (!empty($save)) {
+            if (! empty($save)) {
                 $this->getRoleModel()
                     ->where('id', $params['id'])
                     ->update($save);
@@ -116,7 +116,7 @@ class RoleServices
 
             $model = $this->getRoleMenusModel();
 
-            if (!empty($roleMenus)) {
+            if (! empty($roleMenus)) {
                 $model->where('role_id', $params['id'])->delete();
 
                 $model->insert($roleMenus);

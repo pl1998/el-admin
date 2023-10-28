@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Tests;
 
-
-
 class UsersTest extends TestCase
 {
     use TestConfig;

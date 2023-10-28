@@ -11,8 +11,6 @@
 
 namespace Latent\ElAdmin\Tests;
 
-
-
 class MenusTest extends TestCase
 {
 }
