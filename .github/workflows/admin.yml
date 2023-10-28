@@ -6,21 +6,77 @@ on:
       - main
 
 jobs:
-  test:
-    name: Run Tests
+  # laravel9环境下安装测试
+  laravel9:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
           php-version: '8.0'
 
-      - name: Install Composer Dependencies
-        run: composer install
+      - uses: actions/checkout@v2
 
-      - name: Run PHPUnit Tests
-        run: ./vendor/bin/phpunit
+      - name: Composer Update
+        run: composer self-update --2
+
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version:  5.7
+          mysql root password: 123456
+          mysql database: laravel
+          mysql user: root
+          mysql password: 124567
+      - name: Install Dependencies
+        run: |
+          composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
+          sh ./tests/bin/install-dep.sh
+      - name: Install ElAdmin
+        run: sh ./tests/bin/install.sh
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
+
+      - name: Start Server
+        run: sh ./tests/bin/start.sh
+
+      - name: Run test suite
+        run: cd ./laravel-tests && php artisan dusk
+
+  # laravel9环境下安装测试
+  laravel10:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+      with:
+        php-version: '8.1'
+
+    - uses: actions/checkout@v2
+
+    - name: Composer Update
+      run: composer self-update --2
+
+    - name: Setup Mysql
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql version:  5.7
+        mysql root password: 123456
+        mysql database: laravel
+        mysql user: root
+        mysql password: 124567
+    - name: Install Dependencies
+      run: |
+        composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
+        sh ./tests/bin/install-dep.sh
+    - name: Install ElAdmin
+      run: sh ./tests/bin/install.sh
+    - name: Install Xvfb
+      run: sudo apt-get install xvfb
+
+    - name: Start Server
+      run: sh ./tests/bin/start.sh
+
+    - name: Run test suite
+      run: cd ./laravel-tests && php artisan dusk

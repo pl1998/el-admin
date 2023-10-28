@@ -11,10 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Latent\ElAdmin\tests\Feature;
+namespace Latent\ElAdmin\Tests;
 
-use Latent\ElAdmin\TestConfig;
-use Tests\TestCase;
+
 
 class UsersTest extends TestCase
 {

@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Latent\ElAdmin\tests\Feature;
+namespace Latent\ElAdmin\Tests;
 
-use Tests\TestCase;
+
 
 class MenusTest extends TestCase
 {

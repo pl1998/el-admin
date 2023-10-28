@@ -11,32 +11,49 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Latent\ElAdmin;
+namespace Latent\ElAdmin\Tests;
 
-use Illuminate\Testing\Fluent\AssertableJson;
+
+use Exception;
 
 trait TestConfig
 {
-    /** @var string test host */
-    public $host = 'http://0.0.0.0:8000/api/v1/el_admin';
     /**
      * login form.
      *
      * @var string[]
      */
-    public $loginForms = [
+    public array $loginForms = [
         'email' => 'admin@gmail.com',
         'password' => '123456',
     ];
 
+    /** @var string  */
+    public string|null $access_token;
+
+    /**
+     * @throws Exception
+     */
     public function getToken(): mixed
     {
-        $response = $this->post($this->host.'/login', $this->loginForms);
-        $response
-            ->assertJson(fn (AssertableJson $json) => $json->has('data')
-                ->missing('access_token')
-            );
-
-        return $response->json()['data']['access_token'];
+        $this->post('/login', $this->loginForms);
+        $this->assertJson($this->response);
+        $this->assertStatus(200);
+        $this->access_token = $this->json()['data']['access_token'] ?? '';
+        $this->assertNotEmpty($this->access_token);
+        return  $this->access_token;
     }
+
+    /**
+     * @param int $httpCode
+     * @return void
+     * @throws Exception
+     */
+    public function assertStatus(int $httpCode) :void
+    {
+        if($this->httpCode!=$httpCode) {
+            throw new Exception('http响应码结果为：'.$httpCode);
+        }
+    }
+
 }
