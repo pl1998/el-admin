@@ -43,7 +43,7 @@ class ElAdminSeeder extends Seeder
         // create role
         AdminRole::truncate();
         AdminRole::create([
-           'name' => 'Administrator',
+            'name' => 'Administrator',
             'created_at' => $created,
         ]);
         AdminUserRole::truncate();
@@ -317,8 +317,8 @@ class ElAdminSeeder extends Seeder
         AdminMenu::query()->pluck('id')
             ->map(function ($id) use (&$addMenus) {
                 $addMenus[] = [
-                  'role_id' => 1,
-                  'menu_id' => $id,
+                    'role_id' => 1,
+                    'menu_id' => $id,
                 ];
             });
         AdminRoleMenu::query()->insert($addMenus);

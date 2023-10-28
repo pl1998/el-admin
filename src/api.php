@@ -11,11 +11,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Latent\ElAdmin\Controller\AuthController;
-use Latent\ElAdmin\Middleware\RbacMiddleware;
-use Latent\ElAdmin\Controller\RolesController;
-use Latent\ElAdmin\Controller\MenusController;
-use Latent\ElAdmin\Controller\UsersController;
 use Latent\ElAdmin\Controller\LogsController;
+use Latent\ElAdmin\Controller\MenusController;
+use Latent\ElAdmin\Controller\RolesController;
+use Latent\ElAdmin\Controller\UsersController;
+use Latent\ElAdmin\Middleware\RbacMiddleware;
 
 Route::group([
     'middleware' => ['auth:api'],

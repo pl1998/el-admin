@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Latent\ElAdmin\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminUser extends Authenticatable implements JWTSubject
 {
@@ -78,7 +78,7 @@ class AdminUser extends Authenticatable implements JWTSubject
     {
         $avatar = $this->attributes['avatar'];
         if ($avatar) {
-            if (!URL::isValidUrl($avatar)) {
+            if (! URL::isValidUrl($avatar)) {
                 $avatar = Storage::disk('public')->files($avatar);
             }
         } else {

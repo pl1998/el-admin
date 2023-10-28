@@ -46,7 +46,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6|max:20',
         ]);
-        if (!$token = auth($this->guard)->attempt([
+        if (! $token = auth($this->guard)->attempt([
             'email' => $params['email'],
             'password' => $params['password'],
             'status' => ModelEnum::NORMAL]
@@ -69,8 +69,8 @@ class AuthController extends Controller
             'is_menus' => 'int|in:0,1',
         ]);
         $user = auth($this->guard)->user()?->toArray();
-        if (!empty($params['is_menus'])) {
-            list($menus, $nodes) = $this->getUserMenusAndNode();
+        if (! empty($params['is_menus'])) {
+            [$menus, $nodes] = $this->getUserMenusAndNode();
             $menus = Helpers::getTree($menus);
             $nodes = Helpers::getTree($nodes);
             $user = array_merge($user, ['menus' => $menus, 'nodes' => $nodes]);

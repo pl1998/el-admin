@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Support;
 
-use Latent\ElAdmin\Exceptions\ValidateException;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+use Latent\ElAdmin\Exceptions\ValidateException;
 
 trait Validate
 {
@@ -45,7 +45,7 @@ trait Validate
     {
         $table = config('el_admin.database.'.$table);
         $conn = config('el_admin.database.connection');
-        if (!empty($filed)) {
+        if (! empty($filed)) {
             return "$rules:$conn.$table,".$filed;
         }
 
