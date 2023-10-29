@@ -2,8 +2,7 @@ name: Laravel Test
 
 on:
   push:
-    branches:
-      - main
+    branches: ["master","action-test"]
 jobs:
   # laravel9环境下安装测试
   laravel9:
@@ -38,6 +37,8 @@ jobs:
       - name: Start Server
         run: sh ./tests/bin/start.sh
 
+      - name: Cd el-admin
+        run: cd ./laravel-tests/el-admin
       - name: Run test suite
-        run: cd ./laravel-tests/el-admin &&  ./vendor/bin/phpunit tests/
+        run: ./vendor/bin/phpunit tests/
 
