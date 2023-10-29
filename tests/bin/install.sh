@@ -6,6 +6,8 @@ composer config repositories.latent path el-admin
 composer require latent/el-admin:dev-master
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 php artisan el-admin:install
+cd el-admin
 ls -a
-cd ./laravel-tests/el-admin/
+composer install
+cd ./
 composer install
