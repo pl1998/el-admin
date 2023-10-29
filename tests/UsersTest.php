@@ -11,10 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Latent\ElAdmin\tests\Feature;
-
-use Latent\ElAdmin\TestConfig;
-use Tests\TestCase;
+namespace Latent\ElAdmin\Tests;
 
 class UsersTest extends TestCase
 {
@@ -29,13 +26,14 @@ class UsersTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->withHeader('Authorization:', "Bearer $token")->postJson($this->host.'/user', [
+        $this->withHeader('Authorization', "Bearer $token")->post('/user', [
             'email' => time().'test@qq.com',
             'name' => time().'demo',
             'password' => 'demo123',
-            'repeated_password' => 'demo123',
-        ])->assertStatus(201)
-            ->assertJsonPath('status', 200);
+            'password_confirmation' => 'demo123',
+        ]);
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
     }
 
     /**
@@ -47,13 +45,14 @@ class UsersTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->withHeader('Authorization:', "Bearer $token")->putJson($this->host.'/user', [
+        $this->withHeader('Authorization:', "Bearer $token")->put('/user/2', [
             'id' => 2,
-            'email' => time().'test1@qq.com',
-            'name' => time().'demo1',
+            'email' => time().'t@qq.com',
+            'name' => time().'demo2',
             'password' => 'demo123',
-            'repeated_password' => 'demo123',
-        ])->assertStatus(201)
-            ->assertJsonPath('status', 200);
+            'password_confirmation' => 'demo123',
+        ]);
+        $this->assertStatus($this->httpCode);
+        $this->assertStatus($this->json()['status'] ?? 0);
     }
 }

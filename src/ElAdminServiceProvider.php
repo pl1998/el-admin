@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin;
 
-use Latent\ElAdmin\Command\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Latent\ElAdmin\Command\InstallCommand;
 use Latent\ElAdmin\Command\MenuCacheCommand;
 
 class ElAdminServiceProvider extends ServiceProvider

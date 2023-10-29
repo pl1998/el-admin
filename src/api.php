@@ -11,11 +11,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Latent\ElAdmin\Controller\AuthController;
-use Latent\ElAdmin\Middleware\RbacMiddleware;
-use Latent\ElAdmin\Controller\RolesController;
-use Latent\ElAdmin\Controller\MenusController;
-use Latent\ElAdmin\Controller\UsersController;
 use Latent\ElAdmin\Controller\LogsController;
+use Latent\ElAdmin\Controller\MenusController;
+use Latent\ElAdmin\Controller\RolesController;
+use Latent\ElAdmin\Controller\UsersController;
+use Latent\ElAdmin\Middleware\RbacMiddleware;
 
 Route::group([
     'middleware' => ['auth:api'],
@@ -28,6 +28,7 @@ Route::group([
     Route::get('getRouteList', [MenusController::class, 'getRouteList']);
     Route::get('getAllMenus', [MenusController::class, 'getAllMenus']);
     Route::get('getAllRole', [RolesController::class, 'getAllRole']);
+    Route::get('roleMenus', [MenusController::class, 'getRoleMenu']);
     Route::group([
         'middleware' => RbacMiddleware::class,
     ], function () {
@@ -43,7 +44,5 @@ Route::group([
         Route::resource('log', LogsController::class)->only([
             'index', 'destroy',
         ]);
-
-        Route::get('roleMenus', [MenusController::class, 'getRoleMenu']);
     });
 });

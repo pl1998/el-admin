@@ -9,10 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Latent\ElAdmin\tests\Feature;
+namespace Latent\ElAdmin\Tests;
 
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class RolesTest extends TestCase
+class TestCase extends BaseTestCase
 {
+    use HttpClient;
 }

@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Latent\ElAdmin\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 use Latent\ElAdmin\Enum\ModelEnum;
 use Latent\ElAdmin\Exceptions\ValidateException;
 use Latent\ElAdmin\Models\ModelTraits;
-use Illuminate\Http\JsonResponse;
 use Latent\ElAdmin\Rules\CheckPassword;
 use Latent\ElAdmin\Services\UserService;
 use Throwable;
