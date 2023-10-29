@@ -18,7 +18,7 @@ trait HttpClient
      *
      * @var string
      */
-    public $host = 'http://0.0.0.0:8000/api/v1/el_admin';
+    public $host = 'http://127.0.0.1:8001/api/v1/el_admin';
 
     /**
      * 请求参数.
