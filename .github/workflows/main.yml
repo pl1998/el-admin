@@ -2,8 +2,7 @@ name: Laravel Test
 
 on:
   push:
-    branches:
-      - main
+    branches: ["master","action-test"]
 jobs:
   # laravel9环境下安装测试
   laravel9:
