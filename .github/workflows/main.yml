@@ -37,8 +37,6 @@ jobs:
       - name: Start Server
         run: sh ./tests/bin/start.sh
 
-      - name: Cd el-admin
-        run: cd ./laravel-tests/el-admin
       - name: Run test suite
-        run: ./vendor/bin/phpunit tests/
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
 
