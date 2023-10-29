@@ -38,5 +38,5 @@ jobs:
         run: sh ./tests/bin/start.sh
 
       - name: Run test suite
-        run: ./vendor/bin/phpunit tests/
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
 

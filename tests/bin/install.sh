@@ -7,7 +7,5 @@ composer require latent/el-admin:dev-master
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 php artisan el-admin:install
 cd el-admin
+composer install
 ls -a
-composer install
-cd ./
-composer install
