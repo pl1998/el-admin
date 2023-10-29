@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 cd ./laravel-tests
-cp -f ./.env.testing ./laravel-tests/.env
 git clone https://github.com/pl1998/el-admin.git
+cp -f ./laravel-tests/el-admin/.env.testing ./laravel-tests/.env
 composer config repositories.latent path el-admin
 composer dump
 composer require latent/el-admin:dev-master
