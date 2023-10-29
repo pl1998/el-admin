@@ -15,7 +15,7 @@ namespace Latent\ElAdmin\Tests;
 
 use Exception;
 
-trait   TestConfig
+trait TestConfig
 {
     /**
      * login form.
