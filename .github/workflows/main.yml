@@ -27,6 +27,8 @@ jobs:
           mysql database: laravel
           mysql user: root
           mysql password: 124567
+      - name: view file
+        run: ls
       - name: Install Dependencies
         run: composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
       - name: Install ElAdmin
