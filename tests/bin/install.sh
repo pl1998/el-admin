@@ -2,6 +2,8 @@
 
 cd ./laravel-tests
 git clone https://github.com/pl1998/el-admin.git
+cd ./laravel-tests/el-admin && ls
+cd ./laravel-tests
 cp -f ./.env.testing ./laravel-tests/.env
 cp -f ./tests/.env.testing ./laravel-tests/.env
 composer config repositories.latent path el-admin
@@ -12,6 +14,3 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  -
 php artisan el-admin:install
 cd ./laravel-tests/el-admin
 composer install
-cd ./ && ls
-cd ./laravel-tests && ls
-cd ./laravel-tests/el-admin && ls
