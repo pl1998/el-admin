@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-
+cp -f ./.env.testing ./laravel-tests/.env
+cp -f ./tests/.env.testing ./laravel-tests/.env
 cd ./laravel-tests
 git clone https://github.com/pl1998/el-admin.git
-cd ./laravel-tests/el-admin && ls
-cd ./laravel-tests
-cp -f ./tests/.env.testing ./laravel-tests/.env
 composer config repositories.latent path el-admin
 composer require latent/el-admin:dev-master
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
