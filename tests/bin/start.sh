@@ -6,6 +6,6 @@ chmod -R 0755  storage
 chmod -R 0755  bootstrap/cache
 whereis php
 php -v
-php artisan serve --port=8300 > /dev/null 2>&1 &
+php artisan serve --port=8300 #> /dev/null 2>&1 &
 
 
