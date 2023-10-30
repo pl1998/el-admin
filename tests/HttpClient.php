@@ -158,6 +158,8 @@ trait HttpClient
         curl_close($ch);
 
         $this->response = $response;
+        dump($response);
+        dump($url);
 
         return  $this;
     }
