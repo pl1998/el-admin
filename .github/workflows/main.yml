@@ -10,9 +10,10 @@ jobs:
 
     steps:
 
-      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+      - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.0',
+          extensions: pdo_mysql,mysqli,mbstring,gd,curl,opcache,swoole,redis,yaml,imagick,pcntl,bcmath,mongodb,sockets,zip,rdkafka
 
       - uses: actions/checkout@v2
 
