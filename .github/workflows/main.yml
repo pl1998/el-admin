@@ -12,8 +12,8 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0',
-          extensions: pdo_mysql,mysqli,mbstring,gd,curl,opcache,swoole,redis,yaml,imagick,pcntl,bcmath,mongodb,sockets,zip,rdkafka
+          php-version: '8.0'
+          extensions: :xdebug
 
       - uses: actions/checkout@v2
 
