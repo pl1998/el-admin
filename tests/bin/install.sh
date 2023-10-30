@@ -8,4 +8,3 @@ php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  -
 php artisan el-admin:install
 cd el-admin
 composer install
-ls -a

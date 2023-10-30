@@ -30,7 +30,7 @@ class ElAdminServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishesConfigs();
-        $this->registerRouters();
+        $this->registerRoutes();
         $this->loadTranslations();
         $this->loadMigrations();
         $this->loadResources();
@@ -49,13 +49,13 @@ class ElAdminServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__.'/../config/auth.php' => config_path('auth.php')]);
         $this->publishes([__DIR__.'/../config/el_admin.php' => config_path('el_admin.php')]);
-        $this->publishes([__DIR__.'/api.php' => base_path().'/routers/admin.php']);
+        $this->publishes([__DIR__.'/api.php' => base_path().'/routes/admin.php']);
     }
 
-    protected function registerRouters(): void
+    protected function registerRoutes(): void
     {
-        if (file_exists(base_path().'/routers/admin.php')) {
-            $this->loadRoutesFrom(base_path().'/routers/admin.php');
+        if (file_exists(base_path().'/routes/admin.php')) {
+            $this->loadRoutesFrom(base_path().'/routes/admin.php');
         } else {
             $this->loadRoutesFrom(realpath(__DIR__.'/api.php'));
         }
