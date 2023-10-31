@@ -39,7 +39,8 @@ class UserService
                 $q->where('email', 'like', "%{$params['email']}%");
             });
 
-        $list = $query
+        $total = $query->count();
+        $list  = $query
             ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
             ->get()
             ->map(function ($user) {
@@ -53,7 +54,7 @@ class UserService
 
         return [
             'list' => $list,
-            'total' => $query->count(),
+            'total' => $total,
             'page' => (int) ($params['page'] ?? 1),
         ];
     }

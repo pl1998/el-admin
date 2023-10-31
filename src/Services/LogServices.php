@@ -32,10 +32,13 @@ class LogServices
                 $q->where('ip', ip2long($this->params['ip']));
             })->orderByDesc('id');
 
+        $total = $query->count();
+        $list  = $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray();
+
         return [
-            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray(),
-            'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+            'list'  => $list,
+            'total' => $total,
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 }

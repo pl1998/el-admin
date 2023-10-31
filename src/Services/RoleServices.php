@@ -37,18 +37,21 @@ class RoleServices
                 $q->where('name', 'like', "{$params['name']}");
             });
 
-        return [
-            'list' => $query->forPage($params['page'] ?? 1, $params['page_size'])
-                ->get()
-                ->map(function ($roles) {
-                    $data = $roles->toArray();
-                    $data['menus'] = collect($data['menus'])
-                        ->where('status', ModelEnum::NORMAL)?->toArray();
+        $total = $query->count();
+        $list  = $query->forPage($params['page'] ?? 1, $params['page_size'])
+            ->get()
+            ->map(function ($roles) {
+                $data = $roles->toArray();
+                $data['menus'] = collect($data['menus'])
+                    ->where('status', ModelEnum::NORMAL)?->toArray();
 
-                    return $data;
-                })?->toArray(),
-            'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+                return $data;
+            })?->toArray();
+
+        return [
+            'list'  => $list,
+            'total' => $total,
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 

@@ -50,10 +50,14 @@ class MenuServices
                 $q->where('hidden', "{$this->params['hidden']}");
             })->orderBy('parent_id')->orderByDesc('sort');
 
+
+        $total = $query->count();
+        $list  = $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray();
+
         return [
-            'list' => Helpers::getTree($query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray()),
-            'total' => $query->count(),
-            'page' => (int) ($params['page'] ?? 1),
+            'list'  => Helpers::getTree($list),
+            'total' => $total,
+            'page'  => (int) ($params['page'] ?? 1),
         ];
     }
 
