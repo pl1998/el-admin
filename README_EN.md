@@ -3,6 +3,8 @@
 </p>
 
 <p align="center">
+
+<a href="https://github.com/pl1998/el-admin/actions/workflows/main.yml"><img src="https://github.com/pl1998/el-admin/actions/workflows/main.yml/badge.svg"></a>
 <a href="https://packagist.org/packages/pl1998/el-admin"><img src="https://github.styleci.io/repos/707259849/shield?branch=master"/></a>
 <img src="https://img.shields.io/badge/license-MIT-green" />
 <img src="https://img.shields.io/github/repo-size/pl1998/el-admin">

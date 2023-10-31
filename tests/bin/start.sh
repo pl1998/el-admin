@@ -6,6 +6,5 @@ chmod -R 0755  storage
 chmod -R 0755  bootstrap/cache
 #php artisan serve --port=8300 > /dev/null 2>&1 &
 nohup php artisan serve --port=8300 > output.log &
-cat output.log
 
 
