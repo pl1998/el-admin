@@ -40,7 +40,7 @@ class UserService
             });
 
         $total = $query->count();
-        $list  = $query
+        $list = $query
             ->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)
             ->get()
             ->map(function ($user) {

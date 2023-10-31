@@ -38,7 +38,7 @@ class RoleServices
             });
 
         $total = $query->count();
-        $list  = $query->forPage($params['page'] ?? 1, $params['page_size'])
+        $list = $query->forPage($params['page'] ?? 1, $params['page_size'])
             ->get()
             ->map(function ($roles) {
                 $data = $roles->toArray();
