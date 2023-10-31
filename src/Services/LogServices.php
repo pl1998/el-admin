@@ -33,7 +33,7 @@ class LogServices
             })->orderByDesc('id');
 
         $total = $query->count();
-        $list  = $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray();
+        $list = $query->forPage($params['page'] ?? 1, $params['page_size'] ?? 10)->get()?->toArray();
 
         return [
             'list'  => $list,
