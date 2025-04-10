@@ -22,7 +22,6 @@ while [[ $# -gt 0 ]]; do
   esac
   shift
 done
-VERSION=${VERSION:-"v1.0.1"}
 echo "Version: $VERSION"
 
 cp -f ./tests/.env.testing ./laravel-tests/.env
