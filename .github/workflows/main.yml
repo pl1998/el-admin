@@ -12,19 +12,19 @@ jobs:
         include:
           - php: '8.0'
             laravel: '9.*'
-            branch: 'v1.0.1'
+            branch: '1.0.1'
             test-dir: 'laravel-tests/el-admin'
           - php: '8.1'
             laravel: '10.*'
-            branch: 'v1.0.1'
+            branch: '1.0.1'
             test-dir: 'laravel-tests/el-admin'
           - php: '8.2'
             laravel: '10.*'  # 可能需要根据实际情况调整
-            branch: 'v2.0.0'
+            branch: '2.0.0'
             test-dir: 'laravel-tests/el-admin'
           - php: '8.2'
             laravel: '10.*'  # 可能需要根据实际情况调整
-            branch: 'v2.0.0'
+            branch: '2.0.0'
             test-dir: 'laravel-tests/el-admin'
     name: Laravel ${{ matrix.laravel }} (PHP ${{ matrix.php }})
 
