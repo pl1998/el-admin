@@ -1,79 +1,67 @@
-name: Laravel Test
+name: Laravel El-admin Test
 
 on:
   push:
-    branches: ["master","action-test"]
+    branches: ["v1.0.1", "v2.0.0", "action-test"]
+
 jobs:
-   #laravel9环境下安装测试
-  laravel9:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - php: '8.0'
+            laravel: '9.*'
+            branch: 'v1.0.1'
+            test-dir: 'laravel-tests/el-admin'
+          - php: '8.1'
+            laravel: '10.*'
+            branch: 'v1.0.1'
+            test-dir: 'laravel-tests/el-admin'
+          - php: '8.2'
+            laravel: '10.*'  # 可能需要根据实际情况调整
+            branch: 'v2.0.0'
+            test-dir: 'laravel-tests/el-admin'
+          - php: '8.2'
+            laravel: '10.*'  # 可能需要根据实际情况调整
+            branch: 'v2.0.0'
+            test-dir: 'laravel-tests/el-admin'
+    name: Laravel ${{ matrix.laravel }} (PHP ${{ matrix.php }})
 
     steps:
-
-      - uses: shivammathur/setup-php@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          php-version: '8.0'
-          extensions: :opcache
+          ref: ${{ matrix.branch }}
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: opcache
 
-      - uses: actions/checkout@v2
-
-      - name: Composer Update
-        run: composer self-update --2
-
-      - name: Setup Mysql
+      - name: Setup MySQL
         uses: mirromutth/mysql-action@v1.1
         with:
-          mysql version:  5.7
+          mysql version: 5.7
           mysql root password: 123456
           mysql database: laravel
           mysql user: root
           mysql password: 124567
-      - name: Install Dependencies
-        run: composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
-      - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh
-      - name: Install Xvfb
-        run: sudo apt-get install xvfb
 
-      - name: Start Server
-        run: sh ./tests/bin/start.sh
-
-      - name: Run test suite
-        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
-
-  laravel10:
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          extensions: :opcache
-
-      - uses: actions/checkout@v2
-
-      - name: Composer Update
+      - name: Update Composer
         run: composer self-update --2
 
-      - name: Setup Mysql
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version:  5.7
-          mysql root password: 123456
-          mysql database: laravel
-          mysql user: root
-          mysql password: 124567
       - name: Install Dependencies
-        run: composer create-project --prefer-dist laravel/laravel laravel-tests 10.*
-      - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh
-      - name: Install Xvfb
-        run: sudo apt-get install xvfb
+        run: |
+          composer create-project --prefer-dist laravel/laravel laravel-tests ${{ matrix.laravel }}
+          cd laravel-tests && composer install
 
-      - name: Start Server
-        run: sh ./tests/bin/start.sh
+      - name: Setup Environment
+        run: |
+          sudo apt-get install -y xvfb
+          sh ./tests/bin/install.sh
+          sh ./tests/bin/start.sh
 
-      - name: Run test suite
-        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
+      - name: Run Tests
+        run: cd ./${{ matrix.test-dir }} && ./vendor/bin/phpunit tests/
