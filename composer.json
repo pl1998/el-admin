@@ -44,5 +44,11 @@
     },
     "config": {
         "secure-http": false
+    },
+    "repositories": {
+        "latent": {
+            "type": "path",
+            "url": "v1.0.1"
+        }
     }
 }
