@@ -2,144 +2,144 @@ name: Laravel Test
 on:
   push:
     branches: ["1.0.1","2.0.0"]
-  jobs:
-    #laravel9环境下安装测试
-    laravel9:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: shivammathur/setup-php@v2
-          with:
-            php-version: '8.0'
-            extensions: :opcache
+jobs:
+  #laravel9环境下安装测试
+  laravel9:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: :opcache
 
 
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-        - name: Composer Update
-          run: composer self-update --2
+      - name: Composer Update
+        run: composer self-update --2
 
-        - name: Setup Mysql
-          uses: mirromutth/mysql-action@v1.1
-          with:
-            mysql version:  5.7
-            mysql root password: 123456
-            mysql database: laravel
-            mysql user: root
-            mysql password: 124567
-        - name: Install Dependencies
-          run: composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
-        - name: Install ElAdmin
-          run: sh ./tests/bin/install.sh --version=v1.0.1
-        - name: Install Xvfb
-          run: sudo apt-get install xvfb
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version:  5.7
+          mysql root password: 123456
+          mysql database: laravel
+          mysql user: root
+          mysql password: 124567
+      - name: Install Dependencies
+        run: composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
+      - name: Install ElAdmin
+        run: sh ./tests/bin/install.sh --version=v1.0.1
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
 
-        - name: Start Server
-          run: sh ./tests/bin/start.sh
+      - name: Start Server
+        run: sh ./tests/bin/start.sh
 
-        - name: Run test suite
-          run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
-    laravel10:
-      runs-on: ubuntu-latest
+      - name: Run test suite
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
+  laravel10:
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - uses: shivammathur/setup-php@v2
-          with:
-            php-version: '8.1'
-            extensions: :opcache
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: :opcache
 
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-        - name: Composer Update
-          run: composer self-update --2
+      - name: Composer Update
+        run: composer self-update --2
 
-        - name: Setup Mysql
-          uses: mirromutth/mysql-action@v1.1
-          with:
-            mysql version: 5.7
-            mysql root password: 123456
-            mysql database: laravel
-            mysql user: root
-            mysql password: 124567
-        - name: Install Dependencies
-          run: composer create-project --prefer-dist laravel/laravel laravel-tests 10.*
-        - name: Install ElAdmin
-          run: sh ./tests/bin/install.sh --version=v1.0.1
-        - name: Install Xvfb
-          run: sudo apt-get install xvfb
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: 5.7
+          mysql root password: 123456
+          mysql database: laravel
+          mysql user: root
+          mysql password: 124567
+      - name: Install Dependencies
+        run: composer create-project --prefer-dist laravel/laravel laravel-tests 10.*
+      - name: Install ElAdmin
+        run: sh ./tests/bin/install.sh --version=v1.0.1
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
 
-        - name: Start Server
-          run: sh ./tests/bin/start.sh
+      - name: Start Server
+        run: sh ./tests/bin/start.sh
 
-        - name: Run test suite
-          run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
-    laravel11:
-      runs-on: ubuntu-latest
+      - name: Run test suite
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
+  laravel11:
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - uses: shivammathur/setup-php@v2
-          with:
-            php-version: '8.2'
-            extensions: :opcache
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: :opcache
 
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-        - name: Composer Update
-          run: composer self-update --2
+      - name: Composer Update
+        run: composer self-update --2
 
-        - name: Setup Mysql
-          uses: mirromutth/mysql-action@v1.1
-          with:
-            mysql version:  5.7
-            mysql root password: 123456
-            mysql database: laravel
-            mysql user: root
-            mysql password: 124567
-        - name: Install Dependencies
-          run: composer create-project --prefer-dist laravel/laravel laravel-tests 11.*
-        - name: Install ElAdmin
-          run: sh ./tests/bin/install.sh --version=v2.0.0
-        - name: Install Xvfb
-          run: sudo apt-get install xvfb
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version:  5.7
+          mysql root password: 123456
+          mysql database: laravel
+          mysql user: root
+          mysql password: 124567
+      - name: Install Dependencies
+        run: composer create-project --prefer-dist laravel/laravel laravel-tests 11.*
+      - name: Install ElAdmin
+        run: sh ./tests/bin/install.sh --version=v2.0.0
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
 
-        - name: Start Server
-          run: sh ./tests/bin/start.sh
+      - name: Start Server
+        run: sh ./tests/bin/start.sh
 
-        - name: Run test suite
-          run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
-    laravel12:
-      runs-on: ubuntu-latest
+      - name: Run test suite
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
+  laravel12:
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - uses: shivammathur/setup-php@v2
-          with:
-            php-version: '8.2'
-            extensions: :opcache
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: :opcache
 
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-        - name: Composer Update
-          run: composer self-update --2
+      - name: Composer Update
+        run: composer self-update --2
 
-        - name: Setup Mysql
-          uses: mirromutth/mysql-action@v1.1
-          with:
-            mysql version:  5.7
-            mysql root password: 123456
-            mysql database: laravel
-            mysql user: root
-            mysql password: 124567
-        - name: Install Dependencies
-          run: composer create-project --prefer-dist laravel/laravel laravel-tests 12.*
-        - name: Install ElAdmin
-          run: sh ./tests/bin/install.sh --version=v2.0.0
-        - name: Install Xvfb
-          run: sudo apt-get install xvfb
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version:  5.7
+          mysql root password: 123456
+          mysql database: laravel
+          mysql user: root
+          mysql password: 124567
+      - name: Install Dependencies
+        run: composer create-project --prefer-dist laravel/laravel laravel-tests 12.*
+      - name: Install ElAdmin
+        run: sh ./tests/bin/install.sh --version=v2.0.0
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
 
-        - name: Start Server
-          run: sh ./tests/bin/start.sh
+      - name: Start Server
+        run: sh ./tests/bin/start.sh
 
-        - name: Run test suite
-          run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
+      - name: Run test suite
+        run: cd ./laravel-tests/el-admin && ./vendor/bin/phpunit tests/
