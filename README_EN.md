@@ -21,8 +21,13 @@ English | [简体中文](./README.md)
 
 
 ### Must
-  * PHP  >= 8.0
-  * Laravel 9~10
+* PHP  >= 8.0
+* Laravel 9~10~11~11
+
+| **Laravel** | **el-admin** |
+|-------------|--------------|
+| 9~10        | ^v1.0.1      |
+| 11~12       | ^2.0.0       |
 
 ### Installed
 

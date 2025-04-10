@@ -15,9 +15,9 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.2|^8.4",
         "tymon/jwt-auth": "^2.0",
-        "illuminate/support": "~9|~10",
+        "illuminate/support": "~11|~12",
         "jenssegers/agent": "v2.6.4"
     },
     "autoload": {
