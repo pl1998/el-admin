@@ -9,7 +9,7 @@ git checkout 2.0.0  # 关键步骤：检出目标版本
 cd ..
 
 # 重新配置路径仓库（此时本地仓库已包含 v1.0.1 代码）
-composer config repositories.latent path el-admin
+#composer config repositories.latent path el-admin
 composer require latent/el-admin:v2.0.0 --no-update  # 避免自动更新
 
 # 后续步骤保持不变
