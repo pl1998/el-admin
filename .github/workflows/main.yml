@@ -32,7 +32,7 @@ jobs:
       - name: Install Dependencies
         run: composer create-project --prefer-dist laravel/laravel laravel-tests 9.*
       - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh --version=v1.0.1
+        run: sh ./tests/bin/install.sh
       - name: Install Xvfb
         run: sudo apt-get install xvfb
 
@@ -68,7 +68,7 @@ jobs:
       - name: Install Dependencies
         run: composer create-project --prefer-dist laravel/laravel laravel-tests 10.*
       - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh --version=v1.0.1
+        run: sh ./tests/bin/install.sh
       - name: Install Xvfb
         run: sudo apt-get install xvfb
 
@@ -104,7 +104,7 @@ jobs:
       - name: Install Dependencies
         run: composer create-project --prefer-dist laravel/laravel laravel-tests 11.*
       - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh --version=v2.0.0
+        run: sh ./tests/bin/new_install.sh
       - name: Install Xvfb
         run: sudo apt-get install xvfb
 
@@ -140,7 +140,7 @@ jobs:
       - name: Install Dependencies
         run: composer create-project --prefer-dist laravel/laravel laravel-tests 12.*
       - name: Install ElAdmin
-        run: sh ./tests/bin/install.sh --version=v2.0.0
+        run: sh ./tests/bin/new_install.sh
       - name: Install Xvfb
         run: sudo apt-get install xvfb
 
