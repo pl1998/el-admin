@@ -2,7 +2,7 @@ name: Laravel El-admin Test
 
 on:
   push:
-    branches: ["v1.0.1", "v2.0.0", "action-test"]
+    branches: ["1.0.1", "2.0.0"]
 
 jobs:
   test:
