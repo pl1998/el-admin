@@ -28,8 +28,8 @@ echo "Version: $VERSION"
 cp -f ./tests/.env.testing ./laravel-tests/.env
 cd ./laravel-tests
 git clone https://github.com/pl1998/el-admin.git
-composer config repositories.latent path
-composer require latent/el-admin "$VERSION"
+composer config repositories.latent path el-admin
+composer require latent/el-admin:"$VERSION"
 php artisan vendor:publish --provider="Latent\ElAdmin\ElAdminServiceProvider"  --force
 php artisan el-admin:install
 cd el-admin
